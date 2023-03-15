@@ -15,4 +15,7 @@ dependencyResolutionManagement {
 rootProject.name = "Ecommerce_app"
 include ':app'
 include ':Server'
+<<<<<<< HEAD
 include ':database2'
+=======
+>>>>>>> 69371bdfd916e3e2134ed6241b76de7f3935de0f

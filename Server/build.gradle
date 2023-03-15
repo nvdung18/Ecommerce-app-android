@@ -48,6 +48,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+<<<<<<< HEAD
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
@@ -70,4 +71,8 @@ dependencies {
     implementation 'androidx.room:room-ktx:2.5.0'
     kapt 'androidx.room:room-compiler:2.5.0'
 
+=======
+    implementation 'androidx.room:room-runtime:2.5.0-beta02'
+    kapt 'androidx.room:room-compiler:2.5.0-beta02'
+>>>>>>> 69371bdfd916e3e2134ed6241b76de7f3935de0f
 }
