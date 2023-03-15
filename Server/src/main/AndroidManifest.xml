@@ -9,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ecommerce_app">
+        <activity
+            android:name=".AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateProductActivity"
+            android:exported="false" />
         <activity android:name=".presentation.activity.LoginActivity" />
         <activity android:name=".presentation.activity.ProductActivity" />
+        <activity android:name=".presentation.activity.ProductDetailsActivity" />
         <activity
             android:name=".presentation.activity.MainActivity"
             android:exported="true">
