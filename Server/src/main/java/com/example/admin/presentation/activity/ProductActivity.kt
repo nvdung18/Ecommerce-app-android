@@ -34,5 +34,7 @@ class ProductActivity: AppCompatActivity() {
             LinearLayoutManager.VERTICAL,
             false
         )
+
+
     }
 }
