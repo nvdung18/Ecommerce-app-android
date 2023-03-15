@@ -19,4 +19,5 @@ class AccountEntity {
     @ColumnInfo(name = "password") var password:String=""
     @ColumnInfo(name = "method") var method:String=""
     @ColumnInfo(name = "idUser") var idUser:String=""
+    @ColumnInfo(name = "token") var tokken:String=""
 }
