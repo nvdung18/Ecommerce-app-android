@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0dp"
+    app:contentPadding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="210dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/RlOrder"
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+
+            <RelativeLayout
+                android:id="@+id/infoOrder"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yeu Thich"
+                    android:padding="5dp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/white"
+                    android:id="@+id/loveCm"
+                    android:background="@color/primary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cua Hang"
+                    android:padding="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toRightOf="@+id/loveCm"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Hoan thanh"
+                    android:textColor="@color/primary" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_below="@+id/infoOrder"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/Rlimage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/imgProduct"
+                        android:layout_width="100dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/mastercard"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/nameProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/Rlimage"
+                    android:layout_marginStart="10dp"
+                    android:text="Ten San Pham"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    />
+                <RelativeLayout
+                    android:layout_toRightOf="@id/Rlimage"
+                    android:layout_below="@id/nameProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp">
+                    <TextView
+                        android:id="@+id/categoryProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="10dp"
+                        android:text="Category"
+                        android:textColor="@color/textAd"
+                        android:textSize="16sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/quantityProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:text="x1"
+                        android:layout_marginEnd="5dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/samplePrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="24.000"
+                        android:layout_below="@id/quantityProduct"
+                        android:textSize="14sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_alignParentEnd="true"
+                        />
+                </RelativeLayout>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/border_color"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/productOfficial"
+            android:layout_below="@id/RlOrder"
+            android:layout_width="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:paddingTop="5dp"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/quantityTvOfProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1s"
+                android:textColor="@color/silver"
+                android:textSize="14sp"
+                android:layout_marginEnd="2dp"/>
+
+            <TextView
+                android:layout_toRightOf="@id/quantityTvOfProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="san pham"
+                android:textColor="@color/silver"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thanh tien:"
+                android:textSize="14sp"
+                android:layout_marginEnd="5dp"
+                android:layout_toLeftOf="@id/priceOfficial"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/priceOfficial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="d0000000"
+                android:textSize="14sp"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/primary"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/border_color"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@id/productOfficial"
+            android:layout_width="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:paddingTop="5dp"
+            android:layout_height="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don hang da duoc giao thanh cong"
+                android:textColor="@color/blue_bland"
+                android:drawablePadding="5dp"
+                android:drawableStart="@drawable/ic_baseline_local_shipping_24"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:textSize="14sp"
+                android:layout_marginEnd="5dp"
+                android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

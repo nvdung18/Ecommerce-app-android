@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/brown_bland"
+    tools:context=".activity.StatusOrderActivity">
+
+    <LinearLayout
+        android:id="@+id/LltitleOrder"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="@color/white"
+        android:textAlignment="center">
+
+        <ImageView
+            android:id="@+id/backImg"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Da Giao"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:paddingStart="20dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/mainText"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Ll_info_ship"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="10dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/LltitleOrder">
+
+        <ImageView
+            android:id="@+id/imgIv"
+            android:layout_width="54dp"
+            android:layout_height="46dp"
+            android:src="@drawable/mastercard"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/info_orderTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Da giao vao"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/time_finishTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T5, 23 thang 2 2023"
+            android:textSize="20sp"
+            android:paddingStart="5dp"
+            android:textColor="@color/primary"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/white"
+        android:paddingBottom="20dp"
+        app:layout_constraintTop_toBottomOf="@id/Ll_info_ship">
+
+        <TextView
+            android:id="@+id/code_orderTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ma van don"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:textColor="@color/color_text_brow"/>
+
+        <TextView
+            android:id="@+id/idOrderTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="129839102381902"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_alignParentEnd="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/code_orderTv"
+            android:background="@color/colorDivider"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp" />
+
+<!--        Status-->
+<!--        Da giao-->
+        <TextView
+            android:id="@+id/time_davanchuyenTv"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="23 thang 2 9:03"
+            android:textSize="18sp"
+            android:textColor="@color/color_text_brow"
+            android:paddingStart="10dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="10dp"
+            android:textAlignment="viewEnd"
+            android:layout_below="@id/code_orderTv"/>
+
+        <View
+            android:id="@+id/status_finish_orderView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@id/code_orderTv"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@id/time_davanchuyenTv"
+            android:background="@drawable/shape_status_completed"/>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="?actionBarSize"
+            android:layout_toRightOf="@id/time_davanchuyenTv"
+            android:layout_marginStart="20dp"
+            android:background="@color/colorDivider"
+            android:layout_below="@id/status_finish_orderView"/>
+
+        <TextView
+            android:id="@+id/finish_orderTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idOrderTv"
+            android:layout_marginTop="10dp"
+            android:text="Da van chuyen"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_text_green"
+            android:layout_toRightOf="@id/status_finish_orderView"/>
+
+        <TextView
+            android:id="@+id/description_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/finish_orderTv"
+            android:paddingEnd="20dp"
+            android:text="12312312sdasdasdasdasdasdsadasdsad"
+            android:textColor="@color/color_text_green_normal"
+            android:lineSpacingMultiplier="1.2"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/status_finish_orderView"/>
+
+<!--  Dang van chuyen -->
+
+        <TextView
+            android:id="@+id/time_dangvanchuyenTv"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="23 thang 2sdasd"
+            android:textSize="18sp"
+            android:textColor="@color/color_text_brown_turnoff"
+            android:paddingStart="10dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="10dp"
+            android:textAlignment="viewEnd"
+            android:layout_below="@id/time_davanchuyenTv"/>
+
+        <View
+            android:id="@+id/status_dangvanchuyen_orderView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@id/time_davanchuyenTv"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@id/time_dangvanchuyenTv"
+            android:background="@drawable/shape_status_remaining"/>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="?actionBarSize"
+            android:layout_toRightOf="@id/time_dangvanchuyenTv"
+            android:layout_marginStart="20dp"
+            android:background="@color/colorDivider"
+            android:layout_below="@id/status_dangvanchuyen_orderView"/>
+
+        <TextView
+            android:id="@+id/dangvanchuyen_order_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description_finish"
+            android:layout_marginTop="10dp"
+            android:text="Dang van chuyen"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_text_brown_turnoff"
+            android:layout_toRightOf="@id/status_dangvanchuyen_orderView"/>
+
+        <TextView
+            android:id="@+id/description_dangvanchuyenTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dangvanchuyen_order_tv"
+            android:paddingEnd="20dp"
+            android:text="12312312sdasdasdasdasdasdsadasdsad"
+            android:textColor="@color/color_text_brown_turnoff"
+            android:lineSpacingMultiplier="1.2"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/status_dangvanchuyen_orderView"/>
+
+<!--        Da xac nhan-->
+        <TextView
+            android:id="@+id/time_daxacnhanTv"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="23 thang 2sdasd"
+            android:textSize="18sp"
+            android:textColor="@color/color_text_brown_turnoff"
+            android:paddingStart="10dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="10dp"
+            android:textAlignment="viewEnd"
+            android:layout_below="@id/time_dangvanchuyenTv"/>
+
+        <View
+            android:id="@+id/status_daxacnhan_orderView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@id/time_dangvanchuyenTv"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@id/time_daxacnhanTv"
+            android:background="@drawable/shape_status_remaining"/>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="?actionBarSize"
+            android:layout_toRightOf="@id/time_daxacnhanTv"
+            android:layout_marginStart="20dp"
+            android:background="@color/colorDivider"
+            android:layout_below="@id/status_daxacnhan_orderView"/>
+
+        <TextView
+            android:id="@+id/daxacnhan_order_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description_dangvanchuyenTv"
+            android:layout_marginTop="10dp"
+            android:text="Cho xac nhan"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_text_brown_turnoff"
+            android:layout_toRightOf="@id/status_daxacnhan_orderView"/>
+
+        <TextView
+            android:id="@+id/description_daxacnhanTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/daxacnhan_order_tv"
+            android:paddingEnd="20dp"
+            android:text="12312312sdasdasdasdasdasdsadasdsad"
+            android:textColor="@color/color_text_brown_turnoff"
+            android:lineSpacingMultiplier="1.2"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/status_daxacnhan_orderView"/>
+
+<!--        Cho xac nhan-->
+        <TextView
+            android:id="@+id/time_choxacnhanTv"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="23 thang 2sdasd"
+            android:textSize="18sp"
+            android:textColor="@color/color_text_brown_turnoff"
+            android:paddingStart="10dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="10dp"
+            android:textAlignment="viewEnd"
+            android:layout_below="@id/time_daxacnhanTv"/>
+
+        <View
+            android:id="@+id/status_choxacnhan_orderView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@id/time_daxacnhanTv"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toRightOf="@id/time_choxacnhanTv"
+            android:background="@drawable/shape_status_remaining"/>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="?actionBarSize"
+            android:layout_toRightOf="@id/time_daxacnhanTv"
+            android:layout_marginStart="20dp"
+            android:background="@color/colorDivider"
+            android:layout_below="@id/status_choxacnhan_orderView"/>
+
+        <TextView
+            android:id="@+id/choxacnhan_order_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description_daxacnhanTv"
+            android:layout_marginTop="10dp"
+            android:text="Cho xac nhan"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_text_brown_turnoff"
+            android:layout_toRightOf="@id/status_choxacnhan_orderView"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/choxacnhan_order_tv"
+            android:paddingEnd="20dp"
+            android:text="12312312sdasdasdasdasdasdsadasdsad"
+            android:textColor="@color/color_text_brown_turnoff"
+            android:lineSpacingMultiplier="1.2"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/status_choxacnhan_orderView"/>
+
+        <!--        <View-->
+<!--            android:id="@+id/sttShip"-->
+<!--            android:layout_width="18dp"-->
+<!--            android:layout_height="18dp"-->
+<!--            android:layout_below="@id/code_orderTv"-->
+<!--            android:background="@drawable/shape_status_completed"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            />-->
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
