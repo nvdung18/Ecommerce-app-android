@@ -126,7 +126,7 @@
 
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/imageView10"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
@@ -142,10 +142,10 @@
                             android:id="@+id/imgProduct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="@+id/imageView2"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                            app:layout_constraintStart_toStartOf="@+id/imageView10"
+                            app:layout_constraintTop_toTopOf="@+id/imageView10"
                             app:srcCompat="@drawable/product" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -172,7 +172,7 @@
 
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/imageView11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
@@ -188,10 +188,10 @@
                             android:id="@+id/imageView3"
                             android:layout_width="57dp"
                             android:layout_height="56dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="@+id/imageView2"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView11"
+                            app:layout_constraintStart_toStartOf="@+id/imageView11"
+                            app:layout_constraintTop_toTopOf="@+id/imageView11"
                             app:srcCompat="@drawable/branch" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -206,367 +206,367 @@
                 </LinearLayout>
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+<!--            <TableRow-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:orientation="vertical">-->
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
-
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:srcCompat="@drawable/circle_green"
-                            tools:ignore="MissingConstraints" />
-
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="@+id/imageView2"
-                            app:srcCompat="@drawable/chart" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Revenue"
-                        android:textAlignment="center"
-                        android:textColor="#34346E"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@drawable/white_btn_background">-->
 
 
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:srcCompat="@drawable/circle_green"
-                            tools:ignore="MissingConstraints" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintVertical_bias="0.0"-->
+<!--                            app:srcCompat="@drawable/circle_green"-->
+<!--                            tools:ignore="MissingConstraints" />-->
 
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="@+id/imageView2"
-                            app:srcCompat="@drawable/receipt" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView3"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"-->
+<!--                            app:layout_constraintEnd_toEndOf="@+id/imageView2"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/imageView2"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/imageView2"-->
+<!--                            app:srcCompat="@drawable/chart" />-->
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Receipt"
-                        android:textAlignment="center"
-                        android:textColor="#34346E"
-                        android:textSize="18sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView3"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Revenue"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="#34346E"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:orientation="vertical">-->
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
-
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:srcCompat="@drawable/circle_green"
-                            tools:ignore="MissingConstraints" />
-
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="@+id/imageView2"
-                            app:srcCompat="@drawable/btn_1" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Order"
-                        android:textAlignment="center"
-                        android:textColor="#34346E"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@drawable/white_btn_background">-->
 
 
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:srcCompat="@drawable/circle_green"
-                            tools:ignore="MissingConstraints" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintVertical_bias="0.0"-->
+<!--                            app:srcCompat="@drawable/circle_green"-->
+<!--                            tools:ignore="MissingConstraints" />-->
 
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="38dp"
-                            android:layout_height="42dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="@+id/imageView2"
-                            app:srcCompat="@drawable/promocode" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView3"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"-->
+<!--                            app:layout_constraintEnd_toEndOf="@+id/imageView2"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/imageView2"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/imageView2"-->
+<!--                            app:srcCompat="@drawable/receipt" />-->
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Promo-code"
-                        android:textAlignment="center"
-                        android:textColor="#34346E"
-                        android:textSize="18sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView3"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Receipt"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="#34346E"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:orientation="vertical">-->
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
-
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:srcCompat="@drawable/circle_green"
-                            tools:ignore="MissingConstraints" />
-
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="@+id/imageView2"
-                            app:srcCompat="@drawable/account" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Account"
-                        android:textAlignment="center"
-                        android:textColor="#34346E"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/white_btn_background">
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@drawable/white_btn_background">-->
 
 
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="8dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
-                            app:srcCompat="@drawable/circle_green"
-                            tools:ignore="MissingConstraints" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintVertical_bias="0.0"-->
+<!--                            app:srcCompat="@drawable/circle_green"-->
+<!--                            tools:ignore="MissingConstraints" />-->
 
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2"
-                            app:layout_constraintTop_toTopOf="@+id/imageView2"
-                            app:srcCompat="@drawable/btn_6" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView3"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"-->
+<!--                            app:layout_constraintEnd_toEndOf="@+id/imageView2"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/imageView2"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/imageView2"-->
+<!--                            app:srcCompat="@drawable/btn_1" />-->
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Log-out"
-                        android:textAlignment="center"
-                        android:textColor="#34346E"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </TableRow>
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView3"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Order"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="#34346E"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </LinearLayout>-->
+<!--            </TableRow>-->
+
+<!--            <TableRow-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@drawable/white_btn_background">-->
+
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintVertical_bias="0.0"-->
+<!--                            app:srcCompat="@drawable/circle_green"-->
+<!--                            tools:ignore="MissingConstraints" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView3"-->
+<!--                            android:layout_width="38dp"-->
+<!--                            android:layout_height="42dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"-->
+<!--                            app:layout_constraintEnd_toEndOf="@+id/imageView2"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/imageView2"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/imageView2"-->
+<!--                            app:srcCompat="@drawable/promocode" />-->
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView3"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Promo-code"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="#34346E"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@drawable/white_btn_background">-->
+
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintVertical_bias="0.0"-->
+<!--                            app:srcCompat="@drawable/circle_green"-->
+<!--                            tools:ignore="MissingConstraints" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView3"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"-->
+<!--                            app:layout_constraintEnd_toEndOf="@+id/imageView2"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/imageView2"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/imageView2"-->
+<!--                            app:srcCompat="@drawable/account" />-->
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView3"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Account"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="#34346E"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="@drawable/white_btn_background">-->
+
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:layout_constraintVertical_bias="0.0"-->
+<!--                            app:srcCompat="@drawable/circle_green"-->
+<!--                            tools:ignore="MissingConstraints" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView3"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            app:layout_constraintBottom_toBottomOf="@+id/imageView2"-->
+<!--                            app:layout_constraintEnd_toEndOf="@+id/imageView2"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/imageView2"-->
+<!--                            app:layout_constraintTop_toTopOf="@+id/imageView2"-->
+<!--                            app:srcCompat="@drawable/btn_6" />-->
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView3"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Log-out"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="#34346E"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </LinearLayout>-->
+<!--            </TableRow>-->
 
         </TableLayout>
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:id="@+id/constraintLayout2"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="170dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            android:layout_margin="32dp"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tableLayout"-->
-<!--            android:background="@drawable/green_banner_background">-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_margin="32dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+                    android:background="@drawable/green_banner_background">
 
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView4"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:srcCompat="@drawable/circle_white" />-->
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/circle_white" />
 
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView5"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:srcCompat="@drawable/green_banner" />-->
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/green_banner" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView4"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_marginTop="24dp"-->
-<!--                android:text="Until"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textColor="#ffffff"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:text="Until"
+                        android:textSize="16sp"
+                        android:textColor="#ffffff"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView5"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="20 June- 30 July"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textColor="#ffffff"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textView4"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20 June- 30 July"
+                        android:textSize="16sp"
+                        android:textColor="#ffffff"
+                        app:layout_constraintStart_toStartOf="@+id/textView4"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView6"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="40%"-->
-<!--                android:textSize="40sp"-->
-<!--                android:textColor="#FEDD06"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textView5"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView5" />-->
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="40%"
+                        android:textSize="40sp"
+                        android:textColor="#FEDD06"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/textView5"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView7"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Discount"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textColor="#ffffff"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textView6"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textView6" />-->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Discount"
+                        android:textSize="16sp"
+                        android:textColor="#ffffff"
+                        app:layout_constraintStart_toStartOf="@+id/textView6"
+                        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

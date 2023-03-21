@@ -9,11 +9,9 @@ import java.util.*
 
 @Entity(tableName = "DailyRev")
 @TypeConverters(ConvertersDate::class)
-class DailyRevEntity {
-    @PrimaryKey(autoGenerate = true)
-    var idDayRev:Int=0
-
-    @ColumnInfo(name = "releaseDate") var releaseDate: Date = Date("18/10/2003")
-    @ColumnInfo(name = "revenue") var revenue:Double=0.0
+data class DailyRevEntity (
+    @PrimaryKey(autoGenerate = true) var idDayRev:Int=0,
+    @ColumnInfo(name = "releaseDate") var releaseDate: Date = Date("18/10/2003"),
+    @ColumnInfo(name = "revenue") var revenue:Double=0.0,
     @ColumnInfo(name = "quantity") var quantity:Int=0
-}
+)

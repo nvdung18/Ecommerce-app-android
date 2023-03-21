@@ -13,11 +13,11 @@ import com.example.admin.data.room.User.UserEntity
     onDelete = ForeignKey.CASCADE,
     onUpdate = ForeignKey.CASCADE
 )])
-class AccountEntity {
-    @PrimaryKey() var idAccount:String=""
-    @ColumnInfo(name = "userName") var userName:String=""
-    @ColumnInfo(name = "password") var password:String=""
-    @ColumnInfo(name = "method") var method:String=""
-    @ColumnInfo(name = "idUser") var idUser:String=""
-    @ColumnInfo(name = "token") var tokken:String=""
-}
+data class AccountEntity (
+    @PrimaryKey() var idAccount:String="",
+    @ColumnInfo(name = "userName") var userName:String="",
+    @ColumnInfo(name = "password") var password:String="",
+    @ColumnInfo(name = "method") var method:String="",
+    @ColumnInfo(name = "idUser") var idUser:String="",
+    @ColumnInfo(name = "token") var token:String=""
+)

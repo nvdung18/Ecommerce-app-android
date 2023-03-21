@@ -19,8 +19,8 @@ import com.example.admin.data.room.Product.ProductEntity
     onDelete = ForeignKey.CASCADE,
     onUpdate = ForeignKey.CASCADE
 )])
-class CartDetailsEntity {
-    @ColumnInfo(name = "quantity") var quantity:Int=0
-    @ColumnInfo(name = "idCart") var idCart:String=""
+data class CartDetailsEntity (
+    @ColumnInfo(name = "quantity") var quantity:Int=0,
+    @ColumnInfo(name = "idCart") var idCart:String="",
     @ColumnInfo(name = "idProduct") var idProduct:String=""
-}
+)
