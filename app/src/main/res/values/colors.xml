@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="primary">#DB3022</color>
+    <color name="background">#F9F9F9</color>
+    <color name="backgroundAd">#FFFFFFFF</color>
+    <color name="error">#F01F0E</color>
+    <color name="success">#2AA952</color>
+    <color name="sale">#DB3022</color>
+    <color name="black">#222222</color>
+    <color name="mainText">#222222</color>
+    <color name="textAd">#9B9B9B</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="silver">#AAAAAA</color>
+    <color name="border_color">#BBBBBB</color>
+    <color name="blue_bland">#33CCFF</color>
+    <color name="brown">#333333</color>
+    <color name="brown_bland">#E4E6EB</color>
+    <color name="green">#2BA999</color>
+    <color name="scrollbar_track_start">#FF8800</color>
+    <color name="scrollbar_track_end">#FFBB33</color>
+    <color name="color_text_brow">#848485</color>
+    <color name="color_text_green">#42A993</color>
+    <color name="color_text_green_normal">#6DB7A4</color>
+    <color name="color_text_brown_turnoff">#CCCCCD</color>
+
+    <color name="NoteColor1">#FF6263</color>
+    <color name="NoteColor2">#23C4ED</color>
+    <color name="NoteColor3">#38CC77</color>
+    <color name="NoteColor4">#D9D558</color>
+    <color name="NoteColor5">#318BD1</color>
+    <color name="NoteColor6">#D345D0</color>
+    <color name="colorDivider">#E9E9E9</color>
 </resources>

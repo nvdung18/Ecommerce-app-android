@@ -13,11 +13,11 @@ import com.example.admin.data.room.Account.AccountEntity
     onDelete = ForeignKey.CASCADE,
     onUpdate = ForeignKey.CASCADE
 )])
-class CheckoutEntity {
-    @PrimaryKey() var idCheckout: String=""
-    @ColumnInfo(name = "recipientName") var recipientName:String=""
-    @ColumnInfo(name = "recipientPhoneNumber") var recipientPhoneNumber:Int=0
-    @ColumnInfo(name = "recipientEmail") var recipientEmail:String=""
-    @ColumnInfo(name = "recipientAddress") var recipientAddress:String=""
+data class CheckoutEntity (
+    @PrimaryKey() var idCheckout: String="",
+    @ColumnInfo(name = "recipientName") var recipientName:String="",
+    @ColumnInfo(name = "recipientPhoneNumber") var recipientPhoneNumber:Int=0,
+    @ColumnInfo(name = "recipientEmail") var recipientEmail:String="",
+    @ColumnInfo(name = "recipientAddress") var recipientAddress:String="",
     @ColumnInfo(name = "idAccount") var idAccount:String=""
-}
+)

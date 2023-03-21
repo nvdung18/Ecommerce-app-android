@@ -34,16 +34,15 @@ import com.example.admin.data.room.checkout.CheckoutEntity
     onDelete = ForeignKey.CASCADE,
     onUpdate = ForeignKey.CASCADE
 )])
-class OrderEntity {
-    @PrimaryKey() var idOrder:String=""
-    @ColumnInfo(name = "status") var status:String=""
-//    @ColumnInfo(name = "deliveryTime") var deliveryTime:String=""
-    @ColumnInfo(name = "orderNotes") var orderNotes:String=""
-    @ColumnInfo(name = "deliveryCharges") var deliveryCharges:Double=0.0
-    @ColumnInfo(name = "productMoney") var productMoney:Double=0.0
-
-    @ColumnInfo(name = "idAccount") var idAccount:String=""
-    @ColumnInfo(name = "idPayment") var idPayment:String=""
-    @ColumnInfo(name = "idPromoCode") var idPromoCode:String=""
+data class OrderEntity (
+    @PrimaryKey() var idOrder:String="",
+    @ColumnInfo(name = "status") var status:String="",
+//    @ColumnInfo(name = "deliveryTime") var deliveryTime:String="",
+    @ColumnInfo(name = "orderNotes") var orderNotes:String="",
+    @ColumnInfo(name = "deliveryCharges") var deliveryCharges:Double=0.0,
+    @ColumnInfo(name = "productMoney") var productMoney:Double=0.0,
+    @ColumnInfo(name = "idAccount") var idAccount:String="",
+    @ColumnInfo(name = "idPayment") var idPayment:String="",
+    @ColumnInfo(name = "idPromoCode") var idPromoCode:String="",
     @ColumnInfo(name = "idCheckout") var idCheckout:String=""
-}
+)

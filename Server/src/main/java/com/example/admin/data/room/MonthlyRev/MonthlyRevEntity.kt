@@ -12,12 +12,10 @@ import java.util.*
     onDelete = ForeignKey.CASCADE
 )])
 @TypeConverters(ConvertersDate::class)
-class MonthlyRevEntity {
-    @PrimaryKey(autoGenerate = true)
-    var idMonthRev:Int=0
-
-    @ColumnInfo(name = "releaseDate") var releaseDate: Date = Date("18/10/2003")
-    @ColumnInfo(name = "revenue") var revenue:Double=0.0
-    @ColumnInfo(name = "quantity") var quantity:Int=0
+data class MonthlyRevEntity (
+    @PrimaryKey(autoGenerate = true) var idMonthRev:Int=0,
+    @ColumnInfo(name = "releaseDate") var releaseDate: Date = Date("18/10/2003"),
+    @ColumnInfo(name = "revenue") var revenue:Double=0.0,
+    @ColumnInfo(name = "quantity") var quantity:Int=0,
     @ColumnInfo(name = "idDayRev") var idDayRev:Int=0
-}
+)

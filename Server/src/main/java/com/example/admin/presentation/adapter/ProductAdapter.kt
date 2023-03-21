@@ -14,7 +14,6 @@ import com.example.admin.R
 import com.example.admin.data.model.Product
 import com.example.admin.presentation.activity.ProductActivity
 import com.example.admin.presentation.activity.ProductDetailsActivity
-import kotlinx.android.synthetic.main.single_product.view.*
 
 class ProductAdapter(var list:List<Product>):RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
     inner class ProductViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
@@ -26,13 +25,13 @@ class ProductAdapter(var list:List<Product>):RecyclerView.Adapter<ProductAdapter
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.itemView.apply {
-            txtIdProduct.text=list[position].idProduct
-            txtNameProduct.text=list[position].nameProduct
-
-            btnDetailsProduct.setOnClickListener{
-                val i= Intent(context,ProductDetailsActivity::class.java)
-                context.startActivity(i)
-            }
+//            txtIdProduct.text=list[position].idProduct
+//            txtNameProduct.text=list[position].nameProduct
+//
+//            btnDetailsProduct.setOnClickListener{
+//                val i= Intent(context,ProductDetailsActivity::class.java)
+//                context.startActivity(i)
+//            }
         }
 
     }

@@ -20,11 +20,9 @@ import java.util.Date
     onDelete = ForeignKey.CASCADE
 )])
 @TypeConverters(ConvertersDate::class)
-class ReceiptEntity {
-    @PrimaryKey() var idReceipt:String=""
-    @ColumnInfo(name = "releaseDate") var releaseDate:Date= Date("18/10/2003")
-    @ColumnInfo(name = "idOrder") var idOrder:String=""
+data class ReceiptEntity (
+    @PrimaryKey() var idReceipt:String="",
+    @ColumnInfo(name = "releaseDate") var releaseDate:Date= Date("18/10/2003"),
+    @ColumnInfo(name = "idOrder") var idOrder:String="",
     @ColumnInfo(name = "idDayRev") var idDayRev:Int=0
-
-
-}
+)

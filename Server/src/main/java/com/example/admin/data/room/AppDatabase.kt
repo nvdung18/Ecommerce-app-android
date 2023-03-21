@@ -69,12 +69,17 @@ abstract class AppDatabase:RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "test3"
+                    "test5"
                 ).allowMainThreadQueries().build()
 
                 INSTANCE = instance
                 return instance
             }
+        }
+
+        fun deleteAllData(context: Context) {
+            val data = getInstance(context)
+            data.clearAllTables()
         }
     }
 }
