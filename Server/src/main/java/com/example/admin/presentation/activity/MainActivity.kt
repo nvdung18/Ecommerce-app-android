@@ -11,11 +11,15 @@ import com.example.admin.R
 import com.example.admin.data.room.AppDatabase
 import com.example.admin.data.room.Branch.BranchEntity
 import org.w3c.dom.Text
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Log.d("MainActivity", "Da chay vao")
         var instance=AppDatabase.getInstance(this)
 
         var test=findViewById<ImageView>(R.id.imgProduct)
@@ -28,11 +32,11 @@ class MainActivity : AppCompatActivity() {
 //            Log.e("a","2")
 //        }
 
-//        instance.branchDao().insertBranch(BranchEntity("br2","dsfjhjkdf"))
+        instance.branchDao().insertBranch(BranchEntity("${System.currentTimeMillis()}","dsfjhjkdf"))
 
-//        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-//        var f=dateFormat.format(Date("03/12/2002"))
-//        instance.receiptDao().insertReceipt(Receipt(Date(f)))
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        var f=dateFormat.format(Date("03/12/2002"))
+        instance.branchDao().insertBranch(BranchEntity("${System.currentTimeMillis()}","ahsfha"))
 
     }
 }

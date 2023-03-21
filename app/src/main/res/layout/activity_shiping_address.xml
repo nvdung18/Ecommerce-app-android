@@ -13,12 +13,9 @@
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD:app/src/main/res/layout/activity_shiping_address.xml
         android:src="@drawable/ic_baseline_add_24"
-=======
         android:text="Hello User!!"
->>>>>>> 69371bdfd916e3e2134ed6241b76de7f3935de0f:app/src/main/res/layout/activity_main.xml
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

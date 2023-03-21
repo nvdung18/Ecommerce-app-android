@@ -13,7 +13,7 @@ import com.example.admin.data.room.Account.AccountEntity
     onDelete = ForeignKey.CASCADE,
     onUpdate = ForeignKey.CASCADE
 )])
-class CartEntity {
-    @PrimaryKey() var idCart: String=""
+data class CartEntity (
+    @PrimaryKey() var idCart: String="",
     @ColumnInfo(name = "idAccount") var idAccount:String=""
-}
+)

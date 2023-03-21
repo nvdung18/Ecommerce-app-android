@@ -7,15 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-<<<<<<< HEAD
 
-    <color name="NoteColor1">#FF6263</color>
-    <color name="NoteColor2">#23C4ED</color>
-    <color name="NoteColor3">#38CC77</color>
-    <color name="NoteColor4">#D9D558</color>
-    <color name="NoteColor5">#318BD1</color>
-    <color name="NoteColor6">#D345D0</color>
-=======
 <!--    =========-->
     <color name="primary">#DB3022</color>
     <color name="background">#F9F9F9</color>
@@ -25,5 +17,4 @@
     <color name="sale">#DB3022</color>
     <color name="mainText">#222222</color>
     <color name="textAd">#9B9B9B</color>
->>>>>>> 69371bdfd916e3e2134ed6241b76de7f3935de0f
 </resources>

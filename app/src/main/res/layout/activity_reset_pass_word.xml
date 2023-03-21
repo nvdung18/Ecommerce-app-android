@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.ResetPassWordActivity">
+
+    <ImageView
+        android:id="@+id/backImg"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -14,7 +26,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/metropolis_bold"
-        android:text="Login"
+        android:text="Reset PassWord"
         android:textColor="@color/mainText"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,14 +43,40 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <EditText
-            android:id="@+id/nameEt"
+            android:id="@+id/numberEt"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/edit_text_bg"
             android:drawableRight="@null"
             android:fontFamily="@font/metropolis_regular"
-            android:hint="Login Name"
+            android:hint="Number"
             android:inputType="textPersonName"
+            android:maxLines="1"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/mainText"
+            android:layout_marginBottom="12dp"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:fontFamily="@font/metropolis_regular"
+            android:textColor="@color/primary"
+            android:textSize="9sp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/passwordEt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edit_text_bg"
+            android:drawableRight="@null"
+            android:fontFamily="@font/metropolis_regular"
+            android:hint="Password"
+            android:inputType="textPassword"
             android:maxLines="1"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -46,10 +84,8 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/nameError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email Error"
             android:visibility="gone"
             android:fontFamily="@font/metropolis_regular"
             android:textColor="@color/primary"
@@ -59,7 +95,7 @@
 
         <EditText
             android:layout_marginTop="10dp"
-            android:id="@+id/PassEt"
+            android:id="@+id/confirm_PassEt"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textSize="15sp"
@@ -69,14 +105,12 @@
             android:paddingLeft="20dp"
             android:background="@drawable/edit_text_bg"
             android:fontFamily="@font/metropolis_regular"
-            android:hint="Password"
+            android:hint="Confirm Password"
             android:inputType="textPassword"
             android:maxLines="1" />
         <TextView
-            android:id="@+id/passwordError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Password Error"
             android:visibility="gone"
             android:fontFamily="@font/metropolis_regular"
             android:textColor="@color/primary"
@@ -84,57 +118,16 @@
             android:layout_marginTop="5dp"
             />
 
-        <TextView
-            android:id="@+id/forgottenPassTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/metropolis_regular"
-            android:text="Forgotten Password?"
-            android:layout_marginTop="10dp"
-            android:gravity="right"
-            android:textColor="@color/mainText"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
         <Button
-            android:id="@+id/loginBtn"
+            android:id="@+id/saveBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg"
-            android:text="Login"
+            android:text="Save"
             android:layout_marginTop="40dp"
             android:elevation="10dp"
             />
-
-
-        <LinearLayout
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/metropolis_regular"
-                android:text="Don't Have an Account? "
-                android:textColor="@color/mainText"
-                android:textSize="14sp"
-                />
-            <TextView
-                android:id="@+id/signUpTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/metropolis_regular"
-                android:text=" Sign up"
-                android:textColor="@color/primary"
-                android:textSize="14sp"
-                />
-        </LinearLayout>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
