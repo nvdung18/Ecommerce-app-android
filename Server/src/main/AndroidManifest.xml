@@ -10,10 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ecommerce_app">
         <activity
-            android:name=".AddProductActivity"
+            android:name=".presentation.activity.OverViewActivity"
             android:exported="false" />
         <activity
-            android:name=".UpdateProductActivity"
+            android:name=".presentation.activity.UpdatePromocodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.AddPromocodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.PromoCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.UpdateBranchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.AddBranchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.BranchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.UpdateProductActivity"
             android:exported="false" />
         <activity android:name=".presentation.activity.LoginActivity" />
         <activity android:name=".presentation.activity.ProductActivity" />
