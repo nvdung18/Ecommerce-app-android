@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.admin">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ecommerce_app">
+        <activity
+            android:name=".presentation.activity.OverViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.UpdatePromocodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.AddPromocodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.PromoCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.UpdateBranchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.AddBranchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.activity.BranchActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.activity.AddProductActivity"
             android:exported="false" />
@@ -30,26 +47,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
-
-<!--        <activity-->
-<!--            android:name=".AddNote"-->
-<!--            android:exported="false">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-<!--        </activity>-->
-
-        <provider
-            android:authorities="com.example.admin"
-            android:name=".Provider"
-            tools:replace="android:authorities"
-            android:exported="true"
-            android:grantUriPermissions="true"/>
-
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.example.admin.R
 import com.example.admin.data.room.AppDatabase
 import com.example.admin.data.room.Branch.BranchEntity
+import kotlinx.android.synthetic.main.activity_main.*
 import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,6 +27,11 @@ class MainActivity : AppCompatActivity() {
 //        var test2=findViewById<TextView>(R.id.txtOverView)
         test.setOnClickListener {
             val i=Intent(this,ProductActivity::class.java)
+            startActivity(i)
+        }
+
+        imgOverView.setOnClickListener {
+            val i=Intent(this,OverViewActivity::class.java)
             startActivity(i)
         }
 //        test2.setOnClickListener {
