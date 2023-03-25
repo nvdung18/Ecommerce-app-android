@@ -7,12 +7,15 @@ import android.content.Context
 import android.content.UriMatcher
 import android.database.Cursor
 import android.database.MatrixCursor
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
 import com.example.admin.data.room.Account.AccountEntity
 import com.example.admin.data.room.AppDatabase
+import com.example.admin.data.room.Product.ProductEntity
 import com.example.admin.data.room.User.UserEntity
+import com.google.firebase.auth.ktx.actionCodeSettings
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 
@@ -98,26 +101,51 @@ class Provider: ContentProvider() {
             2 -> {
                 //selection == "userName = ? and password = ?"
                 if (selectionArgs?.get(0)!!.isNotEmpty() &&
-                    (selection == "token = ?" && selection != null)) {
+                    selection == "token = ?" && selection != null) {
                     Log.d("PROVIDER",selectionArgs?.getOrNull(0).toString())
                     val token = selectionArgs?.getOrNull(0).toString()
                     val accountDao = AppDatabase.getInstance(context!!).accountDao()
                     val account = accountDao.queryAccountByToken(token)
-                    return getAccount(account)
-                } else if (selectionArgs?.get(0)!!.isNotEmpty() && selectionArgs?.get(1)!!.isNotEmpty() &&
-                    (selection == "userName = ? and password = ?" && selection != null)) {
+                    if (account != null) {
+                        return getAccount(account)
+                    }
+                } else if(selectionArgs?.get(0)!!.isNotEmpty() && selection == "email = ?" && selection != null) {
+                    val userDao = AppDatabase.getInstance(context!!).userDao()
+                    val user = userDao.queryUserByEmail(selectionArgs?.get(0)!!.toString().trim())
+                    if(user != null) {
+                        return getUser(user)
+                    }
+                } else if (selectionArgs?.get(0)!!.isNotEmpty() && selectionArgs?.get(1)!!.isNotEmpty() && selection == "userName = ? and password = ?" && selection != null) {
                     Log.d("Check", "${selection ?: "null"}")
                     Log.d("check",selectionArgs?.getOrNull(0).toString())
                     val userName = selectionArgs?.getOrNull(0).toString()
                     val password = selectionArgs?.getOrNull(1).toString()
                     val accountDao = AppDatabase.getInstance(context!!).accountDao()
                     val account = accountDao.queryAccountByUserNameAndPW(userName!!, hashPassword(password!!))
-                    return getAccount(account)
+                    if (account != null) {
+                        return getAccount(account)
+                    }
+                }
+            }
+            3-> {
+                if(selection == null && selectionArgs == null) {
+                    val branchDao = AppDatabase.getInstance(context!!).branchDao()
+
+                }
+            }
+            10 -> {
+                if(selection == null && selectionArgs == null) {
+                    val productDao = AppDatabase.getInstance(context!!).productDao()
+                    val listAllProduct = productDao.queryAllProduct()
+                    if(listAllProduct.size != 0) {
+                        return getProductList(listAllProduct)
+                    }
                 }
             }
         }
         return null
     }
+
 
     override fun getType(uri: Uri): String? {
         return null
@@ -161,6 +189,24 @@ class Provider: ContentProvider() {
                 val idAccount = account.idAccount.split("_")
                 return ContentUris.withAppendedId(uri, idAccount[idAccount.size-1].toLong())
             }
+            10 -> {
+//                val listProduct = mutableListOf<ProductEntity>()
+//                for (i in 1..10) {
+//                    var price = (i*10000).toDouble()
+//                    val sale = (i*2).toFloat()
+//                        listProduct.add(ProductEntity("idProduct_${1}",
+//                        "Bag_${1}",
+//                        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png",
+//                        price,
+//                        "SKLJDKSLjdaskldjaskldjsakldjaskldjaslkdjsalk",
+//                        "luxury",
+//                        sale,
+//                         1231,
+//                            "idBranch_${i}"
+//                    ))
+//                }
+
+            }
         }
         return null
 
@@ -182,9 +228,16 @@ class Provider: ContentProvider() {
 
             }
             2 -> {
-                if(selectionArgs?.getOrNull(0)!!.isNotEmpty() && values?.getAsString("token")!!.isNotEmpty()) {
+                if(selectionArgs?.getOrNull(0)!!.isNotEmpty() && selection == "idAccount = ?" && selection != null) {
                     val accountDao = AppDatabase.getInstance(context!!).accountDao()
-                    return accountDao.updateTokenAccount(values?.getAsString("token").toString() ?: "",selectionArgs?.getOrNull(0).toString())
+                    return accountDao.updateTokenAccount(values?.getAsString("token").toString() ,selectionArgs?.getOrNull(0).toString())
+                } else if (selectionArgs?.getOrNull(0)!!.isNotEmpty() && selection == "email = ?" && selection != null) {
+                    val userDao = AppDatabase.getInstance(context!!).userDao()
+                    Log.d("UpdatePassword", "${selectionArgs?.getOrNull(0)!!.isNotEmpty()}")
+                    val accountDao = AppDatabase.getInstance(context!!).accountDao()
+                    val account = accountDao.queryAccountByidUser(values?.getAsString("idUser").toString())
+                    val hashPassword = hashPassword(values?.getAsString("password").toString())
+                    return accountDao.updatePassWord(hashPassword, account.idAccount.toString().trim())
                 }
             }
         }
@@ -281,6 +334,68 @@ class Provider: ContentProvider() {
         )
         return cursor
     }
+
+    private fun getUser(user: UserEntity): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idUser",
+                "fullName",
+                "gender",
+                "address",
+                "phoneNumber",
+                "email",
+                "role"
+            )
+        )
+
+        cursor.addRow(
+            arrayOf<Any>(
+                user.idUser,
+                user.fullName,
+                user.gender,
+                user.address,
+                user.phoneNumber,
+                user.email,
+                user.role
+            )
+        )
+        return cursor
+    }
+
+    private fun getProductList(listAllProduct: List<ProductEntity>): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idProduct",
+                "nameProduct",
+                "image",
+                "price",
+                "description",
+                "type",
+                "sale",
+                "soldQuantity",
+                "idBranch"
+            )
+        )
+
+        for (product in listAllProduct) {
+            cursor.addRow(
+                arrayOf<Any>(
+                  product.idProduct,
+                  product.nameProduct,
+                  product.image,
+                  product.price,
+                  product.description,
+                  product.type,
+                  product.sale,
+                  product.soldQuantity,
+                  product.idBranch
+                )
+            )
+        }
+        return cursor
+    }
+
+
 }
 
 

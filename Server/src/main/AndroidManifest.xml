@@ -35,14 +35,6 @@
                 android:value="" />
         </activity>
 
-<!--        <activity-->
-<!--            android:name=".AddNote"-->
-<!--            android:exported="false">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-<!--        </activity>-->
-
         <provider
             android:authorities="com.example.admin"
             android:name=".Provider"

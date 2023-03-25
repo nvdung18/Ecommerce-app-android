@@ -24,4 +24,7 @@ interface UserDao {
     @Query("Select * from user where email = :email")
     fun queryUserByEmail(email: String): UserEntity
 
+    @Query("Delete from user")
+    fun deleteAllUser()
+
 }

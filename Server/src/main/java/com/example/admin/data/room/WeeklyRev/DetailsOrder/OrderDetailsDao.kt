@@ -1,4 +1,4 @@
-package com.example.admin.data.room.DetailsOrder
+package com.example.admin.data.room.WeeklyRev.DetailsOrder
 
 import androidx.room.Dao
 

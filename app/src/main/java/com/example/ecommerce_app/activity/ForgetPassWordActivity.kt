@@ -2,6 +2,7 @@ package com.example.ecommerce_app.activity
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
@@ -17,6 +18,8 @@ import kotlin.random.Random
 class ForgetPassWordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgetPassWordBinding
     private var email: String = ""
+    val uri = Uri.parse("content://com.example.admin/account")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityForgetPassWordBinding.inflate(layoutInflater)
@@ -25,11 +28,27 @@ class ForgetPassWordActivity : AppCompatActivity() {
         binding.sendBtn.setOnClickListener {
             email = binding.emailEt.text.toString().trim()
             if(Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                sendPasswordResetEmail(email)
+                if(checkEmailExist(email)) {
+                    sendPasswordResetEmail(email)
+                } else {
+                    Toast.makeText(this@ForgetPassWordActivity, "email is not exist", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(this, "Invalid email", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.backImg.setOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    private fun checkEmailExist(email: String): Boolean {
+        val cursor = contentResolver.query(uri, null, "email = ?", arrayOf(email), null) ?: null
+        if(cursor != null) {
+            return true
+        }
+        return false
     }
 
     private fun sendPasswordResetEmail(email: String) {

@@ -14,8 +14,8 @@ import com.example.admin.data.room.CartDetails.CartDetailsDao
 import com.example.admin.data.room.CartDetails.CartDetailsEntity
 import com.example.admin.data.room.DailyRev.DailyRevDao
 import com.example.admin.data.room.DailyRev.DailyRevEntity
-import com.example.admin.data.room.DetailsOrder.OrderDetailsDao
-import com.example.admin.data.room.DetailsOrder.OrderDetailsEntity
+import com.example.admin.data.room.WeeklyRev.DetailsOrder.OrderDetailsDao
+import com.example.admin.data.room.WeeklyRev.DetailsOrder.OrderDetailsEntity
 import com.example.admin.data.room.MonthlyRev.MonthlyRevDao
 import com.example.admin.data.room.MonthlyRev.MonthlyRevEntity
 import com.example.admin.data.room.Order.OrderDao
