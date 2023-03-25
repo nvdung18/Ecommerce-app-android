@@ -18,7 +18,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtIdProduct"
+                android:id="@+id/txtIdBranch"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -27,7 +27,7 @@
                 android:text="P01" />
 
             <TextView
-                android:id="@+id/txtNameProduct"
+                android:id="@+id/txtNameBranch"
                 android:textSize="14dp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnEditBranch"
                 android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 android:text="Edit" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnDeleteBranch"
                 android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
