@@ -7,11 +7,6 @@
     tools:context=".presentation.activity.UpdateProductActivity"
     >
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Update Product"-->
-<!--        />-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
