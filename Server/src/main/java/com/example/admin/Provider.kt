@@ -3,16 +3,14 @@ package com.example.admin
 import android.content.ContentProvider
 import android.content.ContentUris
 import android.content.ContentValues
-import android.content.Context
 import android.content.UriMatcher
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import android.util.Log
-import androidx.core.net.toUri
-import com.example.admin.data.room.Account.AccountEntity
+import com.example.admin.data.room.account.AccountEntity
 import com.example.admin.data.room.AppDatabase
-import com.example.admin.data.room.User.UserEntity
+import com.example.admin.data.room.user.UserEntity
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 
