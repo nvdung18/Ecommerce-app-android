@@ -4,43 +4,43 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.admin.data.room.Account.AccountDao
-import com.example.admin.data.room.Account.AccountEntity
-import com.example.admin.data.room.Branch.BranchDao
-import com.example.admin.data.room.Branch.BranchEntity
-import com.example.admin.data.room.Cart.CartDao
-import com.example.admin.data.room.Cart.CartEntity
-import com.example.admin.data.room.CartDetails.CartDetailsDao
-import com.example.admin.data.room.CartDetails.CartDetailsEntity
-import com.example.admin.data.room.DailyRev.DailyRevDao
-import com.example.admin.data.room.DailyRev.DailyRevEntity
-import com.example.admin.data.room.WeeklyRev.DetailsOrder.OrderDetailsDao
-import com.example.admin.data.room.WeeklyRev.DetailsOrder.OrderDetailsEntity
-import com.example.admin.data.room.MonthlyRev.MonthlyRevDao
-import com.example.admin.data.room.MonthlyRev.MonthlyRevEntity
-import com.example.admin.data.room.Order.OrderDao
-import com.example.admin.data.room.Order.OrderEntity
-import com.example.admin.data.room.Payment.PaymentDao
-import com.example.admin.data.room.Payment.PaymentEntity
-import com.example.admin.data.room.Product.ProductDao
-import com.example.admin.data.room.Product.ProductEntity
-import com.example.admin.data.room.Promocode.PromocodeDao
-import com.example.admin.data.room.Promocode.PromocodeEntity
-import com.example.admin.data.room.Receipt.ReceiptDao
-import com.example.admin.data.room.Receipt.ReceiptEntity
-import com.example.admin.data.room.User.UserDao
-import com.example.admin.data.room.User.UserEntity
-import com.example.admin.data.room.WeeklyRev.WeeklyRevDao
-import com.example.admin.data.room.WeeklyRev.WeeklyRevEntity
+import com.example.admin.data.room.product.ProductDao
+import com.example.admin.data.room.branch.BranchDao
+import com.example.admin.data.room.account.AccountDao
+import com.example.admin.data.room.account.AccountEntity
+import com.example.admin.data.room.branch.BranchEntity
+import com.example.admin.data.room.cart.CartDao
+import com.example.admin.data.room.cart.CartEntity
+import com.example.admin.data.room.cartDetails.CartDetailsDao
+import com.example.admin.data.room.cartDetails.CartDetailsEntity
+import com.example.admin.data.room.dailyRev.DailyRevDao
+import com.example.admin.data.room.dailyRev.DailyRevEntity
+import com.example.admin.data.room.monthlyRev.MonthlyRevDao
+import com.example.admin.data.room.monthlyRev.MonthlyRevEntity
+import com.example.admin.data.room.order.OrderDao
+import com.example.admin.data.room.order.OrderEntity
+import com.example.admin.data.room.payment.PaymentDao
+import com.example.admin.data.room.payment.PaymentEntity
+import com.example.admin.data.room.promocode.PromocodeDao
+import com.example.admin.data.room.promocode.PromocodeEntity
+import com.example.admin.data.room.receipt.ReceiptDao
+import com.example.admin.data.room.receipt.ReceiptEntity
+import com.example.admin.data.room.user.UserDao
+import com.example.admin.data.room.user.UserEntity
+import com.example.admin.data.room.weeklyRev.WeeklyRevDao
+import com.example.admin.data.room.weeklyRev.WeeklyRevEntity
 import com.example.admin.data.room.checkout.CheckoutDao
 import com.example.admin.data.room.checkout.CheckoutEntity
+import com.example.admin.data.room.detailsOrder.OrderDetailsDao
+import com.example.admin.data.room.detailsOrder.OrderDetailsEntity
+import com.example.admin.data.room.product.ProductEntity
 
 @Database(entities = [AccountEntity::class, BranchEntity::class, CartEntity::class, CartDetailsEntity::class, CheckoutEntity::class,DailyRevEntity::class,
     OrderDetailsEntity::class, MonthlyRevEntity::class, OrderEntity::class, PaymentEntity::class, ProductEntity::class, PromocodeEntity::class, ReceiptEntity::class,
     UserEntity::class, WeeklyRevEntity::class] , version = 1)
 abstract class AppDatabase:RoomDatabase() {
     abstract fun accountDao():AccountDao
-    abstract fun branchDao():BranchDao
+    abstract fun branchDao(): BranchDao
     abstract fun cartDao():CartDao
     abstract fun cartDetailsDao():CartDetailsDao
     abstract fun checkoutDao():CheckoutDao
@@ -49,7 +49,7 @@ abstract class AppDatabase:RoomDatabase() {
     abstract fun monthlyRevDao():MonthlyRevDao
     abstract fun orderDao():OrderDao
     abstract fun paymentDao():PaymentDao
-    abstract fun productDao():ProductDao
+    abstract fun productDao(): ProductDao
     abstract fun promocodeDao():PromocodeDao
     abstract fun receiptDao():ReceiptDao
     abstract fun userDao():UserDao
@@ -69,7 +69,7 @@ abstract class AppDatabase:RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "test5"
+                    "test1"
                 ).allowMainThreadQueries().build()
 
                 INSTANCE = instance

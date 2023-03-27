@@ -11,10 +11,10 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
-import com.example.admin.data.room.Account.AccountEntity
 import com.example.admin.data.room.AppDatabase
-import com.example.admin.data.room.Product.ProductEntity
-import com.example.admin.data.room.User.UserEntity
+import com.example.admin.data.room.account.AccountEntity
+import com.example.admin.data.room.product.ProductEntity
+import com.example.admin.data.room.user.UserEntity
 import com.google.firebase.auth.ktx.actionCodeSettings
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest

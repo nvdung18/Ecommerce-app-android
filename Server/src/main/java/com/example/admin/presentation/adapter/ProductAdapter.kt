@@ -1,21 +1,14 @@
 package com.example.admin.presentation.adapter
 
-import android.content.Intent
-import android.text.Layout
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.admin.R
 import com.example.admin.data.model.Product
-import com.example.admin.presentation.activity.ProductActivity
 import com.example.admin.presentation.activity.ProductDetailsActivity
 
-class ProductAdapter(var list:List<Product>):RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(var list: MutableList<Product>):RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
     inner class ProductViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {

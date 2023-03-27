@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.admin.data.room.Account.AccountEntity
+import com.example.admin.data.room.account.AccountEntity
 
 @Entity(tableName = "Checkout", foreignKeys = [ForeignKey(
     entity = AccountEntity::class,
