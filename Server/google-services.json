@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "772548884968",
+    "firebase_url": "https://shop-ban-hang-c9314-default-rtdb.firebaseio.com",
+    "project_id": "shop-ban-hang-c9314",
+    "storage_bucket": "shop-ban-hang-c9314.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772548884968:android:17c95ef75cf1efa6968c5d",
+        "android_client_info": {
+          "package_name": "com.example.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772548884968-eaaaj90pgqs00822q8748folhlu299mf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC83kNGqeB9gBTxPjHs8CKvJ73LoCZNhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772548884968-eaaaj90pgqs00822q8748folhlu299mf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
