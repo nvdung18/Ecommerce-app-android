@@ -49,6 +49,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="com.example.admin"
+            android:name=".Provider"
+            tools:replace="android:authorities"
+            android:exported="true"
+            android:grantUriPermissions="true"/>
     </application>
 
 </manifest>

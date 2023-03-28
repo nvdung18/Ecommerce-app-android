@@ -55,7 +55,6 @@
         android:hint="Search"
         android:padding="10dp"
         android:textColor="@color/black"
-        android:textColorHint="@color/gray01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />

@@ -1,6 +1,7 @@
 package com.example.ecommerce_app.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +15,18 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.ecommerce_app.models.ProductEntity
 import com.example.ecommerce_app.R
+import com.example.ecommerce_app.activity.ProductDetailsActivity
 import com.example.ecommerce_app.databinding.SingleProductBinding
+import com.example.ecommerce_app.models.BrandAndModel
 
 class ProductAdapter: Adapter<ProductAdapter.HolderProduct> {
 
     private lateinit var context: Context
-    private lateinit var listProduct: ArrayList<ProductEntity>
+    private lateinit var listProduct: ArrayList<BrandAndModel>
 
     private lateinit var binding: SingleProductBinding
 
-    constructor(context: Context, listProduct: ArrayList<ProductEntity>) {
+    constructor(context: Context, listProduct: ArrayList<BrandAndModel>) {
         this.context = context
         this.listProduct = listProduct
     }
@@ -45,16 +48,15 @@ class ProductAdapter: Adapter<ProductAdapter.HolderProduct> {
 
     override fun onBindViewHolder(holder: HolderProduct, position: Int) {
         val model = listProduct[position]
-        holder.productBrandName_singleProduct.text = model.idBranch
+        holder.productBrandName_singleProduct.text = model.nameBranch
         holder.productName_singleProduct.text = model.nameProduct
         holder.productPrice_singleProduct.text = "$${model.price}"
         Glide.with(context)
-            .load("https://image.freepik.com/free-photo/full-length-shot-glad-curly-woman-striped-pants-jumping-purple-wall-indoor-portrait-wonderful-girl-sunglasses-fooling-around_197531-5125.jpg")
-//            .placeholder(R.drawable.bags)
+            .load(model.image)
             .into(holder.productImage_singleProduct)
 
         holder.itemView.setOnClickListener{
-            goDetailsPage(model)
+            getDetailsPage(model)
         }
     }
 
@@ -62,7 +64,9 @@ class ProductAdapter: Adapter<ProductAdapter.HolderProduct> {
       return listProduct.size
     }
 
-    private fun goDetailsPage(model: ProductEntity) {
-        Toast.makeText(context, "Not yet data", Toast.LENGTH_SHORT).show()
+    private fun getDetailsPage(model: BrandAndModel) {
+        val intent = Intent(context, ProductDetailsActivity::class.java)
+        intent.putExtra("model", model)
+        context.startActivity(intent)
     }
 }

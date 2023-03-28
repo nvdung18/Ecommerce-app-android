@@ -1,6 +1,7 @@
 package com.example.ecommerce_app.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Log
@@ -13,15 +14,17 @@ import com.bumptech.glide.Glide
 import com.example.ecommerce_app.models.ProductEntity
 
 import com.example.ecommerce_app.R
+import com.example.ecommerce_app.activity.ProductDetailsActivity
 import com.example.ecommerce_app.databinding.CoverSingleBinding
+import com.example.ecommerce_app.models.BrandAndModel
 
 class CoverProductAdapter:Adapter<CoverProductAdapter.HolderCoverProduct> {
 
     lateinit var binding: CoverSingleBinding
-    private var coverProductList: ArrayList<ProductEntity>
+    private var coverProductList: ArrayList<BrandAndModel>
     private var context: Context
 
-    constructor(context: Context, coverProductList: ArrayList<ProductEntity>) {
+    constructor(context: Context, coverProductList: ArrayList<BrandAndModel>) {
         this.context = context
         this.coverProductList = coverProductList
     }
@@ -51,17 +54,20 @@ class CoverProductAdapter:Adapter<CoverProductAdapter.HolderCoverProduct> {
         Log.d("CHECK", "${image}")
 
 
-        // use this with URL
         Glide.with(context)
             .load(image)
             .into(holder.productImage_coverPage)
-//        holder.productImage_coverPage.setImageDrawable(R.drawable.bags)
-//        val drawable: Drawable? = binding.productImageCoverPage.resources.getDrawable(com.example.admin.R.drawable.chart)
-//        holder.productImage_coverPage.setImageDrawable(drawable)
+
         holder.productNoteCover.text = nameProduct
         holder.productCheck_coverPage.setOnClickListener {
-
+            getDetailsPage(model)
         }
+    }
+
+    private fun getDetailsPage(model: BrandAndModel) {
+        val intent = Intent(context, ProductDetailsActivity::class.java)
+        intent.putExtra("model", model)
+        context.startActivity(intent)
     }
 
     override fun getItemCount(): Int {
