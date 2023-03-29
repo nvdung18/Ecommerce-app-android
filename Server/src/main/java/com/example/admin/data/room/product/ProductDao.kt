@@ -1,5 +1,6 @@
 package com.example.admin.data.room.product
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -8,7 +9,9 @@ import com.example.admin.data.room.product.ProductEntity
 
 @Dao
 interface ProductDao {
-
+    @Query("SELECT * FROM Product order by idProduct desc ")
+    fun getAllProduct(): LiveData<List<ProductEntity>>
+    
     @Insert
     fun insertAll(list: List<ProductEntity>)
 
@@ -23,5 +26,5 @@ interface ProductDao {
 
     @Query("Select * from Product inner join Branch on Product.idBranch = Branch.idBranch")
     fun getAllProductByBranch():List<BrandAndModel>
-
 }
+

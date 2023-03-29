@@ -43,7 +43,7 @@ class AddBranchActivity : AppCompatActivity() {
         var newNum=numPart[1].toInt()+1
         if(newNum<10 && sizeOfListBranch!=0){
             newIdBranch="B0"+newNum.toString()
-        }else if(newNum>10 && sizeOfListBranch!=0){
+        }else if(newNum>=10 && sizeOfListBranch!=0){
             newIdBranch="B"+newNum.toString()
         }
     }

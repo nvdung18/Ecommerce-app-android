@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class BranchViewModel(application: Application) : AndroidViewModel(application) {
     private val branchDao:BranchDao
-    lateinit var allBranch:LiveData<List<BranchEntity>>
+    var allBranch:LiveData<List<BranchEntity>>
     init {
         branchDao= AppDatabase.getInstance(application).branchDao()
         allBranch=branchDao.getAllBranch()

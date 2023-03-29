@@ -13,8 +13,10 @@ interface BranchDao {
     @Insert()
     fun insertBranch(branch:BranchEntity)
 
-    @Query("SELECT * FROM Branch order by idBranch desc")
+    @Query("SELECT * FROM Branch order by idBranch asc")
+    fun getAllBranchOrderASC():LiveData<List<BranchEntity>>
+    
+     @Query("SELECT * FROM Branch order by idBranch desc")
     fun getAllBranchNotLive(): List<BranchEntity>
 }
-
 

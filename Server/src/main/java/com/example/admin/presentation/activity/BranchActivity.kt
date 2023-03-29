@@ -15,6 +15,7 @@ import com.example.admin.R
 import com.example.admin.data.room.AppDatabase
 import com.example.admin.data.room.branch.BranchEntity
 import com.example.admin.data.room.branch.BranchViewModel
+import com.example.admin.data.room.product.ProductEntity
 import com.example.admin.databinding.ActivityBranchBinding
 import com.example.admin.presentation.adapter.BranchAdapter
 
@@ -31,15 +32,6 @@ class BranchActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initComponents()
-//        var instance= AppDatabase.getInstance(this)
-//        val allBranch:LiveData<List<BranchEntity>> = instance.branchDao().getAllBranch()
-//        Log.e("a",allBranch.toString())
-//        branchDao.insertBranch(BranchEntity("b01","jfdf"))
-//        branchDao.insertBranch(BranchEntity("b02","edfsdf"))
-//        branchDao.insertBranch(BranchEntity("b03","fasdf"))
-//        branchDao.insertBranch(BranchEntity("b04","edfsdf"))
-//        branchDao.insertBranch(BranchEntity("b05","fasdf"))
-//        binding.branchViewModel=viewModel
 
         viewModel=ViewModelProviders.of(this).get(BranchViewModel::class.java)
 
@@ -49,18 +41,6 @@ class BranchActivity : AppCompatActivity() {
             }
         })
 
-//        binding.btnAddBranch.setOnClickListener {
-//            viewModel.changeDataList()
-//
-//            val adapter= BranchAdapter(viewModel.listBranch)
-//            Log.e("a",viewModel.listBranch[2].toString())
-//            binding.rvAllBranch.adapter=adapter
-//            binding.rvAllBranch.layoutManager= LinearLayoutManager(
-//                this,
-//                LinearLayoutManager.VERTICAL,
-//                false
-//            )
-//        }
     }
 
     private fun initComponents() {
@@ -75,11 +55,14 @@ class BranchActivity : AppCompatActivity() {
         binding.btnAddBranch.setOnClickListener {
             addBranchActivity()
         }
+
+//        addSampleBranch()
     }
 
     private fun addBranchActivity() {
 //        viewModel.insert(BranchEntity("b08","asdjfjasf"))
         var listBranch=viewModel.allBranch.value
+
         if (listBranch != null && listBranch.size>0) {
             latestIdBranch= listBranch!![0].idBranch
         }else{
@@ -89,5 +72,21 @@ class BranchActivity : AppCompatActivity() {
         intent.putExtra("latestIdBranch",latestIdBranch)
         intent.putExtra("sizeOfListBranch",listBranch!!.size)
         startActivity(intent)
+    }
+
+    private fun addSampleBranch(){
+        var branchDao=AppDatabase.getInstance(this).branchDao()
+        val branchList= mutableListOf<BranchEntity>()
+
+        branchList.add(BranchEntity("B01","YADOU"))
+        branchList.add(BranchEntity("B02","Lesac"))
+        branchList.add(BranchEntity("B03","ELLY"))
+        branchList.add(BranchEntity("B04","FLORALPUNK"))
+        branchList.add(BranchEntity("B05","Yuumy"))
+        branchList.add(BranchEntity("B06","IELGY"))
+
+        for (branch in branchList){
+            branchDao.insertBranch(branch)
+        }
     }
 }

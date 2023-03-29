@@ -1,5 +1,7 @@
 package com.example.admin
 
+import android.app.Activity
+import android.app.Application
 import android.content.ContentProvider
 import android.content.ContentUris
 import android.content.ContentValues
@@ -51,7 +53,6 @@ class Provider: ContentProvider() {
         val URI_TABLE_RECEIPT = "content://${AUTHORITY}/${TABLE_RECEIPT}"
 
         private lateinit var uriMatcher: UriMatcher
-
     }
 
     override fun onCreate(): Boolean {
