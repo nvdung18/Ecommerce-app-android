@@ -11,4 +11,7 @@ interface BranchDao {
     fun getAllBranch():LiveData<List<BranchEntity>>
     @Insert()
     fun insertBranch(branch:BranchEntity)
+
+    @Query("SELECT * FROM Branch order by idBranch asc")
+    fun getAllBranchOrderASC():LiveData<List<BranchEntity>>
 }

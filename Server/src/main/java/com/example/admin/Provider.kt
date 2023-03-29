@@ -1,5 +1,7 @@
 package com.example.admin
 
+import android.app.Activity
+import android.app.Application
 import android.content.ContentProvider
 import android.content.ContentUris
 import android.content.ContentValues
@@ -8,8 +10,11 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.admin.data.room.account.AccountEntity
 import com.example.admin.data.room.AppDatabase
+import com.example.admin.data.room.branch.BranchViewModel
 import com.example.admin.data.room.user.UserEntity
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
@@ -45,6 +50,7 @@ class Provider: ContentProvider() {
         val URI_TABLE_RECEIPT = "content://${AUTHORITY}/${TABLE_RECEIPT}"
 
         private lateinit var uriMatcher: UriMatcher
+        private lateinit var viewModel: BranchViewModel
     }
 
     override fun onCreate(): Boolean {
