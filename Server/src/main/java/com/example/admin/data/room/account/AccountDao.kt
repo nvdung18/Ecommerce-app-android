@@ -32,9 +32,10 @@ interface AccountDao {
     @Query("Update account set token = :token WHERE idAccount = :idAccount")
     fun updateTokenAccount(token: String, idAccount: String): Int
 
-    @Query("Select account.* from account inner join user ON account.idUser = user.idUser WHERE account.idUser = :idUser")
+    @Query("Select * from account WHERE idUser = :idUser")
     fun queryAccountByidUser(idUser: String): AccountEntity
 
     @Query("Update account Set password = :password WHERE idAccount = :idAccount")
-    fun updatePassWord(password: String, idAccount: String)
+    fun updatePassWord(password: String, idAccount: String): Int
+
 }

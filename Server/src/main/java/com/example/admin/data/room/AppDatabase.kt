@@ -40,7 +40,7 @@ import com.example.admin.data.room.checkout.CheckoutEntity
     UserEntity::class, WeeklyRevEntity::class] , version = 1)
 abstract class AppDatabase:RoomDatabase() {
     abstract fun accountDao():AccountDao
-    abstract fun branchDao():BranchDao
+    abstract fun branchDao(): BranchDao
     abstract fun cartDao():CartDao
     abstract fun cartDetailsDao():CartDetailsDao
     abstract fun checkoutDao():CheckoutDao
@@ -69,7 +69,7 @@ abstract class AppDatabase:RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "test1"
+                    "test10"
                 ).allowMainThreadQueries().build()
 
                 INSTANCE = instance

@@ -10,14 +10,17 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import android.util.Log
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.example.admin.data.room.account.AccountEntity
+import com.example.admin.data.model.BrandAndModel
+import com.example.admin.data.model.CartDetailsAndProduct
 import com.example.admin.data.room.AppDatabase
-import com.example.admin.data.room.branch.BranchViewModel
+import com.example.admin.data.room.account.AccountEntity
+import com.example.admin.data.room.branch.BranchEntity
+import com.example.admin.data.room.cart.CartEntity
+import com.example.admin.data.room.cartDetails.CartDetailsEntity
 import com.example.admin.data.room.user.UserEntity
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
+
 
 class Provider: ContentProvider() {
 
@@ -50,7 +53,6 @@ class Provider: ContentProvider() {
         val URI_TABLE_RECEIPT = "content://${AUTHORITY}/${TABLE_RECEIPT}"
 
         private lateinit var uriMatcher: UriMatcher
-        private lateinit var viewModel: BranchViewModel
     }
 
     override fun onCreate(): Boolean {
@@ -95,28 +97,76 @@ class Provider: ContentProvider() {
     ): Cursor? {
         when(uriMatcher.match(uri)) {
             1 -> {
-               val userDao = AppDatabase.getInstance(context!!).userDao()
+                val userDao = AppDatabase.getInstance(context!!).userDao()
                 val listUser = userDao.queryAllUser()
                 return getUserList(listUser)
             }
             2 -> {
                 //selection == "userName = ? and password = ?"
                 if (selectionArgs?.get(0)!!.isNotEmpty() &&
-                    (selection == "token = ?" && selection != null)) {
+                    selection == "token = ?" && selection != null) {
                     Log.d("PROVIDER",selectionArgs?.getOrNull(0).toString())
                     val token = selectionArgs?.getOrNull(0).toString()
                     val accountDao = AppDatabase.getInstance(context!!).accountDao()
                     val account = accountDao.queryAccountByToken(token)
-                    return getAccount(account)
-                } else if (selectionArgs?.get(0)!!.isNotEmpty() && selectionArgs?.get(1)!!.isNotEmpty() &&
-                    (selection == "userName = ? and password = ?" && selection != null)) {
-                    Log.d("Check", "${selection ?: "null"}")
-                    Log.d("check",selectionArgs?.getOrNull(0).toString())
+                    if (account != null) {
+                        return getAccount(account)
+                    }
+                } else if(selectionArgs?.get(0)!!.isNotEmpty() && selection == "email = ?" && selection != null) {
+                    val userDao = AppDatabase.getInstance(context!!).userDao()
+                    val user = userDao.queryUserByEmail(selectionArgs?.get(0)!!.toString().trim())
+                    if(user != null) {
+                        return getUser(user)
+                    }
+                } else if (selectionArgs?.get(0)!!.isNotEmpty() && selectionArgs?.get(1)!!.isNotEmpty() && selection == "userName = ? and password = ?" && selection != null) {
                     val userName = selectionArgs?.getOrNull(0).toString()
                     val password = selectionArgs?.getOrNull(1).toString()
                     val accountDao = AppDatabase.getInstance(context!!).accountDao()
                     val account = accountDao.queryAccountByUserNameAndPW(userName!!, hashPassword(password!!))
-                    return getAccount(account)
+                    if (account != null) {
+                        return getAccount(account)
+                    }
+                }
+            }
+            3-> {
+                if(selection == null && selectionArgs == null) {
+                    val branchDao = AppDatabase.getInstance(context!!).branchDao()
+                    val listDataBranch = branchDao.getAllBranchNotLive()
+                    if(listDataBranch.size != 0) {
+                        return getBranchList(listDataBranch)
+                    }
+                }
+            }
+
+            4 -> {
+                if(selection == "idAccount = ?") {
+                    if(selectionArgs?.get(0)!!.isNotEmpty()) {
+                        val idAccount = selectionArgs?.get(0).toString()
+                        val cartDao = AppDatabase.getInstance(context!!).cartDao()
+                        val cartEntity = cartDao.queryIdCartByIdAccount(idAccount)
+                        return getCartEntity(cartEntity)
+                    }
+                }
+            }
+
+            5 -> {
+                if(selection == "idCart = ?") {
+                    if(selectionArgs?.get(0)!!.isNotEmpty()) {
+                        val idCart = selectionArgs?.get(0).toString()
+                        val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
+                        val listCartDetails_Product = cartDetailsDao.queryAllCartDetails_Product(idCart)
+                        return getCartDetails_Product(listCartDetails_Product)
+                    }
+                }
+            }
+
+            10 -> {
+                if(selection == null && selectionArgs == null) {
+                    val productDao = AppDatabase.getInstance(context!!).productDao()
+                    val listAllProduct = productDao.getAllProductByBranch()
+                    if(listAllProduct.size != 0) {
+                        return getProductList(listAllProduct)
+                    }
                 }
             }
         }
@@ -140,7 +190,7 @@ class Provider: ContentProvider() {
                     values?.getAsInteger("phonenumber") ?: 0,
                     values?.getAsString("email") ?: "",
                     values?.getAsInteger("role") ?: 0,
-                    )
+                )
                 userDao.insertUser(user)
                 val idUser = user.idUser.split("_")
                 val idUserForeignKey = user.idUser
@@ -160,10 +210,38 @@ class Provider: ContentProvider() {
                     values?.getAsString("method") ?: "default",
                     lastUser.idUser,
                     values?.getAsString("token") ?: ""
-                    )
+                )
                 accountDao.insertAccount(account)
+                val cartDao = AppDatabase.getInstance(context!!).cartDao()
+                val idCart = cartDao.insertCart(CartEntity(
+                    getIdCartAuto(),
+                    account.idAccount
+                ))
                 val idAccount = account.idAccount.split("_")
                 return ContentUris.withAppendedId(uri, idAccount[idAccount.size-1].toLong())
+            }
+            5 -> {
+                val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
+                val quantity = values?.getAsString("quantity")!!.toInt()
+                val idCart = values?.getAsString("idCart").toString()
+                val idProduct = values?.getAsString("idProduct").toString()
+                var cartDetail:Long = 0
+                val existCartDetails = checkProductCartDetailExist(quantity, idCart, idProduct)
+                if(existCartDetails != null) {
+                    val newquantity = quantity.toInt()+existCartDetails.quantity.toInt()
+                    cartDetailsDao.updateQuantityCartDetailsByIdCart_IdProduct(newquantity.toString(), idCart, idProduct)
+                } else {
+                    cartDetail = cartDetailsDao.insertCardDetail(CartDetailsEntity(
+                        quantity,
+                        idCart,
+                        idProduct
+                    ))
+                }
+                return ContentUris.withAppendedId(uri, cartDetail)
+
+            }
+            10 -> {
+
             }
         }
         return null
@@ -172,6 +250,20 @@ class Provider: ContentProvider() {
 
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
+        when(uriMatcher.match(uri)) {
+            5 -> {
+                if(selection == "idCart = ? and idProduct = ? and quantity = ?") {
+                    val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
+                    val idDeleteCartDetailEntity = cartDetailsDao.deleteCartDetails(CartDetailsEntity(
+                        selectionArgs?.get(2)!!.toInt(),
+                        selectionArgs?.get(0)!!.toString(),
+                        selectionArgs?.get(1)!!.toString()
+                    ))
+                    context?.contentResolver?.notifyChange(Uri.parse(URI_TABLE_CARTDETAILS), null)
+                    return idDeleteCartDetailEntity
+                }
+            }
+        }
         return 0
     }
 
@@ -186,10 +278,35 @@ class Provider: ContentProvider() {
 
             }
             2 -> {
-                if(selectionArgs?.getOrNull(0)!!.isNotEmpty() && values?.getAsString("token")!!.isNotEmpty()) {
+                if(selectionArgs?.getOrNull(0)!!.isNotEmpty() && selection == "idAccount = ?" && selection != null) {
                     val accountDao = AppDatabase.getInstance(context!!).accountDao()
-                    return accountDao.updateTokenAccount(values?.getAsString("token").toString() ?: "",selectionArgs?.getOrNull(0).toString())
+                    return accountDao.updateTokenAccount(values?.getAsString("token").toString() ,selectionArgs?.getOrNull(0).toString())
+                } else if (selectionArgs?.getOrNull(0)!!.isNotEmpty() && selection == "email = ?" && selection != null) {
+                    val userDao = AppDatabase.getInstance(context!!).userDao()
+                    Log.d("UpdatePassword", "${selectionArgs?.getOrNull(0)!!.isNotEmpty()}")
+                    val accountDao = AppDatabase.getInstance(context!!).accountDao()
+                    val account = accountDao.queryAccountByidUser(values?.getAsString("idUser").toString())
+                    val hashPassword = hashPassword(values?.getAsString("password").toString())
+                    return accountDao.updatePassWord(hashPassword, account.idAccount.toString().trim())
                 }
+            }
+
+            5 -> {
+                if(selection == "idCart = ? and idProduct = ?" && selection != null) {
+                    Log.d("Check", "${values?.getAsInteger("quantity")!!.toInt()}")
+                    val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
+                    val idCart = selectionArgs?.get(0).toString()
+                    val idProduct = selectionArgs?.get(1).toString()
+                    val quantity = values?.getAsInteger("quantity")!!.toInt()
+                    val idUpdateCardDetails = cartDetailsDao.updateProductInCartDetails(CartDetailsEntity(
+                        quantity,
+                        idCart,
+                        idProduct
+                    ))
+                    context?.contentResolver?.notifyChange(Uri.parse(URI_TABLE_CARTDETAILS), null)
+                    return idUpdateCardDetails
+                }
+
             }
         }
         return 0
@@ -223,6 +340,21 @@ class Provider: ContentProvider() {
             idAccount = "idAccount_${newId}"
         }
         return idAccount
+    }
+
+    private fun getIdCartAuto(): String {
+        val cartDao = AppDatabase.getInstance(context!!).cartDao()
+        val listCart: List<CartEntity> = cartDao.queryAllCart()
+        var idCart: String = ""
+        if(listCart.isEmpty()) {
+            idCart = "idCart_1"
+        } else {
+            val lastCart = listCart[listCart.size-1].idCart
+            val listCartNew = lastCart.split("_")
+            var newId = listCartNew[listCartNew.size-1].toInt() + 1
+            idCart = "idCart_${newId}"
+        }
+        return idCart
     }
 
     private fun getUserList(listUser: List<UserEntity>): Cursor? {
@@ -285,6 +417,154 @@ class Provider: ContentProvider() {
         )
         return cursor
     }
+
+    private fun getUser(user: UserEntity): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idUser",
+                "fullName",
+                "gender",
+                "address",
+                "phoneNumber",
+                "email",
+                "role"
+            )
+        )
+
+        cursor.addRow(
+            arrayOf<Any>(
+                user.idUser,
+                user.fullName,
+                user.gender,
+                user.address,
+                user.phoneNumber,
+                user.email,
+                user.role
+            )
+        )
+        return cursor
+    }
+
+    private fun getProductList(listAllProduct: List<BrandAndModel>): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idProduct",
+                "nameProduct",
+                "image",
+                "price",
+                "description",
+                "type",
+                "sale",
+                "soldQuantity",
+                "idBranch",
+                "nameBranch"
+            )
+        )
+
+        for (product in listAllProduct) {
+            cursor.addRow(
+                arrayOf<Any>(
+                    product.idProduct,
+                    product.nameProduct,
+                    product.image,
+                    product.price,
+                    product.description,
+                    product.type,
+                    product.sale,
+                    product.soldQuantity,
+                    product.idBranch,
+                    product.nameBranch
+                )
+            )
+        }
+        return cursor
+    }
+
+    private fun getBranchList(listBranchNew: List<BranchEntity>?): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idBranch",
+                "nameBranch",
+            )
+        )
+
+        if (listBranchNew != null) {
+            for (branch in listBranchNew) {
+                cursor.addRow(
+                    arrayOf<Any>(
+                        branch.idBranch,
+                        branch.nameBranch,
+                    )
+                )
+            }
+        }
+        return cursor
+    }
+
+    private fun getCartEntity(cartEntity: CartEntity): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idCart",
+                "idAccount"
+            )
+        )
+
+        cursor.addRow(
+            arrayOf<Any>(
+                cartEntity.idCart,
+                cartEntity.idAccount
+            )
+        )
+        return cursor
+    }
+
+    private fun getCartDetails_Product(listcartdetailsProduct: List<CartDetailsAndProduct>): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "quantity",
+                "idCart",
+                "idProduct",
+                "nameProduct",
+                "image",
+                "price",
+                "description",
+                "type",
+                "sale",
+                "soldQuantity",
+                "idBranch"
+            )
+        )
+
+        if(listcartdetailsProduct.size != 0) {
+            for (cartdetails_product in listcartdetailsProduct) {
+                cursor.addRow(
+                    arrayOf<Any>(
+                        cartdetails_product.quantity,
+                        cartdetails_product.idCart,
+                        cartdetails_product.idProduct,
+                        cartdetails_product.nameProduct,
+                        cartdetails_product.image,
+                        cartdetails_product.price,
+                        cartdetails_product.description,
+                        cartdetails_product.type,
+                        cartdetails_product.sale,
+                        cartdetails_product.soldQuantity,
+                        cartdetails_product.idBranch
+                    )
+                )
+            }
+        }
+
+        return cursor
+    }
+
+    private fun checkProductCartDetailExist(quantity: Int, idCart: String, idProduct: String): CartDetailsEntity? {
+        val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
+        val cartDetailsEntity = cartDetailsDao.queryAllCartDetailsByIdCart_IdProduct(idCart, idProduct)
+        if(cartDetailsEntity != null) {
+            return cartDetailsEntity
+        } else {
+            return null
+        }
+    }
 }
-
-

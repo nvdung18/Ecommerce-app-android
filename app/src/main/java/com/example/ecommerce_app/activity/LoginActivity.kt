@@ -3,11 +3,14 @@ package com.example.ecommerce_app.activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.database.ContentObserver
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.ecommerce_app.R
 import com.example.ecommerce_app.databinding.ActivityLoginBinding
 import kotlin.random.Random
@@ -18,6 +21,8 @@ class LoginActivity : AppCompatActivity() {
     private var password: String = ""
     val TAG = "LOGINACTIVITY"
     val uri_account: Uri = Uri.parse("content://com.example.admin/account")
+    val uri_user: Uri = Uri.parse("content://com.example.admin/user")
+
 
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +47,30 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        binding.signUpTv.setOnClickListener {
+            val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+        binding.forgottenPassTv.setOnClickListener {
+            val intent = Intent(this@LoginActivity, ForgetPassWordActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+        val observe: ContentObserver = object : ContentObserver(Handler()) {
+            override fun onChange(selfChange: Boolean, uri: Uri?) {
+                Log.d("LoginACTIVITY", "Success")
+            }
+        }
+
+        contentResolver.registerContentObserver(uri_user, true, observe)
+
     }
 
     private fun checkLogin(name: String, password: String): Boolean {
-        val cursor = contentResolver.query(uri_account, null, "userName = ? and password = ?", arrayOf(name, password), null)
-        Toast.makeText(this, "${cursor}", Toast.LENGTH_SHORT).show()
+        val cursor = contentResolver.query(uri_account, null, "userName = ? and password = ?", arrayOf(name, password), null) ?: null
         if(cursor != null && cursor.moveToFirst()) {
             val token = createRandomToken(6)
             val values = ContentValues().apply {
@@ -56,15 +80,12 @@ class LoginActivity : AppCompatActivity() {
             val editor = sharedPreferences.edit()
             editor.putString("token", token)
             editor.apply()
-//            var listAccount = cursor.getString(cursor.getColumnIndexOrThrow("idAccount")).split("_")
-            Log.d(TAG, "${values?.getAsString("token").toString()}|${cursor.getString(cursor.getColumnIndexOrThrow("idAccount"))}")
             val uri = Uri.parse("content://com.example.admin/account")
             val updateToken = contentResolver.update(uri, values,"idAccount = ?",arrayOf(cursor.getString(cursor.getColumnIndexOrThrow("idAccount"))))
             cursor.close()
             return true
         } else {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
-            cursor!!.close()
+            Toast.makeText(this@LoginActivity, "UserName or PassWord is not exist", Toast.LENGTH_SHORT).show()
             return false
         }
     }

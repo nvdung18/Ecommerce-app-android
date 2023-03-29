@@ -58,6 +58,7 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 if(!checkEmailSimiliar(email)) {
                     createUserAccount()
+                    resetUI()
                 } else {
                     Toast.makeText(this, "Email is exist", Toast.LENGTH_SHORT).show()
                 }
@@ -72,17 +73,28 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    private fun resetUI() {
+        binding.nameEtSignUpPage.setText("")
+        binding.emailEtSignUpPage.setText("")
+        binding.PassEtSignUpPage.setText("")
+        binding.cPassEtSignUpPage.setText("")
+    }
+
     private fun checkEmailSimiliar(email: String): Boolean {
         var cursor = contentResolver.query(uri_user, null, null, null, null)
-        if(cursor != null && cursor.moveToFirst()) {
-            do {
-                if(email == cursor.getString(cursor.getColumnIndexOrThrow("email"))) {
-                   return true
-                }
-            } while (cursor.moveToNext())
-        }
         if(cursor != null) {
-            cursor.close()
+            if(cursor != null && cursor.moveToFirst()) {
+                do {
+                    if(email == cursor.getString(cursor.getColumnIndexOrThrow("email"))) {
+                        return true
+                    }
+                } while (cursor.moveToNext())
+            }
+            if(cursor != null) {
+                cursor.close()
+            }
+        } else if(cursor == null) {
+            return false
         }
         return false
     }
