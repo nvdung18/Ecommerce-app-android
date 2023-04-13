@@ -6,12 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.activity.UpdateProductActivity"
     >
-
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Update Product"-->
-    <!--        />-->
+<!--    Dtp = Details product-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +14,7 @@
         android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/imgBtnAddProductBack"
+            android:id="@+id/imgBtnDetailsProductBack"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@color/background"
@@ -33,7 +28,7 @@
             android:textStyle="bold"
             android:textSize="25sp"
             android:textColor="@color/black"
-            android:text="Add Product"
+            android:text="Details Product"
             android:layout_marginBottom="10dp"/>
 
         <TextView
@@ -42,9 +37,25 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black"
+            android:text="Id Product" />
+        <TextView
+            android:id="@+id/txtDtpIdProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="Branch" />
-        <Spinner
-            android:id="@+id/spBranch"
+        <TextView
+            android:id="@+id/txtDtpBranch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -59,8 +70,8 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Name Product" />
-        <EditText
-            android:id="@+id/edtNameProduct"
+        <TextView
+            android:id="@+id/txtDtpNameProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -70,16 +81,10 @@
             />
 
         <ImageView
-            android:id="@+id/imgSelectedProduct"
+            android:id="@+id/imgDtpProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:srcCompat="@mipmap/ic_launcher" />
-        <Button
-            android:id="@+id/btnSelectImgProduct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Image From Galerry"
-            android:layout_marginBottom="10dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -88,8 +93,8 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Price" />
-        <EditText
-            android:id="@+id/edtPriceProduct"
+        <TextView
+            android:id="@+id/txtDtpPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -106,8 +111,8 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Description" />
-        <EditText
-            android:id="@+id/edtDescriptionProduct"
+        <TextView
+            android:id="@+id/txtDtpDescription"
             android:layout_width="match_parent"
             android:layout_height="147dp"
             android:hint="Description of product"
@@ -122,8 +127,8 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Type" />
-        <EditText
-            android:id="@+id/edtTypeOfProduct"
+        <TextView
+            android:id="@+id/txtDtpType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Type of product"
@@ -138,8 +143,8 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Sale" />
-        <EditText
-            android:id="@+id/edtSaleOfProduct"
+        <TextView
+            android:id="@+id/txtDtpSale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Sale of product"
@@ -147,14 +152,6 @@
             android:inputType="number"
             android:textColor="@color/black"
             android:textSize="16sp" />
-
-
-        <Button
-            android:id="@+id/btnSubmitAddProduct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add"
-            />
     </LinearLayout>
 
 </ScrollView>

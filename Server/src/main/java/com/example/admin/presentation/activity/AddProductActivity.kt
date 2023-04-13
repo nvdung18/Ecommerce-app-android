@@ -112,20 +112,24 @@ class AddProductActivity : AppCompatActivity() {
         binding.btnSelectImgProduct.setOnClickListener {
             selectImgProduct()
         }
+
+        binding.imgBtnAddProductBack.setOnClickListener {
+            back()
+        }
     }
 
 //    Create new Id for product
     private fun createNewIDProduct(latestIdProduct: String) {
-//        split id to get number of id
-    val numPart=latestIdProduct.split("SP")
+    //        split id to get number of id
+        val numPart=latestIdProduct.split("SP")
 
-//        create new id, if sizeOfListProduct==0, we don't need to create new ID because db product is null, so we just need add into db
-    var newNum=numPart[1].toInt()+1
-    if(newNum<10 && sizeOfListProduct!=0){
-        newIdProduct="SP0"+newNum.toString()
-    }else if(newNum>=10 && sizeOfListProduct!=0){
-        newIdProduct="SP"+newNum.toString()
-    }
+    //        create new id, if sizeOfListProduct==0, we don't need to create new ID because db product is null, so we just need add into db
+        var newNum=numPart[1].toInt()+1
+        if(newNum<10 && sizeOfListProduct!=0){
+            newIdProduct="SP0"+newNum.toString()
+        }else if(newNum>=10 && sizeOfListProduct!=0){
+            newIdProduct="SP"+newNum.toString()
+        }
     }
 
 //    Selected Img for Product
@@ -155,9 +159,8 @@ class AddProductActivity : AppCompatActivity() {
     uploadImg { downloadUrl ->
         Log.e("imgUrl", downloadUrl)
         imgUrl=downloadUrl
-    }
 
-    Timer().schedule(4000){
+//
         val branchSelected = branchSelected
         val nameProduct = binding.edtNameProduct.text.toString()
         val priceProduct = binding.edtPriceProduct.text.toString().toDouble()
@@ -177,9 +180,31 @@ class AddProductActivity : AppCompatActivity() {
         if(progressDialog.isShowing){
             progressDialog.dismiss()
         }
-
-
     }
+
+//    Timer().schedule(4000){
+//        val branchSelected = branchSelected
+//        val nameProduct = binding.edtNameProduct.text.toString()
+//        val priceProduct = binding.edtPriceProduct.text.toString().toDouble()
+//        val descriptionProduct = binding.edtDescriptionProduct.text.toString()
+//        val typeOfProduct = binding.edtTypeOfProduct.text.toString()
+//        val saleOfProduct = binding.edtSaleOfProduct.text.toString().toFloat()
+//
+//        val product = ProductEntity(newIdProduct, nameProduct, imgUrl, priceProduct, descriptionProduct, typeOfProduct, saleOfProduct, 0, branchSelected)
+//        // Set notification after we add new product
+//        Log.e("Prouct", product.toString())
+//        viewModel.insert(product)
+//        runOnUiThread {
+//            Toast.makeText(this@AddProductActivity," Add Product Successful", Toast.LENGTH_SHORT).show()
+//        }
+//        val i=Intent(this@AddProductActivity,ProductActivity::class.java)
+//        startActivity(i)
+//        if(progressDialog.isShowing){
+//            progressDialog.dismiss()
+//        }
+//
+//
+//    }
 
 
 
@@ -208,6 +233,11 @@ class AddProductActivity : AppCompatActivity() {
             }
             Toast.makeText(this,"Upload image Failed", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun back() {
+        var intent=Intent(this,ProductActivity::class.java)
+        startActivity(intent)
     }
 
 }

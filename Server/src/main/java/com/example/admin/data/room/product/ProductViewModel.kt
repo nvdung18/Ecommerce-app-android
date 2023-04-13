@@ -36,5 +36,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         productDao.insertProduct(product)
     }
 
+    fun deleteProduct(product:ProductEntity)=viewModelScope.launch (Dispatchers.IO){
+        productDao.deleteProduct(product)
+    }
+
 
 }

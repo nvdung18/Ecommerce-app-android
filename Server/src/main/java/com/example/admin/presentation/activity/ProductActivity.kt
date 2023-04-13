@@ -3,6 +3,7 @@ package com.example.admin.presentation.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +19,10 @@ import com.example.admin.databinding.ActivityBranchBinding
 import com.example.admin.databinding.ActivityProductBinding
 import com.example.admin.presentation.adapter.BranchAdapter
 import com.example.admin.presentation.adapter.ProductAdapter
+import com.example.admin.presentation.adapter.ProductItemClickAdapter
+import com.google.gson.Gson
 
-class ProductActivity: AppCompatActivity() {
+class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
     private lateinit var binding: ActivityProductBinding
     private lateinit var viewModel: ProductViewModel
     private lateinit var adapter: ProductAdapter
@@ -44,6 +47,7 @@ class ProductActivity: AppCompatActivity() {
 
     private fun initComponents() {
         adapter=ProductAdapter(this)
+        adapter.setListener(this)
         binding.rvAllProduct.adapter=adapter
         binding.rvAllProduct.layoutManager=LinearLayoutManager(
             this,
@@ -53,7 +57,16 @@ class ProductActivity: AppCompatActivity() {
         binding.btnAddProduct.setOnClickListener {
             addProductActivity()
         }
+
+        binding.imgBtnProductBack.setOnClickListener {
+            back()
+        }
 //        addSampleProduct()
+    }
+
+    private fun back() {
+        var intent=Intent(this,MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun addProductActivity() {
@@ -66,6 +79,27 @@ class ProductActivity: AppCompatActivity() {
         var intent=Intent(this,AddProductActivity::class.java)
         intent.putExtra("latestIdProduct",latestIdProduct)
         intent.putExtra("sizeOfListProduct",listProduct!!.size)
+        startActivity(intent)
+    }
+
+    override fun onItemDeleteClick(product: ProductEntity) {
+        viewModel.deleteProduct(product)
+        Toast.makeText(this,"Delete Successfully", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemUpdateClick(product: ProductEntity) {
+        var intent=Intent(this,EditProduct::class.java)
+        val gson = Gson()
+        val productJson = gson.toJson(product)
+        intent.putExtra("product",productJson)
+        startActivity(intent)
+    }
+
+    override fun onDetailsItemClick(product: ProductEntity){
+        var intent=Intent(this,DetailsProductActivity::class.java)
+        val gson = Gson()
+        val productJson = gson.toJson(product)
+        intent.putExtra("product",productJson)
         startActivity(intent)
     }
 

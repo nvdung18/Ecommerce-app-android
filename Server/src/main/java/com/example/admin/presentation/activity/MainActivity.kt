@@ -46,6 +46,23 @@ class MainActivity : AppCompatActivity() {
         binding.imgBranch.setOnClickListener {
             branchActivity()
         }
+
+        binding.imgOrder.setOnClickListener {
+            orderActivity()
+        }
+
+        binding.imgReceipt.setOnClickListener {
+            receiptActivity()
+        }
+
+        binding.imgRev.setOnClickListener {
+            revenueActivity()
+        }
+    }
+
+    private fun revenueActivity() {
+        var i = Intent(this,RevenueActivity::class.java)
+        startActivity(i)
     }
 
     private fun branchActivity() {
@@ -60,6 +77,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun productActivity() {
         val i=Intent(this,ProductActivity::class.java)
+        startActivity(i)
+    }
+
+    private fun orderActivity(){
+        val i=Intent(this,OrderActivity::class.java)
+        i.putExtra("fun","Order")//to determine we will click on order or receipt to show correct interface
+                                            //, because order and receipt use same the activity, just a little bit change about interface
+        startActivity(i)
+    }
+
+    private fun receiptActivity() {
+        var i = Intent(this,OrderActivity::class.java)
+        i.putExtra("fun","Receipt")//to determine we will click on order or receipt to show correct interface
+                                            //, because order and receipt use same the activity, just a little bit change about interface
         startActivity(i)
     }
 }

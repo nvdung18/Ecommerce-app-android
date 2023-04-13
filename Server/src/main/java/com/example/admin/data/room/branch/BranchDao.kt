@@ -1,9 +1,8 @@
 package com.example.admin.data.room.branch
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import com.example.admin.data.model.Branch
 
 @Dao
 interface BranchDao {
@@ -12,6 +11,12 @@ interface BranchDao {
 
     @Insert()
     fun insertBranch(branch:BranchEntity)
+
+    @Delete()
+    fun deleteBranch(branch: BranchEntity)
+
+    @Update
+    fun updateBranch(branch:BranchEntity)
 
     @Query("SELECT * FROM Branch order by idBranch asc")
     fun getAllBranchOrderASC():LiveData<List<BranchEntity>>

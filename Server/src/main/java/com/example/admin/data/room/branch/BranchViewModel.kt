@@ -23,4 +23,12 @@ class BranchViewModel(application: Application) : AndroidViewModel(application) 
         branchDao.insertBranch(branch)
     }
 
+    fun updateBranch(branch:BranchEntity)=viewModelScope.launch (Dispatchers.IO){
+        branchDao.updateBranch(branch)
+    }
+
+    fun deleteBranch(branch: BranchEntity)=viewModelScope.launch (Dispatchers.IO){
+        branchDao.deleteBranch(branch)
+    }
+
 }

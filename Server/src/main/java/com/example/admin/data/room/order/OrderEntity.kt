@@ -9,7 +9,7 @@ import com.example.admin.data.room.payment.PaymentEntity
 import com.example.admin.data.room.promocode.PromocodeEntity
 import com.example.admin.data.room.checkout.CheckoutEntity
 
-@Entity(tableName = "Order", foreignKeys = [ForeignKey(
+@Entity(tableName = "OrderTable", foreignKeys = [ForeignKey(
     entity = AccountEntity::class,
     parentColumns = ["idAccount"],
     childColumns = ["idAccount"],

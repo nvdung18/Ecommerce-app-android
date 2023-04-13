@@ -13,7 +13,7 @@
         android:padding="16dp"
         android:orientation="vertical">
         <ImageButton
-            android:id="@+id/imgBtnAddBranchBack"
+            android:id="@+id/imgBtnEditBranchBack"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@color/background"
@@ -27,25 +27,25 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/black"
-            android:text="Add Branch"
+            android:text="Edit Branch"
             android:layout_marginBottom="10dp"/>
 
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="16sp"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:text="Id Branch" />-->
-<!--        <EditText-->
-<!--            android:id="@+id/edtIdBranch"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="16sp"-->
-<!--            android:hint="Id Branch"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            />-->
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textSize="16sp"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:text="Id Branch" />-->
+        <!--        <EditText-->
+        <!--            android:id="@+id/edtIdBranch"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textSize="16sp"-->
+        <!--            android:hint="Id Branch"-->
+        <!--            android:layout_marginBottom="10dp"-->
+        <!--            />-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,10 +63,10 @@
             />
 
         <Button
-            android:id="@+id/btnAddBranch"
+            android:id="@+id/btnUpdateBranch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="Update"
             />
     </LinearLayout>
 
