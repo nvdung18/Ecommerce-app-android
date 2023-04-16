@@ -2,6 +2,7 @@ package com.example.admin.data.room.cartDetails
 
 import androidx.room.*
 import com.example.admin.data.model.CartDetailsAndProduct
+import com.example.admin.data.model.CartDetailsAndProductAndBranch
 
 @Dao
 interface CartDetailsDao {
@@ -9,8 +10,8 @@ interface CartDetailsDao {
     @Insert
     fun insertCardDetail(cart: CartDetailsEntity): Long
 
-    @Query("Select * from CartDetails inner join Product on CartDetails.idProduct = Product.idProduct Where idCart = :idCart")
-    fun queryAllCartDetails_Product(idCart: String): List<CartDetailsAndProduct>
+    @Query("Select * from CartDetails inner join Product on CartDetails.idProduct = Product.idProduct inner join Branch on Product.idBranch = Branch.idBranch  Where idCart = :idCart")
+    fun queryAllCartDetails_Product(idCart: String): List<CartDetailsAndProductAndBranch>
 
     @Update
     fun updateProductInCartDetails(cart: CartDetailsEntity): Int

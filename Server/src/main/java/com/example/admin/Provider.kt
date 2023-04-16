@@ -10,6 +10,7 @@ import android.net.Uri
 import android.util.Log
 import com.example.admin.data.model.BrandAndModel
 import com.example.admin.data.model.CartDetailsAndProduct
+import com.example.admin.data.model.CartDetailsAndProductAndBranch
 import com.example.admin.data.room.AppDatabase
 import com.example.admin.data.room.account.AccountEntity
 import com.example.admin.data.room.branch.BranchEntity
@@ -238,6 +239,15 @@ class Provider: ContentProvider() {
                 }
                 return ContentUris.withAppendedId(uri, cartDetail)
 
+            }
+            6 -> {
+//                val checkoutDao = AppDatabase.getInstance(context!!).checkoutDao()
+//                val idCheckout = getIdCheckoutAuto()
+//                val recipientName =
+//                val recipientPhoneNumber =
+//                val recipientEmail =
+//                val recipientAddress =
+//                val idAccount =
             }
             10 -> {
 
@@ -517,7 +527,7 @@ class Provider: ContentProvider() {
         return cursor
     }
 
-    private fun getCartDetails_Product(listcartdetailsProduct: List<CartDetailsAndProduct>): Cursor? {
+    private fun getCartDetails_Product(listcartdetailsProduct: List<CartDetailsAndProductAndBranch>): Cursor? {
         val cursor = MatrixCursor(
             arrayOf<String>(
                 "quantity",
@@ -530,7 +540,8 @@ class Provider: ContentProvider() {
                 "type",
                 "sale",
                 "soldQuantity",
-                "idBranch"
+                "idBranch",
+                "nameBranch"
             )
         )
 
@@ -548,7 +559,8 @@ class Provider: ContentProvider() {
                         cartdetails_product.type,
                         cartdetails_product.sale,
                         cartdetails_product.soldQuantity,
-                        cartdetails_product.idBranch
+                        cartdetails_product.idBranch,
+                        cartdetails_product.nameBranch
                     )
                 )
             }

@@ -1,6 +1,7 @@
 package com.example.ecommerce_app.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Bundle
@@ -12,18 +13,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommerce_app.R
+import com.example.ecommerce_app.activity.AllProductActivity
+import com.example.ecommerce_app.activity.CheckoutActivity
 import com.example.ecommerce_app.adapter.CartAdapter
 import com.example.ecommerce_app.adapter.CartItemClickAdapter
 import com.example.ecommerce_app.adapter.ProductAdapter
 import com.example.ecommerce_app.databinding.FragmentBagBinding
+import com.example.ecommerce_app.models.BrandAndModel
 import com.example.ecommerce_app.models.CartDetailsAndProduct
+import com.example.ecommerce_app.models.CartDetailsAndProductAndBranch
 
 
 class BagFragment : Fragment(), CartItemClickAdapter {
 
     private lateinit var binding: FragmentBagBinding
     lateinit var cartAdapter: CartAdapter
-    lateinit var cartList: ArrayList<CartDetailsAndProduct>
+    lateinit var listBranchModel : ArrayList<BrandAndModel>
+    lateinit var cartList: ArrayList<CartDetailsAndProductAndBranch>
     val uri_CartDetails: Uri = Uri.parse("content://com.example.admin/CartDetails")
     val uri_cart: Uri = Uri.parse("content://com.example.admin/Cart")
     val uri_account: Uri = Uri.parse("content://com.example.admin/account")
@@ -39,6 +45,7 @@ class BagFragment : Fragment(), CartItemClickAdapter {
         // Inflate the layout for this fragment
         binding = FragmentBagBinding.inflate(LayoutInflater.from(context), container, false)
         cartList = ArrayList()
+        listBranchModel = ArrayList()
         getDataCardDetailsFromDatabase()
         cartAdapter = CartAdapter(activity as Context, cartList, this)
 
@@ -60,6 +67,16 @@ class BagFragment : Fragment(), CartItemClickAdapter {
             adapter = cartAdapter
         }
         binding.totalPriceBagFrag.text = cartAdapter.getPrice().toString()
+
+        binding.checkOutBagPage.setOnClickListener {
+            val intent = Intent(activity as Context, CheckoutActivity::class.java)
+            val bundle = Bundle()
+            bundle.putSerializable("ARRAYLIST", cartAdapter.cartList)
+            intent.putExtra("coverProduct", bundle)
+            startActivity(intent)
+            activity!!.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
+        }
         return binding.root
     }
 
@@ -80,13 +97,14 @@ class BagFragment : Fragment(), CartItemClickAdapter {
                     val sale = cursor.getString(cursor.getColumnIndexOrThrow("sale")).toFloat()
                     val soldQuantity = cursor.getString(cursor.getColumnIndexOrThrow("soldQuantity")).toInt()
                     val idBranch = cursor.getString(cursor.getColumnIndexOrThrow("idBranch"))
-                    cartList.add(CartDetailsAndProduct(quantity, idCart, idProduct, nameProduct, image, price, description, type, sale, soldQuantity, idBranch))
+                    val nameBranch = cursor.getString(cursor.getColumnIndexOrThrow("nameBranch"))
+                    cartList.add(CartDetailsAndProductAndBranch(quantity, idCart, idProduct, nameProduct, image, price, description, type, sale, soldQuantity, idBranch, nameBranch))
                 } while (cursor.moveToNext())
             }
         }
     }
 
-    override fun onItemDeleteClick(product: CartDetailsAndProduct) {
+    override fun onItemDeleteClick(product: CartDetailsAndProductAndBranch) {
         context?.contentResolver?.delete(uri_CartDetails, "idCart = ? and idProduct = ? and quantity = ?", arrayOf(product.idCart, product.idProduct, product.quantity.toString()))
     }
 
