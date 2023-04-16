@@ -58,6 +58,34 @@ class MainActivity : AppCompatActivity() {
         binding.imgRev.setOnClickListener {
             revenueActivity()
         }
+
+        binding.imgPromocode.setOnClickListener {
+            promocodeActivity()
+        }
+
+        binding.imgLogout.setOnClickListener {
+            loginActivity()
+        }
+
+        binding.imgAccount.setOnClickListener {
+            accountActivity()
+        }
+    }
+
+    private fun accountActivity() {
+        var i = Intent(this,AccountActivity::class.java)
+        startActivity(i)
+    }
+
+    private fun loginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+    }
+
+    private fun promocodeActivity() {
+        var i = Intent(this,PromoCodeActivity::class.java)
+        startActivity(i)
     }
 
     private fun revenueActivity() {

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.admin.data.model.OrderDetailsAndProduct
 import com.example.admin.data.room.AppDatabase
 import com.example.admin.data.room.branch.BranchDao
 import com.example.admin.data.room.branch.BranchEntity
@@ -38,6 +39,14 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     fun deleteProduct(product:ProductEntity)=viewModelScope.launch (Dispatchers.IO){
         productDao.deleteProduct(product)
+    }
+
+    fun updateProduct(product:ProductEntity)=viewModelScope.launch (Dispatchers.IO){
+        productDao.updateProduct(product)
+    }
+
+    fun getProductAndOrderDtById(idProduct:String):List<OrderDetailsAndProduct>{
+        return productDao.getProductJoinOrDetailsById(idProduct)
     }
 
 

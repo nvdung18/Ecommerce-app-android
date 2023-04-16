@@ -12,12 +12,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.admin.R
-import com.example.admin.data.model.Product
-import com.example.admin.data.room.branch.BranchEntity
+import com.example.admin.data.model.OrderDetailsAndProduct
 import com.example.admin.data.room.product.ProductEntity
-import com.example.admin.presentation.activity.ProductDetailsActivity
+import com.example.admin.data.room.product.ProductViewModel
 
-class ProductAdapter(private val ctx: Context):RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(private val ctx: Context,private val viewModel: ProductViewModel):RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
     private val productList:ArrayList<ProductEntity> = arrayListOf()
 
     private var listener: ProductItemClickAdapter? = null
@@ -35,6 +34,7 @@ class ProductAdapter(private val ctx: Context):RecyclerView.Adapter<ProductAdapt
 
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view=LayoutInflater.from(parent.context).inflate(R.layout.single_product,parent,false)
         return ProductViewHolder(view)
@@ -48,8 +48,19 @@ class ProductAdapter(private val ctx: Context):RecyclerView.Adapter<ProductAdapt
             .load(productItem.image)
             .into(holder.imgSigleProduct)
 
-        holder.btnDeleteProduct.setOnClickListener {
-            deleteBranch(productItem)
+        var listOrderDtAndProduct = viewModel.getProductAndOrderDtById(productItem.idProduct)
+        var checkProductNullOrder:Boolean=true// If true, there are no orders and receipt for this product => we can delete this product
+        if(!listOrderDtAndProduct.isEmpty()) checkProductNullOrder=false
+//        Log.e("a",listOrderDtAndProduct.toString())
+//        Log.e("Id: ",productItem.idProduct.toString()+" "+checkProductNullOrder.toString())
+
+
+        if(checkProductNullOrder==false){
+            holder.btnDeleteProduct.isEnabled=false
+        }else{
+            holder.btnDeleteProduct.setOnClickListener {
+                deleteBranch(productItem)
+            }
         }
 
         holder.btnDetailsProduct.setOnClickListener {

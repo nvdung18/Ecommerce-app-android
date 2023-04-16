@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ecommerce_app">
         <activity
+            android:name=".AccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditProduct"
             android:exported="false" />
         <activity
@@ -64,6 +67,7 @@
         <activity android:name=".presentation.activity.EditBranch" />
         <activity android:name=".presentation.activity.DetailsProductActivity" />
         <activity android:name=".presentation.activity.EditProduct" />
+        <activity android:name=".presentation.activity.AccountActivity" />
         <activity
             android:name=".presentation.activity.MainActivity"
             android:exported="true">

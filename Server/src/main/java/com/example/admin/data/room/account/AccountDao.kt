@@ -1,13 +1,12 @@
 package com.example.admin.data.room.account
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
 interface AccountDao {
-
+    @Query("Select * from account order by idAccount desc")
+    fun getAllAccountSer():LiveData<List<AccountEntity>>
     @Insert
     fun insertAccount(accountEntity: AccountEntity)
 
@@ -31,6 +30,7 @@ interface AccountDao {
 
     @Query("Update account set token = :token WHERE idAccount = :idAccount")
     fun updateTokenAccount(token: String, idAccount: String): Int
+
 
     @Query("Select * from account WHERE idUser = :idUser")
     fun queryAccountByidUser(idUser: String): AccountEntity

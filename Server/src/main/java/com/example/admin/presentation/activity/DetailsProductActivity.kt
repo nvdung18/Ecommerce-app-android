@@ -10,10 +10,13 @@ import com.example.admin.data.room.product.ProductEntity
 import com.example.admin.databinding.ActivityDetailsProductBinding
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 class DetailsProductActivity : AppCompatActivity() {
     private lateinit var binding:ActivityDetailsProductBinding
     private lateinit var productItem:ProductEntity
+    private lateinit var def:DecimalFormat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_product)
@@ -46,11 +49,17 @@ class DetailsProductActivity : AppCompatActivity() {
     }
 
     private fun setInformationProduct() {
+        def = DecimalFormat("#,###.###")//use to format number like this: 100.000
+        def.decimalFormatSymbols = DecimalFormatSymbols().apply {
+            groupingSeparator = '.'
+            decimalSeparator = ','
+        }
+
         binding.txtDtpIdProduct.text=productItem.idProduct
         binding.txtDtpBranch.text=productItem.idBranch
         binding.txtDtpNameProduct.text=productItem.nameProduct
         Glide.with(this).load(productItem.image).into(binding.imgDtpProduct)
-        binding.txtDtpPrice.text=productItem.price.toString()
+        binding.txtDtpPrice.text=def.format(productItem.price).toString()
         binding.txtDtpDescription.text=productItem.description
         binding.txtDtpSale.text=productItem.sale.toString()
         binding.txtDtpType.text=productItem.type

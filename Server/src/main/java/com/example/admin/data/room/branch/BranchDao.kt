@@ -3,6 +3,7 @@ package com.example.admin.data.room.branch
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.admin.data.model.Branch
+import com.example.admin.data.model.BrandAndModel
 
 @Dao
 interface BranchDao {
@@ -23,5 +24,8 @@ interface BranchDao {
     
      @Query("SELECT * FROM Branch order by idBranch desc")
     fun getAllBranchNotLive(): List<BranchEntity>
+
+    @Query("Select * from Product inner join Branch on Product.idBranch = Branch.idBranch Where Product.idBranch=:idBranch")
+    fun getProductAndBranchById(idBranch:String):List<BrandAndModel>
 }
 

@@ -28,7 +28,6 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
         binding= ActivityBranchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initComponents()
 
         viewModel=ViewModelProviders.of(this).get(BranchViewModel::class.java)
 
@@ -38,10 +37,11 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
             }
         })
 
+        initComponents()
     }
 
     private fun initComponents() {
-        adapter= BranchAdapter(this)
+        adapter= BranchAdapter(this,viewModel)
         adapter.setListener(this)
         binding.rvAllBranch.adapter=adapter
         binding.rvAllBranch.layoutManager= LinearLayoutManager(

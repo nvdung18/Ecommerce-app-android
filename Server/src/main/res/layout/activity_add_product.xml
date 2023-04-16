@@ -81,6 +81,14 @@
             android:text="Select Image From Galerry"
             android:layout_marginBottom="10dp"/>
 
+        <Button
+            android:id="@+id/btnSelectImgProductDefault"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Image default"
+            android:layout_marginBottom="10dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

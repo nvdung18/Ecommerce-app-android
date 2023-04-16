@@ -11,10 +11,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.admin.R
 import com.example.admin.data.room.branch.BranchEntity
+import com.example.admin.data.room.branch.BranchViewModel
 import com.example.admin.databinding.SingleBranchBinding
 import com.example.admin.presentation.activity.BranchActivity
 
-class BranchAdapter(private val ctx: Context): RecyclerView.Adapter<BranchAdapter.BranchViewHolder>() {
+class BranchAdapter(private val ctx: Context,private var viewModel: BranchViewModel): RecyclerView.Adapter<BranchAdapter.BranchViewHolder>() {
     private val branchList:ArrayList<BranchEntity> = arrayListOf()
      class BranchViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val txtIdBranch=itemView.findViewById<TextView>(R.id.txtIdBranch)
@@ -39,8 +40,16 @@ class BranchAdapter(private val ctx: Context): RecyclerView.Adapter<BranchAdapte
         holder.txtIdBranch.text=branchItem.idBranch
         holder.txtNameBranch.text=branchItem.nameBranch
 
-        holder.btnDeleteBranch.setOnClickListener {
-            deleteBranch(branchItem)
+        var listOrderDtAndProduct = viewModel.getProductAndBranchBtId(branchItem.idBranch)
+        var checkBranchNullProduct:Boolean=true// If true, there are no orders and receipt for this product => we can delete this product
+        if(!listOrderDtAndProduct.isEmpty()) checkBranchNullProduct=false
+
+        if(checkBranchNullProduct==false){
+            holder.btnDeleteBranch.isEnabled=false
+        }else{
+            holder.btnDeleteBranch.setOnClickListener {
+                deleteBranch(branchItem)
+            }
         }
 
         holder.btnEditBranch.setOnClickListener {

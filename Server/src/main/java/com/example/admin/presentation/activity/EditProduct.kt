@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -23,18 +24,22 @@ import com.google.common.reflect.TypeToken
 import com.google.firebase.storage.StorageReference
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 class EditProduct : AppCompatActivity() {
     private lateinit var binding:ActivityEditProductBinding
     private lateinit var viewModel: ProductViewModel
     private lateinit var productItem:ProductEntity
     private lateinit var bindingInclude: ActivityAddProductBinding
+    private lateinit var def:DecimalFormat
 
     private var listBranch= mutableListOf<BranchEntity>()
     private var listNameBranch= mutableListOf<String>()
     private lateinit var imgUri: Uri
     private lateinit var storageReference: StorageReference
-    private var checkImgChange=0 //if checkImgChange==0, it's mean the image has been loaded from db => not change
+    private var checkImgChange=0 //if checkImgChange==0, it's mean the image has been loaded from db and it is default img, if checkImgChange==1 the img be changed.
+                                // So if img change we will add it into firebase store
 
     private lateinit var branchSelected:String // when we choose a branch from spinner, we save it in this variable for SubmitAddProduct func when we add product
     // (we will save idBranch)
@@ -86,31 +91,67 @@ class EditProduct : AppCompatActivity() {
             SelectImgProduct()
         }
 
-        var currentDrawable: Drawable? = bindingInclude.imgSelectedProduct.drawable
-        bindingInclude.imgSelectedProduct.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-            val newDrawable = bindingInclude.imgSelectedProduct.drawable
-            if (newDrawable != null && newDrawable != currentDrawable) {
-                // The image has changed
-                // Check if the new image is the same as the old image
-                if (newDrawable.constantState == currentDrawable?.constantState) {
-                    Log.e("a","Same")
-                    // The new image is the same as the old image
-                } else {
-                    // The new image is different from the old image
-                    Log.e("a","new")
-                }
 
-                // Update the currentDrawable variable to the new Drawable
-                currentDrawable = newDrawable
-            }
+        bindingInclude.btnSelectImgProductDefault.setOnClickListener {
+            checkImgChange=0;
+            Glide.with(this).load(productItem.image).into(bindingInclude.imgSelectedProduct)
+            Log.e("check",checkImgChange.toString())
         }
-
     }
 
     private fun SubmitUpdateProduct() {
         progressDialog= ProgressDialog(this)
-        progressDialog.setTitle("Add new Product......")
+        progressDialog.setTitle("Update Product......")
         progressDialog.show()
+
+        var product=productItem
+        val idProduct=productItem.idProduct
+        val branchSelected = branchSelected
+        val nameProduct = bindingInclude.edtNameProduct.text.toString()
+        val priceProduct = bindingInclude.edtPriceProduct.text.toString().toDouble()
+        val descriptionProduct = bindingInclude.edtDescriptionProduct.text.toString()
+        val typeOfProduct = bindingInclude.edtTypeOfProduct.text.toString()
+        val saleOfProduct = bindingInclude.edtSaleOfProduct.text.toString().toFloat()
+        if(checkImgChange==0){
+            product = ProductEntity(idProduct, nameProduct, productItem.image, priceProduct, descriptionProduct, typeOfProduct, saleOfProduct, 0, branchSelected)
+            viewModel.updateProduct(product)
+            runOnUiThread {
+                Toast.makeText(this@EditProduct," Update Product Successful", Toast.LENGTH_SHORT).show()
+            }
+            val i=Intent(this@EditProduct,ProductActivity::class.java)
+            startActivity(i)
+            if(progressDialog.isShowing){
+                progressDialog.dismiss()
+            }
+        }else{
+            var imgUrl=""
+            var AddProductActivity=AddProductActivity()
+            AddProductActivity.uploadImg(imgUri){ downloadUrl ->
+                Log.e("imgUrl", downloadUrl)
+                imgUrl=downloadUrl
+
+//
+                val branchSelected = branchSelected
+                val nameProduct = bindingInclude.edtNameProduct.text.toString()
+                val priceProduct = bindingInclude.edtPriceProduct.text.toString().toDouble()
+                val descriptionProduct = bindingInclude.edtDescriptionProduct.text.toString()
+                val typeOfProduct = bindingInclude.edtTypeOfProduct.text.toString()
+                val saleOfProduct = bindingInclude.edtSaleOfProduct.text.toString().toFloat()
+
+                product = ProductEntity(idProduct, nameProduct, imgUrl, priceProduct, descriptionProduct, typeOfProduct, saleOfProduct, 0, branchSelected)
+                // Set notification after we add new product
+                Log.e("Product", product.toString())
+                viewModel.updateProduct(product)
+                runOnUiThread {
+                    Toast.makeText(this@EditProduct," Update Product Successful", Toast.LENGTH_SHORT).show()
+                }
+                val i=Intent(this@EditProduct,ProductActivity::class.java)
+                startActivity(i)
+                if(progressDialog.isShowing){
+                    progressDialog.dismiss()
+                }
+            }
+        }
 
 
     }
@@ -128,10 +169,20 @@ class EditProduct : AppCompatActivity() {
         if(requestCode==100 && data!=null&& data.data!=null){
             imgUri= data.data!!
             bindingInclude.imgSelectedProduct.setImageURI(imgUri)
+            checkImgChange=1
+            bindingInclude.btnSelectImgProductDefault.visibility=View.VISIBLE
+
+            Log.e("check",checkImgChange.toString())
         }
     }
 
     private fun setInforProduct() {
+        def = DecimalFormat("#,###.###")//use to format number like this: 100.000
+        def.decimalFormatSymbols = DecimalFormatSymbols().apply {
+            groupingSeparator = '.'
+            decimalSeparator = ','
+        }
+
         //        set branch for spinner
         for (item in listBranch) {
             listNameBranch.add(item.nameBranch)
@@ -168,7 +219,7 @@ class EditProduct : AppCompatActivity() {
         bindingInclude.edtNameProduct.setText(productItem.nameProduct)
         bindingInclude.edtDescriptionProduct.setText(productItem.description)
         Glide.with(this).load(productItem.image).into(bindingInclude.imgSelectedProduct)
-        bindingInclude.edtPriceProduct.setText(productItem.price.toString())
+        bindingInclude.edtPriceProduct.setText(def.format(productItem.price).toString())
         bindingInclude.edtTypeOfProduct.setText(productItem.type)
         bindingInclude.edtSaleOfProduct.setText(productItem.sale.toString())
     }

@@ -156,7 +156,7 @@ class AddProductActivity : AppCompatActivity() {
         progressDialog.show()
 
     var imgUrl=""
-    uploadImg { downloadUrl ->
+    uploadImg(imgUri) { downloadUrl ->
         Log.e("imgUrl", downloadUrl)
         imgUrl=downloadUrl
 
@@ -211,7 +211,7 @@ class AddProductActivity : AppCompatActivity() {
     }
 
 //    Upload img into firebase
-    private fun uploadImg(callback: (String) -> Unit) {
+    public fun uploadImg(imgUri: Uri, callback: (String) -> Unit) {
         var downloadUrl =""
 
         var formatter = SimpleDateFormat( "yyyy_MM_dd_HH_mm_ss", Locale.CANADA);

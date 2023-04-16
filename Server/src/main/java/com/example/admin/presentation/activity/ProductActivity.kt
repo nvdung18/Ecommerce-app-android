@@ -34,8 +34,6 @@ class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
         binding= ActivityProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initComponents()
-
         viewModel= ViewModelProviders.of(this).get(ProductViewModel::class.java)
 
         viewModel.allProduct.observe(this,{List->
@@ -43,10 +41,12 @@ class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
                 adapter.updateList(it)
             }
         })
+
+        initComponents()
     }
 
     private fun initComponents() {
-        adapter=ProductAdapter(this)
+        adapter=ProductAdapter(this,viewModel)
         adapter.setListener(this)
         binding.rvAllProduct.adapter=adapter
         binding.rvAllProduct.layoutManager=LinearLayoutManager(

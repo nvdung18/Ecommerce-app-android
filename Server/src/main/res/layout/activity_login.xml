@@ -33,7 +33,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/edtEmail"
+            android:id="@+id/edtUsernameLogin"
             android:textSize="15sp"
             android:paddingLeft="20dp"
             android:drawableRight="@null"
@@ -41,15 +41,14 @@
             android:textColor="@color/mainText"
             android:background="@color/backgroundAd"
             android:fontFamily="@font/metropolis_regular"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
+            android:hint="User name"
             android:maxLines="1"
             />
         <EditText
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/edtPassword"
+            android:id="@+id/edtPasswordLogin"
             android:textSize="15sp"
             android:paddingLeft="20dp"
             android:drawableRight="@null"
