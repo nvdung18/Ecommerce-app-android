@@ -1,50 +1,106 @@
 package com.example.admin.presentation.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.admin.R
 import com.example.admin.data.model.Product
 import com.example.admin.data.room.AppDatabase
+import com.example.admin.data.room.branch.BranchEntity
+import com.example.admin.data.room.branch.BranchViewModel
 import com.example.admin.data.room.product.ProductEntity
+import com.example.admin.data.room.product.ProductViewModel
+import com.example.admin.databinding.ActivityBranchBinding
+import com.example.admin.databinding.ActivityProductBinding
+import com.example.admin.presentation.adapter.BranchAdapter
 import com.example.admin.presentation.adapter.ProductAdapter
+import com.example.admin.presentation.adapter.ProductItemClickAdapter
+import com.google.gson.Gson
 
-class ProductActivity: AppCompatActivity() {
+class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
+    private lateinit var binding: ActivityProductBinding
+    private lateinit var viewModel: ProductViewModel
+    private lateinit var adapter: ProductAdapter
+    private var latestIdProduct=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
 
-        val listProduct= mutableListOf<Product>()
-        listProduct.add(Product("1","hasf"))
-        listProduct.add(Product("2","hasf"))
-        listProduct.add(Product("3","hasf"))
-        listProduct.add(Product("4","hasf"))
-        listProduct.add(Product("5","hasf"))
-        listProduct.add(Product("6","hasf"))
-        listProduct.add(Product("7","hasf"))
-        listProduct.add(Product("8","hasf"))
-        listProduct.add(Product("9","hasf"))
-        listProduct.add(Product("10","hasf"))
+        binding= ActivityProductBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val adapter=ProductAdapter(listProduct)
-        var rvAllProduct=findViewById<RecyclerView>(R.id.rvAllProduct)
-        rvAllProduct.adapter=adapter
-        rvAllProduct.layoutManager=LinearLayoutManager(
+        viewModel= ViewModelProviders.of(this).get(ProductViewModel::class.java)
+
+        viewModel.allProduct.observe(this,{List->
+            List?.let {
+                adapter.updateList(it)
+            }
+        })
+
+        initComponents()
+    }
+
+    private fun initComponents() {
+        adapter=ProductAdapter(this,viewModel)
+        adapter.setListener(this)
+        binding.rvAllProduct.adapter=adapter
+        binding.rvAllProduct.layoutManager=LinearLayoutManager(
             this,
             LinearLayoutManager.VERTICAL,
             false
         )
+        binding.btnAddProduct.setOnClickListener {
+            addProductActivity()
+        }
 
-        initComponents()
-
-
+        binding.imgBtnProductBack.setOnClickListener {
+            back()
+        }
+//        addSampleProduct()
     }
 
-    private fun initComponents() {
+    private fun back() {
+        var intent=Intent(this,MainActivity::class.java)
+        startActivity(intent)
+    }
 
-//        addSampleProduct()
+    private fun addProductActivity() {
+        var listProduct=viewModel.allProduct.value
+        if (listProduct != null && listProduct.size>0) {
+            latestIdProduct= listProduct!![0].idProduct
+        }else{
+            latestIdProduct="SP01"
+        }
+        var intent=Intent(this,AddProductActivity::class.java)
+        intent.putExtra("latestIdProduct",latestIdProduct)
+        intent.putExtra("sizeOfListProduct",listProduct!!.size)
+        startActivity(intent)
+    }
+
+    override fun onItemDeleteClick(product: ProductEntity) {
+        viewModel.deleteProduct(product)
+        Toast.makeText(this,"Delete Successfully", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemUpdateClick(product: ProductEntity) {
+        var intent=Intent(this,EditProduct::class.java)
+        val gson = Gson()
+        val productJson = gson.toJson(product)
+        intent.putExtra("product",productJson)
+        startActivity(intent)
+    }
+
+    override fun onDetailsItemClick(product: ProductEntity){
+        var intent=Intent(this,DetailsProductActivity::class.java)
+        val gson = Gson()
+        val productJson = gson.toJson(product)
+        intent.putExtra("product",productJson)
+        startActivity(intent)
     }
 
     private fun addSampleProduct() {

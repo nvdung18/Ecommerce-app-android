@@ -14,7 +14,7 @@ import com.example.admin.data.room.branch.BranchViewModel
 import com.example.admin.databinding.ActivityAddBranchBinding
 
 class AddBranchActivity : AppCompatActivity() {
-    lateinit var binding:ActivityAddBranchBinding
+    private lateinit var binding:ActivityAddBranchBinding
     private lateinit var viewModel: BranchViewModel
     private var latestIdBranch:String=""
     private var sizeOfListBranch:Int=0 //to get size of List Branch
@@ -22,6 +22,9 @@ class AddBranchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_branch)
+
+        binding= ActivityAddBranchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 //        get data from Intent, particularly here is latest idBranch and depend on that to create new idBranch for new Branch
         val i=intent
@@ -35,6 +38,19 @@ class AddBranchActivity : AppCompatActivity() {
         initComponents()
     }
 
+    private fun initComponents() {
+        binding= ActivityAddBranchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.btnAddBranch.setOnClickListener {
+            addBranch()
+        }
+        binding.imgBtnAddBranchBack.setOnClickListener {
+            back()
+        }
+
+    }
+
     private fun createNewIDBranch(latestIdBranch:String) {
 //        split id to get number of id
         val numPart=latestIdBranch.split("B")
@@ -43,18 +59,15 @@ class AddBranchActivity : AppCompatActivity() {
         var newNum=numPart[1].toInt()+1
         if(newNum<10 && sizeOfListBranch!=0){
             newIdBranch="B0"+newNum.toString()
-        }else if(newNum>10 && sizeOfListBranch!=0){
+        }else if(newNum>=10 && sizeOfListBranch!=0){
             newIdBranch="B"+newNum.toString()
         }
+
     }
 
-    private fun initComponents() {
-        binding= ActivityAddBranchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.btnAddBranch.setOnClickListener {
-            addBranch()
-        }
+    private fun back() {
+        var intent=Intent(this,BranchActivity::class.java)
+        startActivity(intent)
     }
 
     private fun addBranch() {

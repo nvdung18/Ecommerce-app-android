@@ -1,14 +1,10 @@
 package com.example.admin.presentation.activity
 
-import android.content.ClipData.Item
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.admin.R
@@ -17,8 +13,10 @@ import com.example.admin.data.room.branch.BranchEntity
 import com.example.admin.data.room.branch.BranchViewModel
 import com.example.admin.databinding.ActivityBranchBinding
 import com.example.admin.presentation.adapter.BranchAdapter
+import com.example.admin.presentation.adapter.BranchItemClickAdapter
+import com.google.gson.Gson
 
-class BranchActivity : AppCompatActivity() {
+class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
     private lateinit var binding:ActivityBranchBinding
     private lateinit var viewModel: BranchViewModel
     private lateinit var adapter:BranchAdapter
@@ -30,16 +28,6 @@ class BranchActivity : AppCompatActivity() {
         binding= ActivityBranchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initComponents()
-//        var instance= AppDatabase.getInstance(this)
-//        val allBranch:LiveData<List<BranchEntity>> = instance.branchDao().getAllBranch()
-//        Log.e("a",allBranch.toString())
-//        branchDao.insertBranch(BranchEntity("b01","jfdf"))
-//        branchDao.insertBranch(BranchEntity("b02","edfsdf"))
-//        branchDao.insertBranch(BranchEntity("b03","fasdf"))
-//        branchDao.insertBranch(BranchEntity("b04","edfsdf"))
-//        branchDao.insertBranch(BranchEntity("b05","fasdf"))
-//        binding.branchViewModel=viewModel
 
         viewModel=ViewModelProviders.of(this).get(BranchViewModel::class.java)
 
@@ -49,22 +37,12 @@ class BranchActivity : AppCompatActivity() {
             }
         })
 
-//        binding.btnAddBranch.setOnClickListener {
-//            viewModel.changeDataList()
-//
-//            val adapter= BranchAdapter(viewModel.listBranch)
-//            Log.e("a",viewModel.listBranch[2].toString())
-//            binding.rvAllBranch.adapter=adapter
-//            binding.rvAllBranch.layoutManager= LinearLayoutManager(
-//                this,
-//                LinearLayoutManager.VERTICAL,
-//                false
-//            )
-//        }
+        initComponents()
     }
 
     private fun initComponents() {
-        adapter= BranchAdapter(this)
+        adapter= BranchAdapter(this,viewModel)
+        adapter.setListener(this)
         binding.rvAllBranch.adapter=adapter
         binding.rvAllBranch.layoutManager= LinearLayoutManager(
             this,
@@ -75,11 +53,18 @@ class BranchActivity : AppCompatActivity() {
         binding.btnAddBranch.setOnClickListener {
             addBranchActivity()
         }
+
+        binding.imgBtnBranchBack.setOnClickListener {
+            back()
+        }
+
+//        addSampleBranch()
     }
 
     private fun addBranchActivity() {
 //        viewModel.insert(BranchEntity("b08","asdjfjasf"))
         var listBranch=viewModel.allBranch.value
+
         if (listBranch != null && listBranch.size>0) {
             latestIdBranch= listBranch!![0].idBranch
         }else{
@@ -88,6 +73,41 @@ class BranchActivity : AppCompatActivity() {
         var intent=Intent(this,AddBranchActivity::class.java)
         intent.putExtra("latestIdBranch",latestIdBranch)
         intent.putExtra("sizeOfListBranch",listBranch!!.size)
+        startActivity(intent)
+
+    }
+
+    private fun back() {
+        var intent=Intent(this,MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun addSampleBranch(){
+        var branchDao=AppDatabase.getInstance(this).branchDao()
+        val branchList= mutableListOf<BranchEntity>()
+
+        branchList.add(BranchEntity("B01","YADOU"))
+        branchList.add(BranchEntity("B02","Lesac"))
+        branchList.add(BranchEntity("B03","ELLY"))
+        branchList.add(BranchEntity("B04","FLORALPUNK"))
+        branchList.add(BranchEntity("B05","Yuumy"))
+        branchList.add(BranchEntity("B06","IELGY"))
+
+        for (branch in branchList){
+            branchDao.insertBranch(branch)
+        }
+    }
+
+    override fun onItemDeleteClick(branch:BranchEntity){
+        viewModel.deleteBranch(branch)
+        Toast.makeText(this,"Delete successful", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemUpdateClick(branch:BranchEntity){
+        var intent=Intent(this,EditBranch::class.java)
+        val gson = Gson()
+        val branchJson = gson.toJson(branch)
+        intent.putExtra("branch",branchJson)
         startActivity(intent)
     }
 }

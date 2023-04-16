@@ -12,9 +12,15 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/imgBtnAddPromocodeBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@color/background"
+            app:srcCompat="@drawable/icons8_back_24" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/txtTitleAddPromocode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -32,6 +38,7 @@
             android:textColor="@color/black"
             android:text="Id Promocode" />
         <EditText
+            android:id="@+id/edtIdPromocode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -47,6 +54,7 @@
             android:textColor="@color/black"
             android:text="Discount Percent" />
         <EditText
+            android:id="@+id/edtDiscountPromocode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -63,6 +71,7 @@
             android:textColor="@color/black"
             android:text="Description" />
         <EditText
+            android:id="@+id/edtDescriptionPromocode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -72,6 +81,7 @@
             />
 
         <Button
+            android:id="@+id/btnAddPromocode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add"
