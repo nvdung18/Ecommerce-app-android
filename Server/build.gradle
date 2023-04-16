@@ -89,4 +89,7 @@ dependencies {
 //    firebase
     implementation 'com.google.firebase:firebase-core:20.0.0'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
+
+//    Json
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

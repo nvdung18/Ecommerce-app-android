@@ -18,5 +18,5 @@ data class WeeklyRevEntity (
     @ColumnInfo(name = "releaseDate") var releaseDate: Date = Date("18/10/2003"),
     @ColumnInfo(name = "revenue") var revenue:Double=0.0,
     @ColumnInfo(name = "quantity") var quantity:Int=0,
-    @ColumnInfo(name = "idDayRev") var idDayRev:Int=0
+    @ColumnInfo(name = "idDayRev") var idDayRev:Int=0 //like the position to determine the last day of the week and start new week
 )

@@ -1,25 +1,22 @@
 package com.example.admin.presentation.activity
 
-import android.content.ClipData.Item
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.admin.R
 import com.example.admin.data.room.AppDatabase
 import com.example.admin.data.room.branch.BranchEntity
 import com.example.admin.data.room.branch.BranchViewModel
-import com.example.admin.data.room.product.ProductEntity
 import com.example.admin.databinding.ActivityBranchBinding
 import com.example.admin.presentation.adapter.BranchAdapter
+import com.example.admin.presentation.adapter.BranchItemClickAdapter
+import com.google.gson.Gson
 
-class BranchActivity : AppCompatActivity() {
+class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
     private lateinit var binding:ActivityBranchBinding
     private lateinit var viewModel: BranchViewModel
     private lateinit var adapter:BranchAdapter
@@ -31,7 +28,6 @@ class BranchActivity : AppCompatActivity() {
         binding= ActivityBranchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initComponents()
 
         viewModel=ViewModelProviders.of(this).get(BranchViewModel::class.java)
 
@@ -41,10 +37,12 @@ class BranchActivity : AppCompatActivity() {
             }
         })
 
+        initComponents()
     }
 
     private fun initComponents() {
-        adapter= BranchAdapter(this)
+        adapter= BranchAdapter(this,viewModel)
+        adapter.setListener(this)
         binding.rvAllBranch.adapter=adapter
         binding.rvAllBranch.layoutManager= LinearLayoutManager(
             this,
@@ -54,6 +52,10 @@ class BranchActivity : AppCompatActivity() {
 
         binding.btnAddBranch.setOnClickListener {
             addBranchActivity()
+        }
+
+        binding.imgBtnBranchBack.setOnClickListener {
+            back()
         }
 
 //        addSampleBranch()
@@ -72,6 +74,12 @@ class BranchActivity : AppCompatActivity() {
         intent.putExtra("latestIdBranch",latestIdBranch)
         intent.putExtra("sizeOfListBranch",listBranch!!.size)
         startActivity(intent)
+
+    }
+
+    private fun back() {
+        var intent=Intent(this,MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun addSampleBranch(){
@@ -88,5 +96,18 @@ class BranchActivity : AppCompatActivity() {
         for (branch in branchList){
             branchDao.insertBranch(branch)
         }
+    }
+
+    override fun onItemDeleteClick(branch:BranchEntity){
+        viewModel.deleteBranch(branch)
+        Toast.makeText(this,"Delete successful", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemUpdateClick(branch:BranchEntity){
+        var intent=Intent(this,EditBranch::class.java)
+        val gson = Gson()
+        val branchJson = gson.toJson(branch)
+        intent.putExtra("branch",branchJson)
+        startActivity(intent)
     }
 }

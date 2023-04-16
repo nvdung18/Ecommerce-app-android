@@ -11,6 +11,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ecommerce_app">
         <activity
+            android:name=".AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditProduct"
+            android:exported="false" />
+        <activity
+            android:name=".DetailsProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditBranch"
+            android:exported="false" />
+        <activity
+            android:name=".RevenueActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailsOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.activity.OverViewActivity"
             android:exported="false" />
         <activity
@@ -40,6 +61,13 @@
         <activity android:name=".presentation.activity.LoginActivity" />
         <activity android:name=".presentation.activity.ProductActivity" />
         <activity android:name=".presentation.activity.ProductDetailsActivity" />
+        <activity android:name=".presentation.activity.OrderActivity" />
+        <activity android:name=".presentation.activity.DetailsOrderActivity" />
+        <activity android:name=".presentation.activity.RevenueActivity" />
+        <activity android:name=".presentation.activity.EditBranch" />
+        <activity android:name=".presentation.activity.DetailsProductActivity" />
+        <activity android:name=".presentation.activity.EditProduct" />
+        <activity android:name=".presentation.activity.AccountActivity" />
         <activity
             android:name=".presentation.activity.MainActivity"
             android:exported="true">
@@ -51,11 +79,11 @@
         </activity>
 
         <provider
-            android:authorities="com.example.admin"
             android:name=".Provider"
-            tools:replace="android:authorities"
+            android:authorities="com.example.admin"
             android:exported="true"
-            android:grantUriPermissions="true"/>
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities" />
     </application>
 
 </manifest>

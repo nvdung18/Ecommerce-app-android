@@ -16,7 +16,7 @@ import com.example.admin.data.room.account.AccountEntity
 data class CheckoutEntity (
     @PrimaryKey() var idCheckout: String="",
     @ColumnInfo(name = "recipientName") var recipientName:String="",
-    @ColumnInfo(name = "recipientPhoneNumber") var recipientPhoneNumber:Int=0,
+    @ColumnInfo(name = "recipientPhoneNumber") var recipientPhoneNumber:Int=1,
     @ColumnInfo(name = "recipientEmail") var recipientEmail:String="",
     @ColumnInfo(name = "recipientAddress") var recipientAddress:String="",
     @ColumnInfo(name = "idAccount") var idAccount:String=""
