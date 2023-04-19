@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ecommerce_app.R
+import com.example.ecommerce_app.activity.LoginActivity
 import com.example.ecommerce_app.activity.OrderActivity
 import com.example.ecommerce_app.databinding.FragmentProfileBinding
 
@@ -31,6 +32,11 @@ class ProfileFragment : Fragment() {
             var intent=Intent(activity as Context,OrderActivity::class.java)
             startActivity(intent)
         }
+
+//        binding.imgSettingProfile.setOnClickListener {
+//            var intent=Intent(activity as Context,LoginActivity::class.java)
+//            startActivity(intent)
+//        }
         // Inflate the layout for this fragment
         return binding.root
     }

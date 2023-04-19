@@ -31,7 +31,7 @@ class OrderUserFragment : Fragment {
     private lateinit var adapter:OrderUserAdapter
     private var listOrder=mutableListOf<OrderAndOrderdetails>()
     private var listProduct=mutableListOf<BrandAndModel>()
-    private var targetOrderList=mutableListOf<OrderAndOrderdetails>()//to get order depend on status
+    private var targetOrderList=mutableListOf<ArrayList<OrderAndOrderdetails>>()//to get order depend on status
     private val productMap= mutableMapOf<String, BrandAndModel>()
 
     companion object {
@@ -96,6 +96,8 @@ class OrderUserFragment : Fragment {
                     val idPayment=it.getString(cursor.getColumnIndexOrThrow("idPayment"))
                     val idPromoCode=it.getString(cursor.getColumnIndexOrThrow("idPromoCode"))
                     val idCheckout=it.getString(cursor.getColumnIndexOrThrow("idCheckout"))
+                    val discountPercent=it.getString(cursor.getColumnIndexOrThrow("discountPercent"))
+                    val description=it.getString(cursor.getColumnIndexOrThrow("description"))
                     //product
                     val nameProduct=it.getString(cursor.getColumnIndexOrThrow("nameProduct"))
                     val idProduct=it.getString(cursor.getColumnIndexOrThrow("idProduct"))
@@ -108,7 +110,7 @@ class OrderUserFragment : Fragment {
                     //create object
                     var order=OrderAndOrderdetails(idOrder,status,orderNotes,
                         deliveryCharges.toFloat(),productMoney.toDouble(),
-                        idPayment,idPromoCode,idCheckout,idProduct,quantity.toInt())
+                        idPayment,idPromoCode,idCheckout,idProduct,quantity.toInt(),description,discountPercent.toFloat())
                     var product=BrandAndModel(idProduct,nameProduct,image,price.toDouble(),"","",
                         0F,0,idBranch,nameBranch)
 
@@ -150,7 +152,7 @@ class OrderUserFragment : Fragment {
     private fun loadProductConfirm() {
         binding.cmTv.text = "${stateProduct}"
         targetOrderList.clear()
-        targetOrderList= getOrderByStatus(stateProduct) as MutableList<OrderAndOrderdetails>
+        targetOrderList= getOrderByStatus(stateProduct) as MutableList<ArrayList<OrderAndOrderdetails>>
         loadAdapter(targetOrderList)
     }
 
@@ -158,27 +160,27 @@ class OrderUserFragment : Fragment {
     private fun loadProductToGetGood() {
         binding.cmTv.text = "${stateProduct}"
         targetOrderList.clear()
-        targetOrderList= getOrderByStatus(stateProduct) as MutableList<OrderAndOrderdetails>
+        targetOrderList= getOrderByStatus(stateProduct) as MutableList<ArrayList<OrderAndOrderdetails>>
         loadAdapter(targetOrderList)
     }
 
     private fun loadProductToGotGood() {
         binding.cmTv.text = "${stateProduct}"
         targetOrderList.clear()
-        targetOrderList= getOrderByStatus(stateProduct) as MutableList<OrderAndOrderdetails>
+        targetOrderList= getOrderByStatus(stateProduct) as MutableList<ArrayList<OrderAndOrderdetails>>
         loadAdapter(targetOrderList)
     }
 
     private fun loadProductToMadePay() {
         binding.cmTv.text = "${stateProduct}"
         targetOrderList.clear()
-        targetOrderList= getOrderByStatus(stateProduct) as MutableList<OrderAndOrderdetails>
+        targetOrderList= getOrderByStatus(stateProduct) as MutableList<ArrayList<OrderAndOrderdetails>>
         loadAdapter(targetOrderList)
     }
 
-    private fun loadAdapter(tgOrderList: List<OrderAndOrderdetails>){
+    private fun loadAdapter(tgOrderList: List<List<OrderAndOrderdetails>>){
         adapter= OrderUserAdapter(activity as Context,
-            tgOrderList as ArrayList<OrderAndOrderdetails>,productMap,stateProduct
+            tgOrderList as ArrayList<List<OrderAndOrderdetails>>,productMap,stateProduct
         )
         binding.rvListOrderUser.adapter=adapter
         binding.rvListOrderUser.layoutManager= LinearLayoutManager(
@@ -205,16 +207,17 @@ class OrderUserFragment : Fragment {
         return null
     }
 
-    private fun getOrderByStatus(status:String):List<OrderAndOrderdetails> {
-        var targetOrderList= mutableListOf<OrderAndOrderdetails>()
-        targetOrderList.clear()
+    private fun getOrderByStatus(status:String):List<List<OrderAndOrderdetails>> {
+        var targetOrderListChild= mutableListOf<ArrayList<OrderAndOrderdetails>>()
+        var orderListItemTarget= mutableListOf<OrderAndOrderdetails>()
+        targetOrderListChild.clear()
         var listIdOrder= mutableListOf<String>()
         var gson=Gson()
         var jsonStatus=""
         //get all status of all order
         for (order in listOrder){
-//            if(!listIdOrder.contains(order.idOrder)){
-                listIdOrder.add(order.idOrder)
+//            Log.e("index",order.idOrder)
+            if(!listIdOrder.contains(order.idOrder)){
                 jsonStatus=order.status
                 //convert json to object
                 val type = object : TypeToken<ArrayList<StatusOrder>>() {}.type
@@ -224,10 +227,37 @@ class OrderUserFragment : Fragment {
                 val statusItem=statusOrderList[statusOrderList.size-1]
 //                Log.e("Order",order.toString())
                 if(statusItem.statusOrder==status){
-                    targetOrderList.add(order)
+//                    Log.e("id",order.idOrder)
+                    if(orderListItemTarget.size>0){
+                        targetOrderListChild.add(ArrayList(orderListItemTarget))
+//                        Log.e("target",targetOrderListChild.toString())
+                        orderListItemTarget.clear()
+//                        Log.e("targetClear",targetOrderListChild.toString())
+                    }
+                    listIdOrder.add(order.idOrder)
+                    orderListItemTarget.add(order)
+//                    Log.e("order1",order.toString())
+//                    Log.e("listId",listIdOrder.toString())
                 }
-//            }
+            }else{
+//                Log.e("order2",order.toString())
+                orderListItemTarget.add(order)
+            }
         }
-        return targetOrderList
+
+        if(orderListItemTarget.size>0){
+            targetOrderListChild.add(ArrayList(orderListItemTarget))
+//            Log.e("target2",targetOrderListChild.toString())
+            orderListItemTarget.clear()
+        }
+//        var i=0
+//        Log.e("size",targetOrderListChild.size.toString())
+//        for(orderi in targetOrderListChild){
+//            Log.e("a",i++.toString())
+//            for(o in orderi){
+//                Log.e("o",o.toString())
+//            }
+//        }
+        return targetOrderListChild
     }
 }

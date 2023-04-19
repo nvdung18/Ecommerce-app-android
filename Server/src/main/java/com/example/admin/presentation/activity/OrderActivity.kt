@@ -140,7 +140,7 @@ class OrderActivity : AppCompatActivity() {
             ,"723 Lê Văn Hiến, Ngũ Hành Sơn, TP.Đà Nẵng","idAccount_2"))
 
         instance.orderDao().insertOrder(OrderEntity("ord_01",json,"asdkh"
-            ,0.0,405000.0,"idAccount_2","pay01","promo_01","ck_01"))
+            ,0.0,395000.0,"idAccount_2","pay01","promo_01","ck_01"))
 
         instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_01","SP01",272000.0,1))
         instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_01","SP02",123000.0,1))
@@ -152,7 +152,7 @@ class OrderActivity : AppCompatActivity() {
             ,0.0,710000.0,"idAccount_2","pay01","promo_01","ck_02"))
 
         instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_02","SP05",310000.0,1))
-        instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_02","SP08",410000.0,1))
+        instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_02","SP08",400000.0,1))
 
         instance.checkoutDao().insertCheckout(CheckoutEntity("ck_03","XYZ",973884531,"xyzk123@gmail.com"
             ,"723 Lê Văn Hiến, Ngũ Hành Sơn, TP.Đà Nẵng","idAccount_1"))
@@ -161,7 +161,7 @@ class OrderActivity : AppCompatActivity() {
             ,0.0,710000.0,"idAccount_1","pay01","promo_01","ck_03"))
 
         instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_03","SP05",310000.0,1))
-        instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_03","SP08",410000.0,1))
+        instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_03","SP08",400000.0,1))
 
         instance.checkoutDao().insertCheckout(CheckoutEntity("ck_04","XYZ",973884531,"xyzk123@gmail.com"
             ,"723 Lê Văn Hiến, Ngũ Hành Sơn, TP.Đà Nẵng","idAccount_1"))
@@ -170,6 +170,6 @@ class OrderActivity : AppCompatActivity() {
             ,0.0,710000.0,"idAccount_1","pay01","promo_01","ck_04"))
 
         instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_04","SP05",310000.0,1))
-        instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_04","SP08",410000.0,1))
+        instance.orderDetailsDao().insertOrderDetails(OrderDetailsEntity("ord_04","SP08",400000.0,1))
     }
 }

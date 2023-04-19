@@ -12,4 +12,7 @@ class OrderAndOrderdetails(
 
     var idProduct:String="",
     var quantity:Int=0,
+
+    var description:String="",
+    var discountPercent:Float=0F
 )

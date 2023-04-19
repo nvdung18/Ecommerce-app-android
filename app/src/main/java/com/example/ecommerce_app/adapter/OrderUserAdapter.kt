@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.bumptech.glide.Glide
@@ -21,19 +22,15 @@ import com.google.gson.Gson
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 
-class OrderUserAdapter(private val ctx: Context,val orderList:ArrayList<OrderAndOrderdetails>,
+class OrderUserAdapter(private val ctx: Context,val orderList:ArrayList<List<OrderAndOrderdetails>>,
                        val productMap: Map<String,BrandAndModel>,val stateProduct:String):Adapter<OrderUserAdapter.OrderUserViewHolder>() {
     private lateinit var binding:RowProductOrderUserBinding
     private lateinit var def:DecimalFormat
-    private var targetOrderList= mutableListOf<OrderAndOrderdetails>()
+    private lateinit var adapter:RowProductOrderUserAdapter
+    private var targetOrderList= mutableListOf<ArrayList<OrderAndOrderdetails>>() as ArrayList<List<OrderAndOrderdetails>>
     inner class OrderUserViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         var txtIdOrderOrderUser=binding.txtIdOrderOrderUser
-        var imgProductOrderUser=binding.imgProductOrderUser
-        var txtNameProductOrderUser=binding.txtNameProductOrderUser
-        var txtBranchOrderUser=binding.txtBranchOrderUser
         var txtStatusOrderUser=binding.txtStatusOrderUser
-        var txtQuantityAProduct=binding.txtQuantityAProduct
-        var txtPriceAProduct=binding.txtPriceAProduct
         var txtAllQuantityProduct=binding.txtAllQuantityProduct
         var txtPriceOfficial=binding.txtPriceOfficial
         var txtDetailsStatusOrderUser=binding.txtDetailsStatusOrderUser
@@ -57,22 +54,34 @@ class OrderUserAdapter(private val ctx: Context,val orderList:ArrayList<OrderAnd
     }
 
     override fun onBindViewHolder(holder: OrderUserViewHolder, position: Int) {
-        var orderItem=targetOrderList[position]
-        var product=productMap.get(orderItem.idProduct)
-        holder.txtIdOrderOrderUser.text="Id order: ${orderItem.idOrder}"
-        Glide.with(ctx).load(product!!.image).into(holder.imgProductOrderUser)
-        holder.txtNameProductOrderUser.text=product.nameProduct
-        holder.txtBranchOrderUser.text=product.nameBranch
+        var orderListItem=targetOrderList[position]
+        var anOrder:OrderAndOrderdetails=orderListItem[0]
+        var priceOfficial:Double=anOrder.productMoney-((anOrder.productMoney*anOrder.discountPercent)/100)
+        var allQuantityProduct:Int=0
+        for(orderItem in orderListItem){
+            allQuantityProduct+=orderItem.quantity
+        }
+
+        holder.txtIdOrderOrderUser.text="Id order: ${anOrder.idOrder}"
         holder.txtStatusOrderUser.text=stateProduct
-        holder.txtQuantityAProduct.text="1"
-        holder.txtPriceAProduct.text=def.format(product.price).toString()
-        holder.txtAllQuantityProduct.text=orderItem.quantity.toString()
-        holder.txtPriceOfficial.text=def.format((orderItem.quantity*product.price).toDouble()).toString()
-        holder.txtDetailsStatusOrderUser.text="Order ${stateProduct}"
+        holder.txtAllQuantityProduct.text=allQuantityProduct.toString()
+        holder.txtPriceOfficial.text=def.format(priceOfficial).toString()
+        holder.txtDetailsStatusOrderUser.text="Order: ${stateProduct}"
+
+        adapter= RowProductOrderUserAdapter(ctx,
+            ArrayList(orderListItem),productMap,stateProduct
+        )
+        binding.rvListOrderUser.adapter=adapter
+        binding.rvListOrderUser.layoutManager= LinearLayoutManager(
+            ctx,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
 
         holder.btnOrderDetails.setOnClickListener {
             val gson=Gson()
-            var jsonListOrder=gson.toJson(orderItem)
+            var jsonOrderListItem=gson.toJson(orderListItem)
+//            Log.e("a",jsonOrderListItem)
             var intent=Intent(ctx,OrderDetailActivity::class.java)
             ContextCompat.startActivity(ctx,intent, Bundle.EMPTY)
         }

@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardBackgroundColor="@color/white"
     android:layout_marginBottom="5dp"
     android:layout_marginTop="5dp"
@@ -9,7 +10,13 @@
     app:cardElevation="0dp"
     app:contentPadding="5dp"
     android:layout_width="match_parent"
-    android:layout_height="210dp">
+    android:layout_height="wrap_content">
+    <ScrollView
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +25,7 @@
         <RelativeLayout
             android:id="@+id/RlOrder"
             android:layout_width="match_parent"
-            android:layout_height="140dp">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:id="@+id/infoOrder"
@@ -47,72 +54,21 @@
                     android:textColor="@color/primary" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_below="@+id/infoOrder"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:layout_marginTop="10dp">
+                android:layout_height="wrap_content"
+                >
 
-                <RelativeLayout
-                    android:id="@+id/Rlimage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/imgProductOrderUser"
-                        android:layout_width="100dp"
-                        android:layout_height="110dp"
-                        android:src="@drawable/mastercard"
-                        />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/txtNameProductOrderUser"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvListOrderUser"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_toRightOf="@id/Rlimage"
-                    android:ellipsize="marquee"
-                    android:singleLine="true"
-                    android:text="Ten San Pham"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-                <RelativeLayout
-                    android:layout_toRightOf="@id/Rlimage"
-                    android:layout_below="@id/txtNameProductOrderUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp">
-                    <TextView
-                        android:id="@+id/txtBranchOrderUser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="10dp"
-                        android:text="Category"
-                        android:textColor="@color/textAd"
-                        android:textSize="16sp"
-                        />
-
-                    <TextView
-                        android:id="@+id/txtQuantityAProduct"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
-                        android:text="x1"
-                        android:layout_marginEnd="5dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/txtPriceAProduct"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:text="24.000"
-                        android:layout_below="@id/txtQuantityAProduct"
-                        android:textSize="14sp"
-                        android:layout_marginTop="20dp"
-                        android:layout_alignParentEnd="true"
-                        />
-                </RelativeLayout>
-            </RelativeLayout>
+                    android:background="@color/brown_bland"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/single_row_product_in_order_user" />
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -142,14 +98,14 @@
                 android:layout_toRightOf="@id/txtAllQuantityProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="san pham"
+                android:text="Product"
                 android:textColor="@color/silver"
                 android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thanh tien:"
+                android:text="Total order:"
                 android:textSize="14sp"
                 android:layout_marginEnd="5dp"
                 android:layout_toLeftOf="@id/txtPriceOfficial"
@@ -200,5 +156,6 @@
         </RelativeLayout>
 
     </RelativeLayout>
+    </ScrollView>
 
 </androidx.cardview.widget.CardView>

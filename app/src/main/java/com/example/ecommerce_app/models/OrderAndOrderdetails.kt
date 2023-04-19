@@ -12,6 +12,9 @@ class OrderAndOrderdetails(
 
     var idProduct:String="",
     var quantity:Int=0,
+
+    var description:String="",
+    var discountPercent:Float=0F
 ){
     override fun toString(): String {
         return ("${idOrder.toString()}" +
@@ -23,6 +26,8 @@ class OrderAndOrderdetails(
                 "${idPromoCode.toString()}" +
                 "${idCheckout.toString()}" +
                 "${idProduct.toString()}" +
-                "${quantity.toString()}")
+                "${quantity.toString()}" +
+                "${description.toString()}" +
+                "${discountPercent.toString()}")
     }
 }
