@@ -24,26 +24,18 @@
                 android:id="@+id/infoOrder"
                 android:layout_width="match_parent"
                 android:layout_height="30dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Yeu Thich"
-                    android:padding="5dp"
-                    android:layout_marginStart="5dp"
-                    android:textColor="@color/white"
-                    android:id="@+id/loveCm"
-                    android:background="@color/primary"/>
 
                 <TextView
+                    android:id="@+id/txtIdOrderOrderUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cua Hang"
+                    android:text="Id order: "
                     android:padding="5dp"
                     android:layout_marginStart="5dp"
-                    android:layout_toRightOf="@+id/loveCm"
                     android:textColor="@color/black"/>
 
                 <TextView
+                    android:id="@+id/txtStatusOrderUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -66,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
-                        android:id="@+id/imgProduct"
+                        android:id="@+id/imgProductOrderUser"
                         android:layout_width="100dp"
                         android:layout_height="110dp"
                         android:src="@drawable/mastercard"
@@ -74,24 +66,23 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/nameProduct"
+                    android:id="@+id/txtNameProductOrderUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/Rlimage"
                     android:layout_marginStart="10dp"
-                    android:text="Ten San Pham"
+                    android:layout_toRightOf="@id/Rlimage"
                     android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:text="Ten San Pham"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
-                    />
+                    android:textSize="16sp" />
                 <RelativeLayout
                     android:layout_toRightOf="@id/Rlimage"
-                    android:layout_below="@id/nameProduct"
+                    android:layout_below="@id/txtNameProductOrderUser"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp">
                     <TextView
-                        android:id="@+id/categoryProduct"
+                        android:id="@+id/txtBranchOrderUser"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_marginStart="10dp"
@@ -101,7 +92,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/quantityProduct"
+                        android:id="@+id/txtQuantityAProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_alignParentEnd="true"
@@ -111,11 +102,11 @@
                         android:textColor="@color/black" />
 
                     <TextView
-                        android:id="@+id/samplePrice"
+                        android:id="@+id/txtPriceAProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="24.000"
-                        android:layout_below="@id/quantityProduct"
+                        android:layout_below="@id/txtQuantityAProduct"
                         android:textSize="14sp"
                         android:layout_marginTop="20dp"
                         android:layout_alignParentEnd="true"
@@ -139,7 +130,7 @@
             android:layout_height="30dp">
 
             <TextView
-                android:id="@+id/quantityTvOfProduct"
+                android:id="@+id/txtAllQuantityProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1s"
@@ -148,7 +139,7 @@
                 android:layout_marginEnd="2dp"/>
 
             <TextView
-                android:layout_toRightOf="@id/quantityTvOfProduct"
+                android:layout_toRightOf="@id/txtAllQuantityProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="san pham"
@@ -161,10 +152,10 @@
                 android:text="Thanh tien:"
                 android:textSize="14sp"
                 android:layout_marginEnd="5dp"
-                android:layout_toLeftOf="@id/priceOfficial"
+                android:layout_toLeftOf="@id/txtPriceOfficial"
                 android:textColor="@color/black"/>
             <TextView
-                android:id="@+id/priceOfficial"
+                android:id="@+id/txtPriceOfficial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="d0000000"
@@ -187,6 +178,7 @@
             android:layout_height="30dp">
 
             <TextView
+                android:id="@+id/txtDetailsStatusOrderUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Don hang da duoc giao thanh cong"
@@ -196,6 +188,7 @@
                 android:textSize="14sp"/>
 
             <TextView
+                android:id="@+id/txtDetailsOrder"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:textSize="14sp"

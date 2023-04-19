@@ -1,6 +1,7 @@
 package com.example.ecommerce_app.activity
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,8 +22,16 @@ class OrderActivity : AppCompatActivity() {
         binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.backImg.setOnClickListener {
+            back()
+        }
+
         setUpWithViewPagerAdapter(binding.viewpager)
         binding.tabLayout.setupWithViewPager(binding.viewpager)
+    }
+
+    private fun back() {
+//        onBackPressed()
     }
 
     private fun setUpWithViewPagerAdapter(viewpager: ViewPager) {
@@ -31,30 +40,30 @@ class OrderActivity : AppCompatActivity() {
         viewPagerAdapter.addFragment(
             OrderUserFragment.newInstance(
                 "01",
-                "Cho Xac Nhan",
+                "Wait for confirmation",
                 "123"
-            ),"Cho Xac Nhan"
+            ),"Wait for confirmation"
         )
         viewPagerAdapter.addFragment(
             OrderUserFragment.newInstance(
                 "01",
-                "Cho Lay Hang",
+                "Order confirmed",
                 "1234"
-            ),"Cho Lay Hang"
+            ),"Order confirmed"
         )
         viewPagerAdapter.addFragment(
             OrderUserFragment.newInstance(
                 "01",
-                "Da Lay Hang",
+                "Delivering",
                 "12345"
-            ),"Da Lay Hang"
+            ),"Delivering"
         )
         viewPagerAdapter.addFragment(
             OrderUserFragment.newInstance(
                 "01",
-                "Da Thanh Toan",
+                "Order delivered",
                 "123456"
-            ),"Da Thanh Toan"
+            ),"Order delivered"
         )
         viewPagerAdapter.notifyDataSetChanged()
         viewpager.adapter = viewPagerAdapter

@@ -21,7 +21,7 @@
            android:orientation="vertical">
 
            <androidx.recyclerview.widget.RecyclerView
-               android:id="@+id/listProduct"
+               android:id="@+id/rvListOrderUser"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:background="@color/brown_bland"
@@ -45,7 +45,7 @@
 
                <TextView
                    android:id="@+id/cmTv"
-                   android:layout_below="@id/listProduct"
+                   android:layout_below="@id/rvListOrderUser"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Co the ban cung thich"

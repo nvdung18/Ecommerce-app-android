@@ -5,6 +5,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.example.admin.data.model.OrderAndOrderdetails
+import com.example.admin.data.room.product.ProductEntity
 
 @Dao
 interface OrderDao {
@@ -19,4 +21,8 @@ interface OrderDao {
 
     @Update
     fun updateOrder(order:OrderEntity)
+
+    @Query("Select * from OrderTable join OrderDetails on OrderTable.idOrder = OrderDetails.idOrder Where idAccount = :idAccount")
+    fun getAllOrderByIdJoinOrDetails_App(idAccount:String):List<OrderAndOrderdetails>
+
 }

@@ -1,14 +1,20 @@
 package com.example.ecommerce_app.fragment
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ecommerce_app.R
+import com.example.ecommerce_app.activity.OrderActivity
+import com.example.ecommerce_app.databinding.FragmentProfileBinding
 
 
 class ProfileFragment : Fragment() {
+    private lateinit var binding:FragmentProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +24,14 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding= FragmentProfileBinding.inflate(LayoutInflater.from(context), container, false)
+
+        binding.imgMyOrder.setOnClickListener {
+            Log.e("a","a")
+            var intent=Intent(activity as Context,OrderActivity::class.java)
+            startActivity(intent)
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        return binding.root
     }
 }
