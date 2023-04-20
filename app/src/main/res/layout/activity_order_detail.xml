@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="95dp"
-                    android:text="Thong tin don hang"
+                    android:text="Order Inforamtion"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -58,7 +58,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
                 <TextView
-                    android:id="@+id/statusOrder"
+                    android:id="@+id/txtTitleCurrentStatusOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -110,18 +110,10 @@
                         android:layout_weight="1"
                         android:drawableStart="@drawable/ic_baseline_local_shipping_24"
                         android:drawablePadding="5dp"
-                        android:text="Thong tin van chuyen"
+                        android:text="Delivery information"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:text="Xem"
-                        android:textColor="@color/green"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <View
@@ -134,7 +126,7 @@
                     android:background="@drawable/shape_status_completed" />
 
                 <TextView
-                    android:id="@+id/statsinfoDelivery"
+                    android:id="@+id/txtCurrentStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/llInfoshipper"
@@ -146,10 +138,10 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/timeShiping"
+                    android:id="@+id/txtCurrentTimeStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/statsinfoDelivery"
+                    android:layout_below="@id/txtCurrentStatus"
                     android:layout_toRightOf="@id/sttShip"
                     android:paddingStart="10dp"
                     android:paddingTop="5dp"
@@ -170,7 +162,7 @@
                     android:id="@+id/viewDivider"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_below="@id/timeShiping"
+                    android:layout_below="@id/txtCurrentTimeStatus"
                     android:background="@color/colorDivider" />
 
                 <LinearLayout
@@ -191,7 +183,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Dia Chi Nhan hang"
+                        android:text="Shipping address"
                         android:textColor="@color/black"
                         android:textSize="24sp" />
                 </LinearLayout>
@@ -213,6 +205,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/txtReceiptName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
@@ -221,6 +214,7 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/txtReceiptPhoneNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
@@ -229,6 +223,16 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/txtReceiptEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Mai Quoc Huy"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/txtReceiptAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
@@ -291,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/brown_bland"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/single_row_product_in_order_user" />
+                    />
 
                 <View
                     android:id="@+id/viewDividerPrice"
@@ -311,13 +315,14 @@
                     android:paddingStart="10dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="Thanh tien"
+                    android:text="Total Order"
                     android:textAlignment="center"
                     android:textColor="@color/brown"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txtTotalOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/viewDividerPrice"
@@ -332,11 +337,13 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/txtNotificationPayment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/Tv"
                     android:padding="10dp"
-                    android:text="Vui long thanh toan 123123 khi nhan hang"
+                    android:visibility="gone"
+                    android:text="Please pay when receiving product"
                     android:textColor="@color/brown"
                     android:textSize="18sp" />
             </RelativeLayout>
@@ -358,10 +365,11 @@
                     android:id="@+id/ptttTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phuong thuc thanh toan"
+                    android:text="Delivery time details"
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textStyle="bold" />
+
 
             </RelativeLayout>
 
@@ -383,13 +391,14 @@
                     android:id="@+id/madonhangTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ma don hang"
+                    android:text="Id Order"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/txtIdOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="dsadsadsad"
@@ -403,7 +412,7 @@
                     android:id="@+id/tgdathangTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thoi gian dat hang"
+                    android:text="Time Order"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
                     android:layout_below="@id/madonhangTv"
@@ -412,6 +421,7 @@
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/txtTimeWaitForConfirmation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0392103901"
@@ -427,15 +437,17 @@
                     android:id="@+id/tgthanhtoanTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thoi gian thanh toan"
+                    android:text="Order confirmation time"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
                     android:layout_below="@id/tgdathangTv"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
+                    android:visibility="gone"
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/txtTimeOrderConfirmed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0392103901"
@@ -445,21 +457,24 @@
                     android:layout_alignParentEnd="true"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
+                    android:visibility="gone"
                     android:textAlignment="center"/>
 
                 <TextView
                     android:id="@+id/tggiaohangTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thoi gian giao hang"
+                    android:text="Delivery time"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
                     android:layout_below="@id/tgthanhtoanTv"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
+                    android:visibility="gone"
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/txtTimeDelivering"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0392103901"
@@ -469,21 +484,24 @@
                     android:layout_alignParentEnd="true"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
+                    android:visibility="gone"
                     android:textAlignment="center"/>
 
                 <TextView
                     android:id="@+id/tghoanthanhTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thoi gian hoan thanh"
+                    android:text="Order completion time"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
                     android:layout_below="@id/tggiaohangTv"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
+                    android:visibility="gone"
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/txtTimeOrderDelivered"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0392103901"
@@ -493,14 +511,16 @@
                     android:layout_alignParentEnd="true"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
+                    android:visibility="gone"
                     android:textAlignment="center"/>
 
                 <TextView
+                    android:id="@+id/txtFormPayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="177dp"
                     android:paddingTop="5dp"
-                    android:text="Thanh Toan khi nhan hang"
+                    android:text="Payment on delivery (Ship cod)"
                     android:textAlignment="center"
                     android:textColor="@color/brown"
                     android:textSize="20sp" />
@@ -523,7 +543,7 @@
                <Button
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="Mua lai"
+                   android:text="Buy again"
                    />
 
            </LinearLayout>

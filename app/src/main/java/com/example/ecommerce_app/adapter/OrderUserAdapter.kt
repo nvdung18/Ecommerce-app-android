@@ -56,7 +56,7 @@ class OrderUserAdapter(private val ctx: Context,val orderList:ArrayList<List<Ord
     override fun onBindViewHolder(holder: OrderUserViewHolder, position: Int) {
         var orderListItem=targetOrderList[position]
         var anOrder:OrderAndOrderdetails=orderListItem[0]
-        var priceOfficial:Double=anOrder.productMoney-((anOrder.productMoney*anOrder.discountPercent)/100)
+        var priceOfficial:Double=(anOrder.productMoney-((anOrder.productMoney*anOrder.discountPercent)/100))+anOrder.deliveryCharges
         var allQuantityProduct:Int=0
         for(orderItem in orderListItem){
             allQuantityProduct+=orderItem.quantity
@@ -81,8 +81,12 @@ class OrderUserAdapter(private val ctx: Context,val orderList:ArrayList<List<Ord
         holder.btnOrderDetails.setOnClickListener {
             val gson=Gson()
             var jsonOrderListItem=gson.toJson(orderListItem)
+            var jsonProductMap=gson.toJson(productMap)
 //            Log.e("a",jsonOrderListItem)
             var intent=Intent(ctx,OrderDetailActivity::class.java)
+            intent.putExtra("jsonOrderListItem",jsonOrderListItem)
+            intent.putExtra("jsonProductMap",jsonProductMap)
+            intent.putExtra("stateOrder",stateProduct)
             ContextCompat.startActivity(ctx,intent, Bundle.EMPTY)
         }
     }
