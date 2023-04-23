@@ -16,8 +16,8 @@ interface CartDetailsDao {
     @Update
     fun updateProductInCartDetails(cart: CartDetailsEntity): Int
 
-    @Delete
-    fun deleteCartDetails(cart: CartDetailsEntity): Int
+    @Query("Delete from CartDetails where idCart = :idCart")
+    fun deleteCartDetails(idCart: String): Int
 
     @Query("Select * from CartDetails where idCart = :idCart and idProduct = :idProduct")
     fun queryAllCartDetailsByIdCart_IdProduct(idCart: String, idProduct: String): CartDetailsEntity

@@ -34,6 +34,7 @@ class CheckoutActivity : AppCompatActivity() {
     lateinit var checkoutAdapter: ProductCheckOutAdapter
     val uri_account: Uri = Uri.parse("content://com.example.admin/account")
     val uri_user: Uri = Uri.parse("content://com.example.admin/user")
+    val uri_Cart: Uri = Uri.parse("content://com.example.admin/Cart")
     val uri_checkout: Uri = Uri.parse("content://com.example.admin/Checkout")
     val uri_order: Uri = Uri.parse("content://com.example.admin/Order")
     val uri_orderDetails: Uri = Uri.parse("content://com.example.admin/OrderDetails")
@@ -57,7 +58,8 @@ class CheckoutActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bundle = intent.getBundleExtra("coverProduct")
-        listProduct = bundle?.getSerializable("ARRAYLIST") as ArrayList<CartDetailsAndProductAndBranch>
+        listProduct =
+            bundle?.getSerializable("ARRAYLIST") as ArrayList<CartDetailsAndProductAndBranch>
 
         checkoutAdapter = ProductCheckOutAdapter(this@CheckoutActivity, listProduct)
 
@@ -148,35 +150,22 @@ class CheckoutActivity : AppCompatActivity() {
 //            put("idAccount", getCurrentIdAccount())
 //        }
 //        val uri_user_checkout = contentResolver.insert(uri_checkout, values)
-        if(voucher == "promo_01") {
+        if (voucher == "promo_01") {
             insertToCheckout()
             insertToOrder()
             insertToOrderDetails()
+            deleteCart()
         } else {
             insertToCheckout()
             insertToOrder()
             insertToOrderDetails()
+            deleteCart()
         }
-//        val values_order = ContentValues().apply {
-//            put("orderNotes", orderNotes)
-//            put("deliveryCharges", deliveryCharges)
-//            put("total", total)
-//            put("idAccount", getCurrentIdAccount())
-//            put("idPayment", "pay01")
-//            put("idPromocode", "promo_01")
-//        }
-
-//        val uri_user_order = contentResolver.insert(uri_order, values_order)
-
-//        for(product in listProduct) {
-//            val values_ordersDetails = ContentValues().apply {
-//                put("idProduct", product.idProduct)
-//                put("total", product.price)
-//                put("quantity", product.quantity)
-//            }
-//            val uri_user_orderDetails = contentResolver.insert(uri_orderDetails, values_ordersDetails)
-//        }
         Toast.makeText(this, "Success to order", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun checkVoucher(): Boolean {
+        return true
     }
 
     private fun insertToCheckout() {
@@ -205,13 +194,37 @@ class CheckoutActivity : AppCompatActivity() {
     }
 
     private fun insertToOrderDetails() {
-        for(product in listProduct) {
+        for (product in listProduct) {
             val values_ordersDetails = ContentValues().apply {
                 put("idProduct", product.idProduct)
                 put("total", product.price)
                 put("quantity", product.quantity)
             }
-            val uri_user_orderDetails = contentResolver.insert(uri_orderDetails, values_ordersDetails)
+            val uri_user_orderDetails =
+                contentResolver.insert(uri_orderDetails, values_ordersDetails)
+        }
+    }
+
+    private fun deleteCart() {
+        val sharedPreferences = getSharedPreferences("Mypre", Context.MODE_PRIVATE)
+        val token = sharedPreferences?.getString("token", "")
+        val cursor = contentResolver?.query(uri_account, null, "token = ?", arrayOf(token), null)
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                val idAccount = cursor.getString(cursor.getColumnIndexOrThrow("idAccount"))
+                val cursor =
+                    contentResolver.query(uri_Cart, null, "idAccount = ?", arrayOf(idAccount), null)
+                if (cursor != null) {
+                    if (cursor.moveToFirst()) {
+                        val idCart = cursor.getString(cursor.getColumnIndexOrThrow("idCart"))
+                        val cursor = contentResolver.delete(uri_Cart, "idCart = ?", arrayOf(idCart))
+                    }
+                }
+            }
+            if (cursor != null) {
+                cursor.close()
+            }
+
         }
     }
 

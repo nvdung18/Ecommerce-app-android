@@ -349,13 +349,9 @@ class Provider: ContentProvider() {
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
         when(uriMatcher.match(uri)) {
             5 -> {
-                if(selection == "idCart = ? and idProduct = ? and quantity = ?") {
+                if(selection == "idCart = ?") {
                     val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
-                    val idDeleteCartDetailEntity = cartDetailsDao.deleteCartDetails(CartDetailsEntity(
-                        selectionArgs?.get(2)!!.toInt(),
-                        selectionArgs?.get(0)!!.toString(),
-                        selectionArgs?.get(1)!!.toString()
-                    ))
+                    val idDeleteCartDetailEntity = cartDetailsDao.deleteCartDetails(selectionArgs?.get(0)!!.toString())
                     context?.contentResolver?.notifyChange(Uri.parse(URI_TABLE_CARTDETAILS), null)
                     return idDeleteCartDetailEntity
                 }
