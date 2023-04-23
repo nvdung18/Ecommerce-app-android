@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.ecommerce_app.databinding.RowProductCheckoutBinding
 import com.example.ecommerce_app.models.CartDetailsAndProduct
 import com.example.ecommerce_app.models.CartDetailsAndProductAndBranch
+import java.text.DecimalFormat
 
 class ProductCheckOutAdapter:Adapter<ProductCheckOutAdapter.HolderProductCheckout> {
 
@@ -38,12 +39,15 @@ class ProductCheckOutAdapter:Adapter<ProductCheckOutAdapter.HolderProductCheckou
         val model = listProductCheckout[position]
         holder.nameProduct.text = model.nameProduct
         holder.categoryProduct.text = model.idBranch
-        holder.priceProduct.text = model.price.toDouble().toString()
+        val vndFormat = DecimalFormat("#,### VND")
+        val priceNew = model.price.toString().replace(",", ".")
+        val priceNewNumber = priceNew.toDouble() // convert string to double
+        val formattedAmount = vndFormat.format(priceNewNumber) // format double as VND
+        holder.priceProduct.text = formattedAmount
         holder.quantityProduct.text = model.quantity.toString()
         Glide.with(context)
             .load(model.image)
             .into(holder.image)
-
     }
 
     fun getPrice(): Double {

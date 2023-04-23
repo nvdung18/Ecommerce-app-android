@@ -11,12 +11,16 @@ interface OrderDao {
 
     @Query("SELECT * FROM OrderTable Order by idOrder desc")
     fun getAllOrder(): LiveData<List<OrderEntity>>
+
     @Insert()
-    fun insertOrder(order:OrderEntity)
+    fun insertOrder(order:OrderEntity): Long
 
     @Query("SELECT * FROM OrderTable WHERE idOrder = :idOrder")
     fun getOrderById(idOrder:String):OrderEntity
 
     @Update
     fun updateOrder(order:OrderEntity)
+
+    @Query("SELECT * FROM OrderTable Order by idOrder desc")
+    fun getAllOrderNotLive(): List<OrderEntity>
 }

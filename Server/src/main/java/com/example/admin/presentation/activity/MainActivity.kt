@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         initComponents()
 
+//        AppDatabase.deleteAllData(this)
+
 //        test2.setOnClickListener {
 //            Log.e("a","2")
 //        }
