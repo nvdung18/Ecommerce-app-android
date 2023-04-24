@@ -105,6 +105,8 @@
                     android:layout_marginRight="10dp">
 
                     <AutoCompleteTextView
+                        android:id="@+id/autoBranch"
+                        android:completionThreshold="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Enter your branch you want to find"

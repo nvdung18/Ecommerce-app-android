@@ -1,6 +1,7 @@
 package com.example.admin.presentation.adapter
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import java.text.DecimalFormatSymbols
 
 class DetailsOrderAdapter(private val ctx:Context,private val detailsOrderList:List<OrderDetailsEntity>):RecyclerView.Adapter<DetailsOrderAdapter.DetailsOrderViewHolder>() {
     private val detailsOrderArrayList:List<OrderDetailsEntity> = detailsOrderList
+    private val uri_checkout: Uri = Uri.parse("content://com.example.admin/Checkout")
     private lateinit var def:DecimalFormat
 
     inner class DetailsOrderViewHolder(itemview:View):RecyclerView.ViewHolder(itemview){

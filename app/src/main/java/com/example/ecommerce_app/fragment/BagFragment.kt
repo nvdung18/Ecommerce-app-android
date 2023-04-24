@@ -6,6 +6,7 @@ import android.database.ContentObserver
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -123,7 +124,7 @@ class BagFragment : Fragment(), CartItemClickAdapter {
         return null
     }
 
-    private fun getCurrentIdAccount(): String? {
+    public fun getCurrentIdAccount(): String? {
         val sharedPreferences = context?.getSharedPreferences("Mypre", Context.MODE_PRIVATE)
         val token = sharedPreferences?.getString("token", "")
         val cursor = context?.contentResolver?.query(uri_account, null, "token = ?", arrayOf(token), null)

@@ -195,7 +195,7 @@ class DetailsOrderActivity : AppCompatActivity() {
 
 //    Change status (Update)
     private fun ChangeStatusOrder(statusChoose:String) {
-            var formatterDate = SimpleDateFormat( "dd/MM/yyyy HH:mm:ss", Locale.getDefault()); //use to format date to get now status and update status
+            var formatterDate = SimpleDateFormat( "MM/dd/yyyy HH:mm:ss", Locale.getDefault()); //use to format date to get now status and update status
             var formatterTime = SimpleDateFormat( "HH:mm:ss", Locale.getDefault());
             var now = Date();
             var date=formatterDate.format(now)

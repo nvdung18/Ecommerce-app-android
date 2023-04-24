@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_below="@+id/infoOrder">
+
+        <RelativeLayout
+            android:id="@+id/Rlimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgProductOrderUser"
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:src="@drawable/mastercard" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtNameProductOrderUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/Rlimage"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Ten San Pham"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_below="@id/txtNameProductOrderUser"
+            android:layout_toRightOf="@id/Rlimage">
+
+            <TextView
+                android:id="@+id/txtBranchOrderUser"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:text="Category"
+                android:textColor="@color/textAd"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtQuantityAProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                android:text="x1"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtPriceAProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@id/txtQuantityAProduct"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:text="24.000"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/productOfficial"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/RlOrder"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/txtAllQuantityProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:text="1s"
+            android:textColor="@color/silver"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txtAllQuantityProduct"
+            android:text="Product"
+            android:textColor="@color/silver"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_toLeftOf="@id/txtPriceOfficial"
+            android:text="Product Money:"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtPriceOfficial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="d0000000"
+            android:textColor="@color/primary"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/border_color" />
+    </RelativeLayout>
+</LinearLayout>

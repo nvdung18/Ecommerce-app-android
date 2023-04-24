@@ -43,7 +43,6 @@ class OrderAdapter(private val ctx: Context,private val funActivity:String): Rec
         val orderItem:OrderEntity=orderList[position]
         holder.txtIdOrder.text=orderItem.idOrder
         holder.txtIdAccount.text=orderItem.idAccount
-
         holder.btnDetailsOrder.setOnClickListener {
             detailsOrderActivity(orderItem)
         }

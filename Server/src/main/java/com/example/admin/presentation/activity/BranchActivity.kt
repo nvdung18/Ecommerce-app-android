@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +13,7 @@ import com.example.admin.R
 import com.example.admin.data.room.AppDatabase
 import com.example.admin.data.room.branch.BranchEntity
 import com.example.admin.data.room.branch.BranchViewModel
+import com.example.admin.data.room.product.ProductEntity
 import com.example.admin.databinding.ActivityBranchBinding
 import com.example.admin.presentation.adapter.BranchAdapter
 import com.example.admin.presentation.adapter.BranchItemClickAdapter
@@ -21,6 +24,8 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
     private lateinit var viewModel: BranchViewModel
     private lateinit var adapter:BranchAdapter
     private var latestIdBranch:String=""//to get latest  branch to get
+    private var listIdBranch= mutableListOf<String>()
+    private var nameBranchMap= mutableMapOf<String, String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_branch)
@@ -33,6 +38,11 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
 
         viewModel.allBranch.observe(this,{List->
             List?.let {
+                for (item in it){
+                    listIdBranch.add(item.idBranch)
+                    listIdBranch.add(item.nameBranch)
+                    nameBranchMap[item.idBranch]=item.nameBranch
+                }
                 adapter.updateList(it)
             }
         })
@@ -41,6 +51,21 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
     }
 
     private fun initComponents() {
+        //autoComplete
+        val adapterAutoId= ArrayAdapter(this,android.R.layout.simple_list_item_1,listIdBranch)
+        binding.autoBranch.setAdapter(adapterAutoId)
+
+        binding.autoBranch.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
+            var autoText=binding.autoBranch.text.toString()
+            if (nameBranchMap.getKeyByValue(autoText)!=null){
+                autoText= nameBranchMap.getKeyByValue(autoText)!!
+            }
+            var branch=viewModel.getBranchById(autoText)
+            var convertToListBranch= mutableListOf<BranchEntity>() //use for adapter.updateList(List<ProductEntity>)
+            convertToListBranch.add(branch)
+            adapter.updateList(convertToListBranch)
+        })
+        //adapter branch
         adapter= BranchAdapter(this,viewModel)
         adapter.setListener(this)
         binding.rvAllBranch.adapter=adapter
@@ -58,6 +83,14 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
             back()
         }
 //        addSampleBranch()
+    }
+    fun <K, V> Map<K, V>.getKeyByValue(value: V): K? {
+        for ((key, entryValue) in this.entries) {
+            if (entryValue == value) {
+                return key
+            }
+        }
+        return null
     }
 
     private fun addBranchActivity() {

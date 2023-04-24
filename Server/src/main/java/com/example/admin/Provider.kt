@@ -10,6 +10,8 @@ import android.database.MatrixCursor
 import android.net.Uri
 import android.util.Log
 import com.example.admin.data.model.BrandAndModel
+import com.example.admin.data.model.CartDetailsAndProduct
+import com.example.admin.data.model.OrderAndOrderdetails
 import com.example.admin.data.model.CartDetailsAndProductAndBranch
 import com.example.admin.data.model.StatusOrder
 import com.example.admin.data.room.AppDatabase
@@ -18,6 +20,8 @@ import com.example.admin.data.room.branch.BranchEntity
 import com.example.admin.data.room.cart.CartEntity
 import com.example.admin.data.room.cartDetails.CartDetailsEntity
 import com.example.admin.data.room.checkout.CheckoutEntity
+import com.example.admin.data.room.order.OrderDao
+import com.example.admin.data.room.product.ProductDao
 import com.example.admin.data.room.detailsOrder.OrderDetailsEntity
 import com.example.admin.data.room.order.OrderEntity
 import com.example.admin.data.room.promocode.PromocodeEntity
@@ -43,7 +47,7 @@ class Provider: ContentProvider() {
         const val TABLE_CARTDETAILS = "CartDetails"
         const val TABLE_CHECKOUT = "Checkout"
         const val TABLE_ORDERDETAILS = "OrderDetails"
-        const val TABLE_ORDER = "Order"
+        const val TABLE_ORDER = "OrderTable"
         const val TABLE_PAYMENT = "Payment"
         const val TABLE_PRODUCT = "Product"
         const val TABLE_PROMODECODE = "PromoCode"
@@ -63,11 +67,19 @@ class Provider: ContentProvider() {
         val URI_TABLE_RECEIPT = "content://${AUTHORITY}/${TABLE_RECEIPT}"
 
         private lateinit var uriMatcher: UriMatcher
+        private lateinit var instace:AppDatabase
+
+        private lateinit var orderDao:OrderDao
+        private lateinit var productDao:ProductDao
 
     }
 
     override fun onCreate(): Boolean {
         uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
+        instace= AppDatabase.getInstance(context!!)
+
+        orderDao= instace.orderDao()
+        productDao= instace.productDao()
 //        1->12 URI TABLE NOT PARAMETERS
         uriMatcher.addURI(AUTHORITY, TABLE_USER, 1)
         uriMatcher.addURI(AUTHORITY, TABLE_ACCOUNT, 2)
@@ -180,6 +192,27 @@ class Provider: ContentProvider() {
                 }
             }
 
+            6 -> {
+                if(selection == "idCheckout = ?"){
+                    if(selectionArgs?.get(0)!!.isNotEmpty()) {
+                        val idCheckout = selectionArgs?.get(0).toString()
+                        val checkoutDao = AppDatabase.getInstance(context!!).checkoutDao()
+                        val checkOutEntity = checkoutDao.getCheckoutById(idCheckout)
+                        return getCheckoutById(checkOutEntity)
+                    }
+                }
+            }
+
+            8 -> {
+                if(selection == "idAccount = ?"&&selectionArgs!=null){
+                    val idAccount=selectionArgs?.get(0).toString()
+                    var cursor=getOrderByIdAccount(idAccount)
+//                    var orderList=orderDao.getAllOrderByIdJoinOrDetails_App()
+//                    Log.e("a",orderList.toString())
+                    return cursor
+                }
+            }
+
             10 -> {
                 if(selection == null && selectionArgs == null) {
                     val productDao = AppDatabase.getInstance(context!!).productDao()
@@ -204,6 +237,26 @@ class Provider: ContentProvider() {
             }
         }
         return null
+    }
+
+    private fun getOrderByIdAccount(idAccount:String):Cursor? {
+        //get order list include order and order details
+        var orderList=orderDao.getAllOrderByIdJoinOrDetails_App(idAccount)
+        //get idProduct from order to get information of product include product and branch
+        var idProductList= mutableListOf<String>()
+        for(orderItem in orderList){
+            if(!idProductList.contains(orderItem.idProduct)){
+                idProductList.add(orderItem.idProduct)
+            }
+        }
+
+        //create map to get product and branch
+        val productMap= mutableMapOf<String, BrandAndModel>()
+        for (idProductItem in idProductList){
+            productMap[idProductItem]=productDao.getProductJoinBranchByIdProduct(idProductItem)
+        }
+
+        return getOrderListByidAccountCursor(orderList,productMap)
     }
 
 
@@ -707,6 +760,81 @@ class Provider: ContentProvider() {
             return null
         }
     }
+
+    private fun getOrderListByidAccountCursor(orderList: List<OrderAndOrderdetails>,productMap:Map<String,BrandAndModel>):Cursor?{
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idOrder",
+                "status",
+                "orderNotes",
+                "deliveryCharges",
+                "productMoney",
+                "idPayment",
+                "idPromoCode",
+                "idCheckout",
+                "idProduct",
+                "quantity",
+                "description",
+                "discountPercent",
+                "idBranch",
+                "nameProduct",
+                "image",
+                "price",
+                "nameBranch",
+            )
+        )
+
+        if (orderList != null && productMap!=null) {
+            for (order in orderList) {
+                var product=productMap.get(order.idProduct)
+                cursor.addRow(
+                    arrayOf<Any>(
+                        order.idOrder,
+                        order.status,
+                        order.orderNotes,
+                        order.deliveryCharges,
+                        order.productMoney,
+                        order.idPayment,
+                        order.idPromoCode,
+                        order.idCheckout,
+                        order.idProduct,
+                        order.quantity,
+                        order.description,
+                        order.discountPercent,
+                        product!!.idBranch,
+                        product!!.nameProduct,
+                        product!!.image,
+                        product!!.price,
+                        product!!.nameBranch,
+                    )
+                )
+            }
+        }
+        return cursor
+    }
+
+    private fun getCheckoutById(checkoutEntity: CheckoutEntity): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idCheckout",
+                "recipientName",
+                "recipientPhoneNumber",
+                "recipientEmail",
+                "recipientAddress",
+            )
+        )
+
+        if(checkoutEntity!=null) {
+            cursor.addRow(
+                arrayOf<Any>(
+                    checkoutEntity.idCheckout,
+                    checkoutEntity.recipientEmail,
+                    checkoutEntity.recipientPhoneNumber,
+                    checkoutEntity.recipientEmail,
+                    checkoutEntity.recipientAddress
+                )
+            )
+        }
 
     private fun getPromoCode(promoCode: PromocodeEntity): Cursor? {
         val cursor = MatrixCursor(
