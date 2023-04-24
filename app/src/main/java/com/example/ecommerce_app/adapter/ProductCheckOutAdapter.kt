@@ -11,6 +11,9 @@ import com.example.ecommerce_app.databinding.RowProductCheckoutBinding
 import com.example.ecommerce_app.models.CartDetailsAndProduct
 import com.example.ecommerce_app.models.CartDetailsAndProductAndBranch
 import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ProductCheckOutAdapter:Adapter<ProductCheckOutAdapter.HolderProductCheckout> {
 
@@ -39,11 +42,9 @@ class ProductCheckOutAdapter:Adapter<ProductCheckOutAdapter.HolderProductCheckou
         val model = listProductCheckout[position]
         holder.nameProduct.text = model.nameProduct
         holder.categoryProduct.text = model.idBranch
-        val vndFormat = DecimalFormat("#,### VND")
-        val priceNew = model.price.toString().replace(",", ".")
-        val priceNewNumber = priceNew.toDouble() // convert string to double
-        val formattedAmount = vndFormat.format(priceNewNumber) // format double as VND
-        holder.priceProduct.text = formattedAmount
+        val localeVN: Locale = Locale("vi", "VN")
+        val format = NumberFormat.getCurrencyInstance(localeVN)
+        holder.priceProduct.text = "${format.format(model.price)}"
         holder.quantityProduct.text = model.quantity.toString()
         Glide.with(context)
             .load(model.image)

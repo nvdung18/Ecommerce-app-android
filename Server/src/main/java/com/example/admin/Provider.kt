@@ -20,6 +20,7 @@ import com.example.admin.data.room.cartDetails.CartDetailsEntity
 import com.example.admin.data.room.checkout.CheckoutEntity
 import com.example.admin.data.room.detailsOrder.OrderDetailsEntity
 import com.example.admin.data.room.order.OrderEntity
+import com.example.admin.data.room.promocode.PromocodeEntity
 import com.example.admin.data.room.user.UserEntity
 import com.google.gson.Gson
 import java.nio.charset.StandardCharsets
@@ -188,9 +189,23 @@ class Provider: ContentProvider() {
                     }
                 }
             }
+
+            11 -> {
+                if(selection == "idPromoCode = ?") {
+                    if(selectionArgs?.get(0)!!.isNotEmpty()) {
+                        val idPromocode = selectionArgs?.get(0).toString()
+                        val promocodeDao = AppDatabase.getInstance(context!!).promocodeDao()
+                        val promoCode = promocodeDao.getPromocodeBiIdServer(idPromocode)
+                        if(promoCode != null) {
+                            return getPromoCode(promoCode)
+                        }
+                    }
+                }
+            }
         }
         return null
     }
+
 
     override fun getType(uri: Uri): String? {
         return null
@@ -691,5 +706,24 @@ class Provider: ContentProvider() {
         } else {
             return null
         }
+    }
+
+    private fun getPromoCode(promoCode: PromocodeEntity): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idPromoCode",
+                "description",
+                "discountPercent"
+            )
+        )
+
+        cursor.addRow(
+            arrayOf<Any>(
+                promoCode.idPromoCode,
+                promoCode.description,
+                promoCode.discountPercent
+            )
+        )
+        return cursor
     }
 }

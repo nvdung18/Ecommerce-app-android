@@ -53,6 +53,7 @@ class VisualResultAdapter: Adapter<VisualResultAdapter.VisualViewHolder>, Filter
 
         holder.productBrandName_singleProduct.text = model.nameBranch
         holder.productName_singleProduct.text = model.nameProduct
+
         holder.productPrice_singleProduct.text = "$${model.price}"
 
         holder.itemView.setOnClickListener{

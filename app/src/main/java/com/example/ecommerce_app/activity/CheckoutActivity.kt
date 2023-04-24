@@ -2,6 +2,7 @@ package com.example.ecommerce_app.activity
 
 import android.accounts.Account
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -37,6 +38,7 @@ class CheckoutActivity : AppCompatActivity() {
     val uri_Cart: Uri = Uri.parse("content://com.example.admin/Cart")
     val uri_checkout: Uri = Uri.parse("content://com.example.admin/Checkout")
     val uri_order: Uri = Uri.parse("content://com.example.admin/Order")
+    val uri_PromoCode: Uri = Uri.parse("content://com.example.admin/PromoCode")
     val uri_orderDetails: Uri = Uri.parse("content://com.example.admin/OrderDetails")
 
     private var addressCheckOut = ""
@@ -51,6 +53,7 @@ class CheckoutActivity : AppCompatActivity() {
     var idPayment: String = ""
     var idPromoCode: String = ""
     var idCheckout: String = ""
+    var discountPercent: Float = 0F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -150,22 +153,42 @@ class CheckoutActivity : AppCompatActivity() {
 //            put("idAccount", getCurrentIdAccount())
 //        }
 //        val uri_user_checkout = contentResolver.insert(uri_checkout, values)
-        if (voucher == "promo_01") {
+        if (voucher == "promo_01" || voucher == "") {
             insertToCheckout()
             insertToOrder()
             insertToOrderDetails()
             deleteCart()
         } else {
-            insertToCheckout()
-            insertToOrder()
-            insertToOrderDetails()
-            deleteCart()
+            if(checkVoucher() == true) {
+                insertToCheckout()
+                insertToOrder()
+                insertToOrderDetails()
+                deleteCart()
+            } else if(checkVoucher() == false) {
+                Toast.makeText(this, "Voucher Not Correct", Toast.LENGTH_SHORT).show()
+                insertToCheckout()
+                insertToOrder()
+                insertToOrderDetails()
+                deleteCart()
+            }
         }
         Toast.makeText(this, "Success to order", Toast.LENGTH_SHORT).show()
     }
 
     private fun checkVoucher(): Boolean {
-        return true
+        val cursor = contentResolver.query(uri_PromoCode, null, "idPromoCode = ?", arrayOf(voucher), null)
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                discountPercent = cursor.getFloat(cursor.getColumnIndexOrThrow("discountPercent"))
+                idPromoCode = cursor.getString(cursor.getColumnIndexOrThrow("idPromoCode"))
+                return true
+            }
+            if (cursor != null) {
+                cursor.close()
+            }
+
+        }
+        return false
     }
 
     private fun insertToCheckout() {
@@ -174,7 +197,11 @@ class CheckoutActivity : AppCompatActivity() {
             put("recipientName", user!!.fullName)
             put("recipientEmail", user!!.email)
             put("recipientAddress", addressCheckOut)
-            put("total", total)
+            if(discountPercent != 0f) {
+                put("total", ((total*discountPercent)/100))
+            } else {
+                put("total", total)
+            }
             put("idAccount", getCurrentIdAccount())
         }
         val uri_user_checkout = contentResolver.insert(uri_checkout, values)
@@ -184,7 +211,11 @@ class CheckoutActivity : AppCompatActivity() {
         val values_order = ContentValues().apply {
             put("orderNotes", orderNotes)
             put("deliveryCharges", deliveryCharges)
-            put("total", total)
+            if(discountPercent != 0f) {
+                put("total", ((total*discountPercent)/100))
+            } else {
+                put("total", total)
+            }
             put("idAccount", getCurrentIdAccount())
             put("idPayment", "pay01")
             put("idPromocode", "promo_01")
