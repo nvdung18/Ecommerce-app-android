@@ -21,6 +21,6 @@ interface OrderDao {
     @Update
     fun updateOrder(order:OrderEntity)
 
-    @Query("SELECT * FROM OrderTable Order by idOrder desc")
+    @Query("SELECT * FROM OrderTable")
     fun getAllOrderNotLive(): List<OrderEntity>
 }

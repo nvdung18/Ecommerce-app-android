@@ -9,6 +9,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Adapter
@@ -36,6 +37,7 @@ class CheckoutActivity : AppCompatActivity() {
     val uri_account: Uri = Uri.parse("content://com.example.admin/account")
     val uri_user: Uri = Uri.parse("content://com.example.admin/user")
     val uri_Cart: Uri = Uri.parse("content://com.example.admin/Cart")
+    val uri_CartDetails: Uri = Uri.parse("content://com.example.admin/CartDetails")
     val uri_checkout: Uri = Uri.parse("content://com.example.admin/Checkout")
     val uri_order: Uri = Uri.parse("content://com.example.admin/Order")
     val uri_PromoCode: Uri = Uri.parse("content://com.example.admin/PromoCode")
@@ -155,23 +157,25 @@ class CheckoutActivity : AppCompatActivity() {
 //        val uri_user_checkout = contentResolver.insert(uri_checkout, values)
         if (voucher == "promo_01" || voucher == "") {
             insertToCheckout()
-            insertToOrder()
-            insertToOrderDetails()
+            val idOrder = insertToOrder()
+            insertToOrderDetails(idOrder)
             deleteCart()
         } else {
             if(checkVoucher() == true) {
                 insertToCheckout()
-                insertToOrder()
-                insertToOrderDetails()
+                val idOrder = insertToOrder()
+                insertToOrderDetails(idOrder)
                 deleteCart()
             } else if(checkVoucher() == false) {
                 Toast.makeText(this, "Voucher Not Correct", Toast.LENGTH_SHORT).show()
                 insertToCheckout()
-                insertToOrder()
-                insertToOrderDetails()
+                val idOrder = insertToOrder()
+                insertToOrderDetails(idOrder)
                 deleteCart()
             }
         }
+        val intent = Intent(this@CheckoutActivity, HomeActivity::class.java)
+        startActivity(intent)
         Toast.makeText(this, "Success to order", Toast.LENGTH_SHORT).show()
     }
 
@@ -207,7 +211,7 @@ class CheckoutActivity : AppCompatActivity() {
         val uri_user_checkout = contentResolver.insert(uri_checkout, values)
     }
 
-    private fun insertToOrder() {
+    private fun insertToOrder(): String {
         val values_order = ContentValues().apply {
             put("orderNotes", orderNotes)
             put("deliveryCharges", deliveryCharges)
@@ -222,12 +226,16 @@ class CheckoutActivity : AppCompatActivity() {
         }
 
         val uri_user_order = contentResolver.insert(uri_order, values_order)
+        val lastPath = uri_user_order!!.lastPathSegment;
+        val idOrder = "idOrder_${lastPath!!.toInt()}"
+        return idOrder
     }
 
-    private fun insertToOrderDetails() {
+    private fun insertToOrderDetails(idOrder: String) {
         for (product in listProduct) {
             val values_ordersDetails = ContentValues().apply {
                 put("idProduct", product.idProduct)
+                put("idOrder", idOrder)
                 put("total", product.price)
                 put("quantity", product.quantity)
             }
@@ -243,12 +251,15 @@ class CheckoutActivity : AppCompatActivity() {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 val idAccount = cursor.getString(cursor.getColumnIndexOrThrow("idAccount"))
+                Log.e("idAccount", "${idAccount}")
+
                 val cursor =
                     contentResolver.query(uri_Cart, null, "idAccount = ?", arrayOf(idAccount), null)
                 if (cursor != null) {
                     if (cursor.moveToFirst()) {
                         val idCart = cursor.getString(cursor.getColumnIndexOrThrow("idCart"))
-                        val cursor = contentResolver.delete(uri_Cart, "idCart = ?", arrayOf(idCart))
+                        Log.e("Cartid", "${idCart}")
+                        val cursor = contentResolver.delete(uri_CartDetails, "idCart = ?", arrayOf(idCart))
                     }
                 }
             }
