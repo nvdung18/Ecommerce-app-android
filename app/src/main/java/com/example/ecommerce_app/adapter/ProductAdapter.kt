@@ -18,6 +18,9 @@ import com.example.ecommerce_app.R
 import com.example.ecommerce_app.activity.ProductDetailsActivity
 import com.example.ecommerce_app.databinding.SingleProductBinding
 import com.example.ecommerce_app.models.BrandAndModel
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ProductAdapter: Adapter<ProductAdapter.HolderProduct> {
 
@@ -50,7 +53,9 @@ class ProductAdapter: Adapter<ProductAdapter.HolderProduct> {
         val model = listProduct[position]
         holder.productBrandName_singleProduct.text = model.nameBranch
         holder.productName_singleProduct.text = model.nameProduct
-        holder.productPrice_singleProduct.text = "$${model.price}"
+        val localeVN: Locale = Locale("vi", "VN")
+        val format = NumberFormat.getCurrencyInstance(localeVN)
+        holder.productPrice_singleProduct.text = "${format.format(model.price)}"
         Glide.with(context)
             .load(model.image)
             .into(holder.productImage_singleProduct)

@@ -38,7 +38,7 @@ class SplashScreenActivity : AppCompatActivity() {
             } else {
                 Log.d("CUROSR", "null")
             }
-        } else {
+        } else if(token == "") {
             val intent = Intent(this@SplashScreenActivity, LoginActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)

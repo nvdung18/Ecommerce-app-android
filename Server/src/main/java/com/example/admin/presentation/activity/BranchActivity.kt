@@ -57,7 +57,6 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
         binding.imgBtnBranchBack.setOnClickListener {
             back()
         }
-
 //        addSampleBranch()
     }
 
@@ -74,7 +73,6 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
         intent.putExtra("latestIdBranch",latestIdBranch)
         intent.putExtra("sizeOfListBranch",listBranch!!.size)
         startActivity(intent)
-
     }
 
     private fun back() {

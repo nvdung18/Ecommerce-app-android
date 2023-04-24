@@ -11,7 +11,7 @@ interface OrderDetailsDao {
     @Query("Select * from OrderDetails ")
     fun getAllOrderDetails():LiveData<List<OrderDetailsEntity>>
     @Insert()
-    fun insertOrderDetails(orderDetails:OrderDetailsEntity)
+    fun insertOrderDetails(orderDetails:OrderDetailsEntity): Long
 
     @Query("SELECT * FROM OrderDetails Where idOrder=:idOrder")
     fun getDetailsOderById(idOrder:String):List<OrderDetailsEntity>

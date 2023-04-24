@@ -13,18 +13,19 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.ecommerce_app.databinding.CartItemSingleBinding
 import com.example.ecommerce_app.models.CartDetailsAndProduct
+import com.example.ecommerce_app.models.CartDetailsAndProductAndBranch
 import com.example.ecommerce_app.models.CartDetailsEntity
 import com.example.ecommerce_app.models.ProductEntity
 
 class CartAdapter:Adapter<CartAdapter.HoldCart> {
 
     private lateinit var binding: CartItemSingleBinding
-    lateinit var cartList: ArrayList<CartDetailsAndProduct>
+    lateinit var cartList: ArrayList<CartDetailsAndProductAndBranch>
     lateinit var listener: CartItemClickAdapter
     private lateinit var context: Context
     val uri_cartdetails: Uri = Uri.parse("content://com.example.admin/CartDetails")
 
-    constructor(context: Context, cartList: ArrayList<CartDetailsAndProduct>, listener: CartItemClickAdapter) {
+    constructor(context: Context, cartList: ArrayList<CartDetailsAndProductAndBranch>, listener: CartItemClickAdapter) {
         this.context = context
         this.cartList = cartList
         this.listener = listener
@@ -75,9 +76,6 @@ class CartAdapter:Adapter<CartAdapter.HoldCart> {
             updateQuantityInCartByProduct(cartItem.idCart, cartItem.idProduct, cartItem.quantity.toInt()+1)
         }
 
-        holder.cartMore.setOnClickListener {
-            listener.onItemDeleteClick(cartItem)
-        }
     }
 
     private fun updateQuantityInCartByProduct(idCart: String, idProduct: String, quantity: Int) {
@@ -101,5 +99,5 @@ class CartAdapter:Adapter<CartAdapter.HoldCart> {
 }
 
 interface CartItemClickAdapter{
-    fun onItemDeleteClick(product: CartDetailsAndProduct)
+    fun onItemDeleteClick(product: CartDetailsAndProductAndBranch)
 }

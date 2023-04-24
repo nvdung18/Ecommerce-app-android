@@ -56,7 +56,7 @@ class SignUpActivity : AppCompatActivity() {
             } else if(password != confirm_password) {
                 Toast.makeText(this, "Password doesn't match", Toast.LENGTH_SHORT).show()
             } else {
-                if(!checkEmailSimiliar(email)) {
+                if(!checkEmailSimiliar(email) && !checkEmailSimiliar(name)) {
                     createUserAccount()
                     resetUI()
                 } else {
@@ -99,6 +99,25 @@ class SignUpActivity : AppCompatActivity() {
         return false
     }
 
+    private fun checkNameSimilar(name: String):Boolean {
+        var cursor = contentResolver.query(uri_user, null, null, null, null, null)
+        if(cursor != null) {
+            if(cursor != null && cursor.moveToFirst()) {
+                do {
+                    if(name == cursor.getString(cursor.getColumnIndexOrThrow("fullName"))) {
+                        return true
+                    }
+                } while (cursor.moveToNext())
+            }
+            if(cursor != null) {
+                cursor.close()
+            }
+        } else if(cursor == null) {
+            return false
+        }
+        return false
+    }
+
     private fun createUserAccount() {
         progressDialog.setMessage("Creating account")
         progressDialog.show()
@@ -116,7 +135,6 @@ class SignUpActivity : AppCompatActivity() {
         var uri_user_id = contentResolver.insert(uri_user, values_user)
         var uri_account_id = contentResolver.insert(uri_account, values_account)
         Toast.makeText(this, "Success to create an account", Toast.LENGTH_SHORT).show()
-
     }
 
     private fun createRandomToken(length: Int): String {
