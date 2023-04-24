@@ -824,7 +824,7 @@ class Provider: ContentProvider() {
             )
         )
 
-        if(checkoutEntity!=null) {
+        if (checkoutEntity != null) {
             cursor.addRow(
                 arrayOf<Any>(
                     checkoutEntity.idCheckout,
@@ -835,7 +835,8 @@ class Provider: ContentProvider() {
                 )
             )
         }
-
+        return cursor
+    }
     private fun getPromoCode(promoCode: PromocodeEntity): Cursor? {
         val cursor = MatrixCursor(
             arrayOf<String>(
