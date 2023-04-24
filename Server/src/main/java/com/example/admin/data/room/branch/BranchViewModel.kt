@@ -36,4 +36,7 @@ class BranchViewModel(application: Application) : AndroidViewModel(application) 
         return branchDao.getProductAndBranchById(idBranch)
     }
 
+    fun getBranchById(idBranch: String):BranchEntity{
+        return branchDao.getBranchByIdServer(idBranch)
+    }
 }

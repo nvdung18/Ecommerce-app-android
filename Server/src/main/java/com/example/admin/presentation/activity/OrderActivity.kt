@@ -1,14 +1,19 @@
 package com.example.admin.presentation.activity
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.admin.R
 import com.example.admin.data.model.StatusOrder
 import com.example.admin.data.room.AppDatabase
+import com.example.admin.data.room.branch.BranchEntity
 import com.example.admin.data.room.checkout.CheckoutEntity
 import com.example.admin.data.room.detailsOrder.OrderDetailsEntity
 import com.example.admin.data.room.order.OrderEntity
@@ -29,6 +34,11 @@ class OrderActivity : AppCompatActivity() {
     private lateinit var adapter: OrderAdapter
     private lateinit var orderviewModel:OrderViewModel
     private lateinit var funActivity:String
+    private var today=Calendar.getInstance()
+    private var listOrder= mutableListOf<OrderEntity>()
+    private var dateFormat=SimpleDateFormat("dd/MM/yyyy")
+    private var listOrderFilterDate= mutableListOf<OrderEntity>()
+    private var listIdOrder= mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +52,6 @@ class OrderActivity : AppCompatActivity() {
         if (funActivity=="Receipt"&&funActivity!=null){
             InterfaceReceipt(funActivity)
         }
-
-        initComponents()
 
         orderviewModel= ViewModelProviders.of(this).get(OrderViewModel::class.java)
 
@@ -59,13 +67,20 @@ class OrderActivity : AppCompatActivity() {
                             }
                         }
                     }
+                    listOrder.addAll(listOrderFilter)
                     adapter.updateList(listOrderFilter)
                 }else{
+                    listOrder.addAll(it)
                     adapter.updateList(it)
                 }
+                for (orderItem in listOrder){
+                    listIdOrder.add(orderItem.idOrder)
+                }
             }
-
         })
+
+        initComponents()
+
     }
 
     private fun initComponents() {
@@ -81,6 +96,39 @@ class OrderActivity : AppCompatActivity() {
             back()
         }
 
+        val startDay = today.get(Calendar.DAY_OF_MONTH)
+        val startMonth = today.get (Calendar.MONTH)
+        val startYear = today.get (Calendar.YEAR)
+        binding.imgBtnPickDate.setOnClickListener {
+            //Timepicker
+            DatePickerDialog(this, DatePickerDialog.OnDateSetListener { datePicker, i, i2,i3 ->
+                //i: year
+                //i2: month
+                //i3: day
+                val formattedDate = dateFormat.format(Date(i-1900, i2, i3))
+                binding.txtShowDatePick.setText(formattedDate)
+                filterOrderByDate(formattedDate)
+            }, startYear, startMonth, startDay).show()
+        }
+
+        binding.imgBtnClearDate.setOnClickListener {
+            val formattedDate = dateFormat.format(Date(startYear-1900, startMonth, startDay))
+            binding.txtShowDatePick.text=""
+            adapter.updateList(listOrder)
+        }
+
+        //autoComplete
+        Log.e("a",listIdOrder.toString())
+        val adapterAutoId= ArrayAdapter(this,android.R.layout.simple_list_item_1,listIdOrder)
+        binding.autoOrder.setAdapter(adapterAutoId)
+
+        binding.autoOrder.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
+            var autoText=binding.autoOrder.text.toString()
+            var order=orderviewModel.getOrderById(autoText)
+            var convertToListOrder= mutableListOf<OrderEntity>() //use for adapter.updateList(List<ProductEntity>)
+            convertToListOrder.add(order)
+            adapter.updateList(convertToListOrder)
+        })
 
 //        val listTest=ArrayList<BranchEntity>()
 //        listTest.add(BranchEntity("asdsd","ashdj"))
@@ -96,10 +144,26 @@ class OrderActivity : AppCompatActivity() {
 //        }
     }
 
+    private fun filterOrderByDate(formattedDate:String) {
+        val gson = Gson()
+        listOrderFilterDate.clear()
+        if(listOrder.size>0&&formattedDate!=null){
+            for (orderItem in listOrder){
+                val nowStatus=orderItem.status
+                val type = object : com.google.common.reflect.TypeToken<ArrayList<StatusOrder>>() {}.type
+                val statusList: ArrayList<StatusOrder> = gson.fromJson(nowStatus, type)
+                if (dateFormat.format(statusList[0].date)==formattedDate){
+                    listOrderFilterDate.add(orderItem)
+                }
+            }
+        }
+        adapter.updateList(listOrderFilterDate)
+    }
+
     private fun InterfaceReceipt(funActivity:String) {
         binding.txtTitleInterace.text=funActivity
         binding.txtTitleRv.text="All ${funActivity}"
-        binding.actxtFind.hint="Enter your receipt you want to find"
+        binding.autoOrder.hint="Enter your receipt you want to find"
     }
 
 
@@ -111,7 +175,7 @@ class OrderActivity : AppCompatActivity() {
 
     private fun addSampleOrder() {
 
-        var formatterDate = SimpleDateFormat( "dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+        var formatterDate = SimpleDateFormat( "MM/dd/yyyy HH:mm:ss", Locale.getDefault());
         var formatterTime = SimpleDateFormat( "HH:mm:ss", Locale.getDefault());
         var now = Date();
         var date=formatterDate.format(now)

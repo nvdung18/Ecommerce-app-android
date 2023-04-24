@@ -16,6 +16,7 @@ import com.example.admin.data.room.account.AccountEntity
 import com.example.admin.data.room.branch.BranchEntity
 import com.example.admin.data.room.cart.CartEntity
 import com.example.admin.data.room.cartDetails.CartDetailsEntity
+import com.example.admin.data.room.checkout.CheckoutEntity
 import com.example.admin.data.room.order.OrderDao
 import com.example.admin.data.room.order.OrderEntity
 import com.example.admin.data.room.product.ProductDao
@@ -171,7 +172,18 @@ class Provider: ContentProvider() {
                 }
             }
 
-            8->{
+            6 -> {
+                if(selection == "idCheckout = ?"){
+                    if(selectionArgs?.get(0)!!.isNotEmpty()) {
+                        val idCheckout = selectionArgs?.get(0).toString()
+                        val checkoutDao = AppDatabase.getInstance(context!!).checkoutDao()
+                        val checkOutEntity = checkoutDao.getCheckoutById(idCheckout)
+                        return getCheckoutById(checkOutEntity)
+                    }
+                }
+            }
+
+            8 -> {
                 if(selection == "idAccount = ?"&&selectionArgs!=null){
                     val idAccount=selectionArgs?.get(0).toString()
                     var cursor=getOrderByIdAccount(idAccount)
@@ -659,6 +671,32 @@ class Provider: ContentProvider() {
                 )
             }
         }
+        return cursor
+    }
+
+    private fun getCheckoutById(checkoutEntity: CheckoutEntity): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idCheckout",
+                "recipientName",
+                "recipientPhoneNumber",
+                "recipientEmail",
+                "recipientAddress",
+            )
+        )
+
+        if(checkoutEntity!=null) {
+            cursor.addRow(
+                arrayOf<Any>(
+                    checkoutEntity.idCheckout,
+                    checkoutEntity.recipientEmail,
+                    checkoutEntity.recipientPhoneNumber,
+                    checkoutEntity.recipientEmail,
+                    checkoutEntity.recipientAddress
+                )
+            )
+        }
+
         return cursor
     }
 }

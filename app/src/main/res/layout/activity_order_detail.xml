@@ -409,7 +409,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/tgdathangTv"
+                    android:id="@+id/txtTitleTimeWFC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Time Order"
@@ -434,16 +434,16 @@
                     android:textAlignment="center"/>
 
                 <TextView
-                    android:id="@+id/tgthanhtoanTv"
+                    android:id="@+id/txtTitleTimeOConfirmationT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Order confirmation time"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
-                    android:layout_below="@id/tgdathangTv"
+                    android:layout_below="@id/txtTitleTimeWFC"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -453,24 +453,24 @@
                     android:text="0392103901"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
-                    android:layout_below="@id/tgdathangTv"
+                    android:layout_below="@id/txtTitleTimeWFC"
                     android:layout_alignParentEnd="true"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:textAlignment="center"/>
 
                 <TextView
-                    android:id="@+id/tggiaohangTv"
+                    android:id="@+id/txtTitleTimeDT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Delivery time"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
-                    android:layout_below="@id/tgthanhtoanTv"
+                    android:layout_below="@id/txtTitleTimeOConfirmationT"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -480,24 +480,24 @@
                     android:text="0392103901"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
-                    android:layout_below="@id/tgthanhtoanTv"
+                    android:layout_below="@id/txtTitleTimeOConfirmationT"
                     android:layout_alignParentEnd="true"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:textAlignment="center"/>
 
                 <TextView
-                    android:id="@+id/tghoanthanhTv"
+                    android:id="@+id/txtTitleTimeOCompletionT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Order completion time"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
-                    android:layout_below="@id/tggiaohangTv"
+                    android:layout_below="@id/txtTitleTimeDT"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:textAlignment="center"/>
 
                 <TextView
@@ -507,11 +507,11 @@
                     android:text="0392103901"
                     android:textSize="18sp"
                     android:textColor="@color/brown"
-                    android:layout_below="@id/tggiaohangTv"
+                    android:layout_below="@id/txtTitleTimeDT"
                     android:layout_alignParentEnd="true"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:textAlignment="center"/>
 
                 <TextView

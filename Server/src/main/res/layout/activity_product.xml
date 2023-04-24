@@ -98,9 +98,11 @@
                 android:layout_marginRight="10dp">
 
                 <AutoCompleteTextView
+                    android:id="@+id/autoProduct"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Enter your product you want to find"
+                    android:hint="Enter your product you want to find (Use Id)"
+                    android:completionThreshold="1"
                     android:textColor="@color/mainText"
                     android:textSize="16sp" />
 

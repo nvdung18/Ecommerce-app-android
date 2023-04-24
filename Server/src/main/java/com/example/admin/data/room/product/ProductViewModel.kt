@@ -49,5 +49,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         return productDao.getProductJoinOrDetailsById(idProduct)
     }
 
-
+    fun getProductById(idProduct:String):ProductEntity{
+        return productDao.getProductByIDServer(idProduct)
+    }
 }
