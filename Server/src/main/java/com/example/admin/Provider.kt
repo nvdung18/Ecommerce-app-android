@@ -1,5 +1,6 @@
 package com.example.admin
 
+import android.R
 import android.content.ContentProvider
 import android.content.ContentUris
 import android.content.ContentValues
@@ -11,6 +12,8 @@ import android.util.Log
 import com.example.admin.data.model.BrandAndModel
 import com.example.admin.data.model.CartDetailsAndProduct
 import com.example.admin.data.model.OrderAndOrderdetails
+import com.example.admin.data.model.CartDetailsAndProductAndBranch
+import com.example.admin.data.model.StatusOrder
 import com.example.admin.data.room.AppDatabase
 import com.example.admin.data.room.account.AccountEntity
 import com.example.admin.data.room.branch.BranchEntity
@@ -18,14 +21,22 @@ import com.example.admin.data.room.cart.CartEntity
 import com.example.admin.data.room.cartDetails.CartDetailsEntity
 import com.example.admin.data.room.checkout.CheckoutEntity
 import com.example.admin.data.room.order.OrderDao
-import com.example.admin.data.room.order.OrderEntity
 import com.example.admin.data.room.product.ProductDao
+import com.example.admin.data.room.detailsOrder.OrderDetailsEntity
+import com.example.admin.data.room.order.OrderEntity
+import com.example.admin.data.room.promocode.PromocodeEntity
 import com.example.admin.data.room.user.UserEntity
+import com.google.gson.Gson
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class Provider: ContentProvider() {
+
+    private var IDCheckout: String = ""
+    private var IDOrder: String = ""
 
     companion object {
         const val AUTHORITY = "com.example.admin"
@@ -109,9 +120,18 @@ class Provider: ContentProvider() {
     ): Cursor? {
         when(uriMatcher.match(uri)) {
             1 -> {
-                val userDao = AppDatabase.getInstance(context!!).userDao()
-                val listUser = userDao.queryAllUser()
-                return getUserList(listUser)
+                if(selection == null) {
+                    val userDao = AppDatabase.getInstance(context!!).userDao()
+                    val listUser = userDao.queryAllUser()
+                    return getUserList(listUser)
+                } else if(selection == "token = ?") {
+                    val token = selectionArgs?.getOrNull(0).toString()
+                    val accountDao = AppDatabase.getInstance(context!!).accountDao()
+                    val userDao = AppDatabase.getInstance(context!!).userDao()
+                    val account = accountDao.queryAccountByToken(token)
+                    val user = userDao.queryUserByIdUser(account.idUser)
+                    return getUser(user)
+                }
             }
             2 -> {
                 //selection == "userName = ? and password = ?"
@@ -199,6 +219,19 @@ class Provider: ContentProvider() {
                     val listAllProduct = productDao.getAllProductByBranch()
                     if(listAllProduct.size != 0) {
                         return getProductList(listAllProduct)
+                    }
+                }
+            }
+
+            11 -> {
+                if(selection == "idPromoCode = ?") {
+                    if(selectionArgs?.get(0)!!.isNotEmpty()) {
+                        val idPromocode = selectionArgs?.get(0).toString()
+                        val promocodeDao = AppDatabase.getInstance(context!!).promocodeDao()
+                        val promoCode = promocodeDao.getPromocodeBiIdServer(idPromocode)
+                        if(promoCode != null) {
+                            return getPromoCode(promoCode)
+                        }
                     }
                 }
             }
@@ -294,6 +327,82 @@ class Provider: ContentProvider() {
                 return ContentUris.withAppendedId(uri, cartDetail)
 
             }
+            6 -> {
+                val checkoutDao = AppDatabase.getInstance(context!!).checkoutDao()
+                val idCheckout = getIdCheckoutAuto()
+                IDCheckout = idCheckout
+                val recipientName = values?.getAsString("recipientName").toString()
+                val recipientEmail = values?.getAsString("recipientEmail").toString()
+                val recipientAddress = values?.getAsString("recipientAddress").toString()
+                val total = values?.getAsString("total").toString()
+                val idAccount = values?.getAsString("idAccount").toString()
+                val checkout = CheckoutEntity(
+                    idCheckout,
+                    recipientName,
+                    0,
+                    recipientEmail,
+                    recipientAddress,
+                    idAccount
+                )
+                val id = checkoutDao.insertCheckout(checkout)
+                return ContentUris.withAppendedId(uri, id)
+            }
+
+            7 -> {
+                val orderDetailsDao = AppDatabase.getInstance(context!!).orderDetailsDao()
+                val idProduct = values?.getAsString("idProduct").toString()
+                val total = values?.getAsDouble("total")!!.toDouble()
+                val quantity = values?.getAsInteger("quantity").toInt()
+                val OrderDetailsEntity = OrderDetailsEntity(
+                    IDOrder,
+                    idProduct,
+                    total,
+                    quantity
+                )
+                val id = orderDetailsDao.insertOrderDetails(OrderDetailsEntity)
+                return ContentUris.withAppendedId(uri, id)
+            }
+
+            8 -> {
+                val orderDao = AppDatabase.getInstance(context!!).orderDao()
+                val idOrder = getIdOrderAuto()
+                IDOrder = idOrder
+                Log.d("IDCheckout", "${IDCheckout}")
+                var formatterDate = SimpleDateFormat( "dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+                var formatterTime = SimpleDateFormat( "HH:mm:ss", Locale.getDefault());
+                var now = Date();
+                var date=formatterDate.format(now)
+
+                val listStatus= ArrayList<StatusOrder>()
+                listStatus.add(StatusOrder(Date(date),"Wait for confirmation"))
+
+                Log.e("List",listStatus.toString())
+
+                val gson = Gson()
+                val json = gson.toJson(listStatus)
+
+
+                val orderNotes = values?.getAsString("orderNotes").toString()
+                val deliveryCharges = values?.getAsDouble("deliveryCharges")!!.toDouble()
+                val total = values?.getAsDouble("total")!!.toDouble()
+                val idAccount = values?.getAsString("idAccount").toString()
+                val idPayment = values?.getAsString("idPayment").toString()
+                val idPromocode = values?.getAsString("idPromocode").toString()
+                val order = OrderEntity(
+                    idOrder,
+                    json,
+                    orderNotes,
+                    deliveryCharges,
+                    total,
+                    idAccount,
+                    idPayment,
+                    idPromocode,
+                    IDCheckout
+                )
+                val id = orderDao.insertOrder(order)
+                return ContentUris.withAppendedId(uri, id)
+            }
+
             10 -> {
 
             }
@@ -303,16 +412,14 @@ class Provider: ContentProvider() {
     }
 
 
+
+
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
         when(uriMatcher.match(uri)) {
             5 -> {
-                if(selection == "idCart = ? and idProduct = ? and quantity = ?") {
+                if(selection == "idCart = ?") {
                     val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
-                    val idDeleteCartDetailEntity = cartDetailsDao.deleteCartDetails(CartDetailsEntity(
-                        selectionArgs?.get(2)!!.toInt(),
-                        selectionArgs?.get(0)!!.toString(),
-                        selectionArgs?.get(1)!!.toString()
-                    ))
+                    val idDeleteCartDetailEntity = cartDetailsDao.deleteCartDetails(selectionArgs?.get(0)!!.toString())
                     context?.contentResolver?.notifyChange(Uri.parse(URI_TABLE_CARTDETAILS), null)
                     return idDeleteCartDetailEntity
                 }
@@ -409,6 +516,36 @@ class Provider: ContentProvider() {
             idCart = "idCart_${newId}"
         }
         return idCart
+    }
+
+    private fun getIdCheckoutAuto(): String {
+        val checkoutDao = AppDatabase.getInstance(context!!).checkoutDao()
+        val listCheckout: List<CheckoutEntity> = checkoutDao.getCheckout()
+        var idCheckout: String = ""
+        if(listCheckout.isEmpty()) {
+            idCheckout = "idCheckout_1"
+        } else {
+            val lastCheckout = listCheckout[listCheckout.size-1].idCheckout
+            val listCheckoutNew = lastCheckout.split("_")
+            var newId = listCheckoutNew[listCheckoutNew.size-1].toInt() + 1
+            idCheckout = "idCheckout_${newId}"
+        }
+        return idCheckout
+    }
+
+    private fun getIdOrderAuto(): String {
+        val orderDao = AppDatabase.getInstance(context!!).orderDao()
+        val listOrder: List<OrderEntity> = orderDao.getAllOrderNotLive()
+        var idOrder: String = ""
+        if(listOrder.isEmpty()) {
+            idOrder = "idOrder_1"
+        } else {
+            val lastOrder = listOrder[listOrder.size-1].idOrder
+            val listOrderNew = lastOrder.split("_")
+            var newId = listOrderNew[listOrderNew.size-1].toInt() + 1
+            idOrder = "idOrder_${newId}"
+        }
+        return idOrder
     }
 
     private fun getUserList(listUser: List<UserEntity>): Cursor? {
@@ -572,7 +709,7 @@ class Provider: ContentProvider() {
         return cursor
     }
 
-    private fun getCartDetails_Product(listcartdetailsProduct: List<CartDetailsAndProduct>): Cursor? {
+    private fun getCartDetails_Product(listcartdetailsProduct: List<CartDetailsAndProductAndBranch>): Cursor? {
         val cursor = MatrixCursor(
             arrayOf<String>(
                 "quantity",
@@ -585,7 +722,8 @@ class Provider: ContentProvider() {
                 "type",
                 "sale",
                 "soldQuantity",
-                "idBranch"
+                "idBranch",
+                "nameBranch"
             )
         )
 
@@ -603,7 +741,8 @@ class Provider: ContentProvider() {
                         cartdetails_product.type,
                         cartdetails_product.sale,
                         cartdetails_product.soldQuantity,
-                        cartdetails_product.idBranch
+                        cartdetails_product.idBranch,
+                        cartdetails_product.nameBranch
                     )
                 )
             }
@@ -697,6 +836,22 @@ class Provider: ContentProvider() {
             )
         }
 
+    private fun getPromoCode(promoCode: PromocodeEntity): Cursor? {
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idPromoCode",
+                "description",
+                "discountPercent"
+            )
+        )
+
+        cursor.addRow(
+            arrayOf<Any>(
+                promoCode.idPromoCode,
+                promoCode.description,
+                promoCode.discountPercent
+            )
+        )
         return cursor
     }
 }

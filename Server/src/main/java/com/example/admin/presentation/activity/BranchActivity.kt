@@ -82,7 +82,6 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
         binding.imgBtnBranchBack.setOnClickListener {
             back()
         }
-
 //        addSampleBranch()
     }
     fun <K, V> Map<K, V>.getKeyByValue(value: V): K? {
@@ -107,7 +106,6 @@ class BranchActivity : AppCompatActivity(), BranchItemClickAdapter {
         intent.putExtra("latestIdBranch",latestIdBranch)
         intent.putExtra("sizeOfListBranch",listBranch!!.size)
         startActivity(intent)
-
     }
 
     private fun back() {

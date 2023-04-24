@@ -11,5 +11,8 @@ interface CheckoutDao {
     fun getCheckoutById(idCheckout:String):CheckoutEntity
 
     @Insert()
-    fun insertCheckout(checkout:CheckoutEntity)
+    fun insertCheckout(checkout:CheckoutEntity): Long
+
+    @Query("Select * from Checkout")
+    fun getCheckout(): List<CheckoutEntity>
 }
