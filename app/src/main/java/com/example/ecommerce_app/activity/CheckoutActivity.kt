@@ -227,6 +227,7 @@ class CheckoutActivity : AppCompatActivity() {
 
         val uri_user_order = contentResolver.insert(uri_order, values_order)
         val lastPath = uri_user_order!!.lastPathSegment;
+        Log.e("LastPath", lastPath.toString())
         val idOrder = "idOrder_${lastPath!!.toInt()}"
         return idOrder
     }

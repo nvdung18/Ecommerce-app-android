@@ -1,21 +1,27 @@
 package com.example.ecommerce_app.fragment
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.contentValuesOf
 import com.example.ecommerce_app.R
 import com.example.ecommerce_app.activity.LoginActivity
 import com.example.ecommerce_app.activity.OrderActivity
+import com.example.ecommerce_app.activity.SplashScreenActivity
 import com.example.ecommerce_app.databinding.FragmentProfileBinding
 
 
 class ProfileFragment : Fragment() {
     private lateinit var binding:FragmentProfileBinding
+    val uri_account: Uri = Uri.parse("content://com.example.admin/account")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +38,35 @@ class ProfileFragment : Fragment() {
             var intent=Intent(activity as Context,OrderActivity::class.java)
             startActivity(intent)
         }
+        //get id account to delete token and to the Login activity
 
-//        binding.imgSettingProfile.setOnClickListener {
-//            var intent=Intent(activity as Context,LoginActivity::class.java)
-//            startActivity(intent)
-//        }
-        // Inflate the layout for this fragment
+        binding.imgLogout.setOnClickListener {
+            logOut()
+        }
+
         return binding.root
+    }
+
+    private fun logOut() {
+        val sharedPreferences = context!!.getSharedPreferences("Mypre", Context.MODE_PRIVATE)
+        val token = sharedPreferences?.getString("token", "")
+        val cursor = context!!.contentResolver?.query(uri_account, null, "token = ?", arrayOf(token), null)
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                val idAccount = cursor.getString(cursor.getColumnIndexOrThrow("idAccount"))
+                Log.e("idAccount", "${idAccount}")
+                val token = ""
+                val values = ContentValues().apply {
+                    put("token", token)
+                }
+                context!!.contentResolver.update(uri_account, values, "idAccount = ?", arrayOf(idAccount))
+                val intent = Intent(context, SplashScreenActivity::class.java)
+                startActivity(intent)
+            }
+            if (cursor != null) {
+                cursor.close()
+            }
+
+        }
     }
 }
