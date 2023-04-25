@@ -32,11 +32,13 @@ class SplashScreenActivity : AppCompatActivity() {
         if(token != "") {
             val cursor = contentResolver.query(uri_account, null, "token = ?", arrayOf(token), null)
             if(cursor != null && cursor.moveToFirst()) {
-                val intent = Intent(this@SplashScreenActivity, HomeActivity::class.java)
+                val intent = Intent(this@SplashScreenActivity,  HomeActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             } else {
-                Log.d("CUROSR", "null")
+                val intent = Intent(this@SplashScreenActivity, LoginActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }
         } else if(token == "") {
             val intent = Intent(this@SplashScreenActivity, LoginActivity::class.java)

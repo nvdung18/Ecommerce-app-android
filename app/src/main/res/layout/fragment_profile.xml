@@ -199,7 +199,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metropolis_regular"
-                        android:text="Shipping addresses"
+                        android:text="Setting"
                         android:textColor="@color/mainText"
                         android:textSize="16sp" />
 
@@ -208,13 +208,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/metropolis_regular"
-                        android:text="No Address"
+                        android:text="Notifications, password"
                         android:textColor="@color/textAd"
                         android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/imgSetting"
                     android:layout_width="22dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
@@ -303,7 +304,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/metropolis_regular"
-                        android:text="Settings"
+                        android:text="Logout"
                         android:textColor="@color/mainText"
                         android:textSize="16sp" />
 
@@ -313,13 +314,13 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/metropolis_regular"
                         android:textColor="@color/textAd"
-                        android:text="Notifications, password"
+                        android:text="Logout"
                         android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imgSettingProfile"
+                    android:id="@+id/imgLogout"
                     android:layout_width="22dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
