@@ -27,5 +27,8 @@ interface BranchDao {
 
     @Query("Select * from Product inner join Branch on Product.idBranch = Branch.idBranch Where Product.idBranch=:idBranch")
     fun getProductAndBranchById(idBranch:String):List<BrandAndModel>
+
+    @Query("SELECT * FROM Branch Where idBranch =:idBranch")
+    fun getBranchByIdServer(idBranch: String):BranchEntity
 }
 

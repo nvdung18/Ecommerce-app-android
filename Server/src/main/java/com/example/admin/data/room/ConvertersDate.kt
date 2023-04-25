@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ConvertersDate {
-    private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
 
     @TypeConverter
     fun fromTimestamp(value: String?): Date? {

@@ -3,6 +3,8 @@ package com.example.admin.presentation.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
@@ -27,6 +29,8 @@ class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
     private lateinit var viewModel: ProductViewModel
     private lateinit var adapter: ProductAdapter
     private var latestIdProduct=""
+    private var listAutoProduct= mutableListOf<String>()
+    private var nameProductMap= mutableMapOf<String, String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
@@ -38,6 +42,11 @@ class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
 
         viewModel.allProduct.observe(this,{List->
             List?.let {
+                for (item in it){
+                    listAutoProduct.add(item.idProduct)
+                    listAutoProduct.add(item.nameProduct)
+                    nameProductMap[item.idProduct]=item.nameProduct
+                }
                 adapter.updateList(it)
             }
         })
@@ -46,14 +55,25 @@ class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
     }
 
     private fun initComponents() {
-        adapter=ProductAdapter(this,viewModel)
-        adapter.setListener(this)
-        binding.rvAllProduct.adapter=adapter
-        binding.rvAllProduct.layoutManager=LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        //adapter of AutoCompleteTextView
+        val adapterAutoId=ArrayAdapter(this,android.R.layout.simple_list_item_1,listAutoProduct)
+        binding.autoProduct.setAdapter(adapterAutoId)
+
+        binding.autoProduct.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
+            var autoText=binding.autoProduct.text.toString()
+            if (nameProductMap.getKeyByValue(autoText)!=null){
+                autoText= nameProductMap.getKeyByValue(autoText)!!
+            }
+//            Log.e("auto",autoText)
+            var product=viewModel.getProductById(autoText)
+            var convertToListProduct= mutableListOf<ProductEntity>() //use for adapter.updateList(List<ProductEntity>)
+            convertToListProduct.add(product)
+            adapter.updateList(convertToListProduct)
+        })
+
+        //adapter of product
+        setLoadAdapterProduct()
+
         binding.btnAddProduct.setOnClickListener {
             addProductActivity()
         }
@@ -63,6 +83,26 @@ class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
         }
 //        addSampleProduct()
     }
+
+    fun <K, V> Map<K, V>.getKeyByValue(value: V): K? {
+        for ((key, entryValue) in this.entries) {
+            if (entryValue == value) {
+                return key
+            }
+        }
+        return null
+    }
+    private fun setLoadAdapterProduct() {
+        adapter=ProductAdapter(this,viewModel)
+        adapter.setListener(this)
+        binding.rvAllProduct.adapter=adapter
+        binding.rvAllProduct.layoutManager=LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+    }
+
 
     private fun back() {
         var intent=Intent(this,MainActivity::class.java)
