@@ -330,6 +330,7 @@ class Provider: ContentProvider() {
             6 -> {
                 val checkoutDao = AppDatabase.getInstance(context!!).checkoutDao()
                 val idCheckout = getIdCheckoutAuto()
+                Log.e("saidoui", "1")
                 IDCheckout = idCheckout
                 val recipientName = values?.getAsString("recipientName").toString()
                 val recipientEmail = values?.getAsString("recipientEmail").toString()
@@ -353,12 +354,14 @@ class Provider: ContentProvider() {
                 val idProduct = values?.getAsString("idProduct").toString()
                 val total = values?.getAsDouble("total")!!.toDouble()
                 val quantity = values?.getAsInteger("quantity").toInt()
+                val idOrder = values?.getAsString("idOrder").toString()
                 val OrderDetailsEntity = OrderDetailsEntity(
-                    IDOrder,
+                    idOrder,
                     idProduct,
                     total,
                     quantity
                 )
+                Log.e("saidoui", "2")
                 val id = orderDetailsDao.insertOrderDetails(OrderDetailsEntity)
                 return ContentUris.withAppendedId(uri, id)
             }
@@ -366,12 +369,13 @@ class Provider: ContentProvider() {
             8 -> {
                 val orderDao = AppDatabase.getInstance(context!!).orderDao()
                 val idOrder = getIdOrderAuto()
-                IDOrder = idOrder
                 Log.d("IDCheckout", "${IDCheckout}")
                 var formatterDate = SimpleDateFormat( "dd/MM/yyyy HH:mm:ss", Locale.getDefault());
                 var formatterTime = SimpleDateFormat( "HH:mm:ss", Locale.getDefault());
                 var now = Date();
                 var date=formatterDate.format(now)
+                Log.e("saidoui", "3")
+                Log.e("idOrder", "${idOrder}")
 
                 val listStatus= ArrayList<StatusOrder>()
                 listStatus.add(StatusOrder(Date(date),"Wait for confirmation"))
@@ -399,8 +403,10 @@ class Provider: ContentProvider() {
                     idPromocode,
                     IDCheckout
                 )
+                Log.d("IdOrderSplit", "${idOrder.split("_")}")
+                val lastEl = idOrder.split("_")
                 val id = orderDao.insertOrder(order)
-                return ContentUris.withAppendedId(uri, id)
+                return ContentUris.withAppendedId(uri, lastEl[1].toLong())
             }
 
             10 -> {
@@ -419,6 +425,7 @@ class Provider: ContentProvider() {
             5 -> {
                 if(selection == "idCart = ?") {
                     val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
+                    Log.d("IDCART", "${selectionArgs?.get(0)!!.toString()}")
                     val idDeleteCartDetailEntity = cartDetailsDao.deleteCartDetails(selectionArgs?.get(0)!!.toString())
                     context?.contentResolver?.notifyChange(Uri.parse(URI_TABLE_CARTDETAILS), null)
                     return idDeleteCartDetailEntity
@@ -539,8 +546,10 @@ class Provider: ContentProvider() {
         var idOrder: String = ""
         if(listOrder.isEmpty()) {
             idOrder = "idOrder_1"
+            Log.e("IDORDERNEW", idOrder.toString())
         } else {
             val lastOrder = listOrder[listOrder.size-1].idOrder
+            Log.e("IDORDERNEW", lastOrder.toString())
             val listOrderNew = lastOrder.split("_")
             var newId = listOrderNew[listOrderNew.size-1].toInt() + 1
             idOrder = "idOrder_${newId}"

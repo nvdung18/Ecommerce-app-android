@@ -26,6 +26,6 @@ interface OrderDao {
     @Query("Select * from OrderTable join OrderDetails on OrderTable.idOrder = OrderDetails.idOrder join PromoCode on OrderTable.idPromoCode = PromoCode.idPromocode Where idAccount = :idAccount")
     fun getAllOrderByIdJoinOrDetails_App(idAccount:String):List<OrderAndOrderdetails>
 
-    @Query("SELECT * FROM OrderTable Order by idOrder desc")
+    @Query("SELECT * FROM OrderTable")
     fun getAllOrderNotLive(): List<OrderEntity>
 }
