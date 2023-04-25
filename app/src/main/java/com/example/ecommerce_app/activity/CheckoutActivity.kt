@@ -39,7 +39,7 @@ class CheckoutActivity : AppCompatActivity() {
     val uri_Cart: Uri = Uri.parse("content://com.example.admin/Cart")
     val uri_CartDetails: Uri = Uri.parse("content://com.example.admin/CartDetails")
     val uri_checkout: Uri = Uri.parse("content://com.example.admin/Checkout")
-    val uri_order: Uri = Uri.parse("content://com.example.admin/Order")
+    val uri_order: Uri = Uri.parse("content://com.example.admin/OrderTable")
     val uri_PromoCode: Uri = Uri.parse("content://com.example.admin/PromoCode")
     val uri_orderDetails: Uri = Uri.parse("content://com.example.admin/OrderDetails")
 
