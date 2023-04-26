@@ -16,6 +16,8 @@ import com.example.ecommerce_app.models.CartDetailsAndProduct
 import com.example.ecommerce_app.models.CartDetailsAndProductAndBranch
 import com.example.ecommerce_app.models.CartDetailsEntity
 import com.example.ecommerce_app.models.ProductEntity
+import java.text.NumberFormat
+import java.util.Locale
 
 class CartAdapter:Adapter<CartAdapter.HoldCart> {
 
@@ -24,6 +26,8 @@ class CartAdapter:Adapter<CartAdapter.HoldCart> {
     lateinit var listener: CartItemClickAdapter
     private lateinit var context: Context
     val uri_cartdetails: Uri = Uri.parse("content://com.example.admin/CartDetails")
+    val localeVN: Locale = Locale("vi", "VN")
+    val format = NumberFormat.getCurrencyInstance(localeVN)
 
     constructor(context: Context, cartList: ArrayList<CartDetailsAndProductAndBranch>, listener: CartItemClickAdapter) {
         this.context = context
@@ -50,7 +54,7 @@ class CartAdapter:Adapter<CartAdapter.HoldCart> {
         val cartItem = cartList[position]
 
         holder.cartName.text = cartItem.nameProduct
-        holder.cartPrice.text = cartItem.price.toString()
+        holder.cartPrice.text = format.format(cartItem.price).toString()
         holder.quantityTvCart.text = cartItem.quantity.toString()
         holder.cartMore.setOnClickListener {
             listener.onItemDeleteClick(cartItem)
