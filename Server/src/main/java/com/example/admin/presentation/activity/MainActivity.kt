@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.imgLogout.setOnClickListener {
-            loginActivity()
+            logoutActivity()
         }
 
         binding.imgAccount.setOnClickListener {
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(i)
     }
 
-    private fun loginActivity() {
+    private fun logoutActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)

@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="95dp"
-            android:text="Thong tin don hang"
+            android:text="Order information"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -90,7 +90,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
-                                android:text="Dia Chi Nhan Hang"
+                                android:text="Delivery Address"
                                 android:textColor="@color/black"
                                 android:textSize="18sp" />
 
@@ -134,16 +134,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/LltitleAddress">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Shop duoc xu ly boi buynow"
-                            android:textSize="18sp"
-                            android:padding="10dp"
-                            android:textColor="@color/black"
-                            android:drawablePadding="10dp"
-                            android:drawableStart="@drawable/ic_baseline_local_shipping_24"
-                            />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Shop duoc xu ly boi buynow"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:drawablePadding="10dp"-->
+<!--                            android:drawableStart="@drawable/ic_baseline_local_shipping_24"-->
+<!--                            />-->
                     </LinearLayout>
 
                     <View
@@ -290,13 +290,13 @@
                                 android:textSize="18sp"
                                 android:padding="10dp"
                                 android:textColor="@color/black"
-                                android:text="Voucher cua shop"/>
+                                android:text="Voucher"/>
 
                             <TextView
                                 android:id="@+id/Voucher_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="nhap ma"
+                                android:text="Enter code"
                                 android:padding="10dp"
                                 android:textSize="18sp"
                                 android:drawablePadding="5dp"
@@ -325,7 +325,7 @@
                                 android:textSize="18sp"
                                 android:padding="10dp"
                                 android:textColor="@color/black"
-                                android:text="Tong so tien"/>
+                                android:text="Total product"/>
 
                             <TextView
                                 android:id="@+id/demo_price"
@@ -361,7 +361,7 @@
                                 android:textSize="18sp"
                                 android:padding="10dp"
                                 android:textColor="@color/black"
-                                android:text="Phuong thuc thanh toan"/>
+                                android:text="Form payment"/>
 
                             <TextView
                                 android:id="@+id/tv_PaymentMethod"
@@ -370,7 +370,7 @@
                                 android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
                                 android:drawablePadding="5dp"
                                 android:padding="10dp"
-                                android:text="Thanh toan bang momo "
+                                android:text="Ship code "
                                 android:textColor="@color/primary"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -400,7 +400,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Tong thanh toan"
+                                    android:text="Total payment"
                                     android:textSize="18sp"
                                     android:textColor="@color/brown"/>
 
@@ -421,7 +421,7 @@
                                 android:id="@+id/order_btn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Dat Hang"
+                                android:text="Order confirmation"
                                 />
 
                         </LinearLayout>

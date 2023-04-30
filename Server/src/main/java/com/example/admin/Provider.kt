@@ -839,7 +839,7 @@ class Provider: ContentProvider() {
             cursor.addRow(
                 arrayOf<Any>(
                     checkoutEntity.idCheckout,
-                    checkoutEntity.recipientEmail,
+                    checkoutEntity.recipientName,
                     checkoutEntity.recipientPhoneNumber,
                     checkoutEntity.recipientEmail,
                     checkoutEntity.recipientAddress

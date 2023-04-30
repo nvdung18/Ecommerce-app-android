@@ -1,15 +1,18 @@
 package com.example.ecommerce_app.activity
 
+import android.R
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.ecommerce_app.databinding.ActivityOrderBinding
 import com.example.ecommerce_app.fragment.OrderUserFragment
+import com.example.ecommerce_app.fragment.ProfileFragment
 
 
 class OrderActivity : AppCompatActivity() {
@@ -31,9 +34,27 @@ class OrderActivity : AppCompatActivity() {
     }
 
     private fun back() {
-//        onBackPressed()
+        onBackPressed()
     }
 
+    @Override
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        val backFragment = fragmentManager.findFragmentByTag("profile_fragment")
+        val fragment = ProfileFragment()
+
+        if (backFragment is ProfileFragment) {
+            // If the current fragment is OrderUserFragment, go back to the previous fragment
+            val fragment = ProfileFragment()
+            supportFragmentManager.beginTransaction().replace(com.example.ecommerce_app.R.id.nav_fragment, fragment, fragment.javaClass.simpleName).addToBackStack("profile_fragment")
+                .commit()
+            return
+
+//            fragmentManager.popBackStack()
+        }
+
+        super.onBackPressed();
+    }
     private fun setUpWithViewPagerAdapter(viewpager: ViewPager) {
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, this)
         //init

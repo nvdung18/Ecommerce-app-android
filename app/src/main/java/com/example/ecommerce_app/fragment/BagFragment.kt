@@ -23,6 +23,8 @@ import com.example.ecommerce_app.databinding.FragmentBagBinding
 import com.example.ecommerce_app.models.BrandAndModel
 import com.example.ecommerce_app.models.CartDetailsAndProduct
 import com.example.ecommerce_app.models.CartDetailsAndProductAndBranch
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class BagFragment : Fragment(), CartItemClickAdapter {
@@ -34,6 +36,8 @@ class BagFragment : Fragment(), CartItemClickAdapter {
     val uri_CartDetails: Uri = Uri.parse("content://com.example.admin/CartDetails")
     val uri_cart: Uri = Uri.parse("content://com.example.admin/Cart")
     val uri_account: Uri = Uri.parse("content://com.example.admin/account")
+    val localeVN: Locale = Locale("vi", "VN")
+    val format = NumberFormat.getCurrencyInstance(localeVN)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +60,7 @@ class BagFragment : Fragment(), CartItemClickAdapter {
                 cartList.clear()
                 getDataCardDetailsFromDatabase()
                 cartAdapter.notifyDataSetChanged()
-                binding.totalPriceBagFrag.text = cartAdapter.getPrice().toString()
+                binding.totalPriceBagFrag.text = format.format(cartAdapter.getPrice()).toString()
             }
         }
 
@@ -67,7 +71,7 @@ class BagFragment : Fragment(), CartItemClickAdapter {
             setHasFixedSize(true)
             adapter = cartAdapter
         }
-        binding.totalPriceBagFrag.text = cartAdapter.getPrice().toString()
+        binding.totalPriceBagFrag.text = format.format(cartAdapter.getPrice()).toString()
 
         binding.checkOutBagPage.setOnClickListener {
             val intent = Intent(activity as Context, CheckoutActivity::class.java)
