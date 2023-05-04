@@ -124,6 +124,7 @@ class OrderDetailActivity : AppCompatActivity() {
                     binding.txtReceiptPhoneNumber.text = it.getString(cursor.getColumnIndexOrThrow("recipientPhoneNumber"))
                     binding.txtReceiptEmail.text = it.getString(cursor.getColumnIndexOrThrow("recipientEmail"))
                     binding.txtReceiptAddress.text = it.getString(cursor.getColumnIndexOrThrow("recipientAddress"))
+                    Log.e("a",it.toString())
                 }
             }
         }

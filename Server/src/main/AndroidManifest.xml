@@ -58,7 +58,16 @@
         <activity
             android:name=".presentation.activity.UpdateProductActivity"
             android:exported="false" />
-        <activity android:name=".presentation.activity.LoginActivity" />
+        <activity
+            android:name=".presentation.activity.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".presentation.activity.ProductActivity" />
         <activity android:name=".presentation.activity.ProductDetailsActivity" />
         <activity android:name=".presentation.activity.OrderActivity" />
@@ -70,12 +79,7 @@
         <activity android:name=".presentation.activity.AccountActivity" />
         <activity
             android:name=".presentation.activity.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
 
         <provider

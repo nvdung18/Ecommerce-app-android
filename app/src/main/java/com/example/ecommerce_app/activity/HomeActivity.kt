@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             R.id.profileMenu -> {
                 val fragment = ProfileFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.nav_fragment, fragment, fragment.javaClass.simpleName)
+                supportFragmentManager.beginTransaction().replace(R.id.nav_fragment, fragment, fragment.javaClass.simpleName).addToBackStack("profile_fragment")
                     .commit()
                 return true
             }

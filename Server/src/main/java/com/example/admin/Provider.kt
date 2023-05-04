@@ -375,7 +375,7 @@ class Provider: ContentProvider() {
                 val orderDao = AppDatabase.getInstance(context!!).orderDao()
                 val idOrder = getIdOrderAuto()
                 Log.d("IDCheckout", "${IDCheckout}")
-                var formatterDate = SimpleDateFormat( "dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+                var formatterDate = SimpleDateFormat( "MM/dd/yyyy HH:mm:ss", Locale.getDefault());
                 var formatterTime = SimpleDateFormat( "HH:mm:ss", Locale.getDefault());
                 var now = Date();
                 var date=formatterDate.format(now)
@@ -413,7 +413,9 @@ class Provider: ContentProvider() {
                 Log.d("IdOrderSplit", "${idOrder.split("_")}")
                 val lastEl = idOrder.split("_")
                 val id = orderDao.insertOrder(order)
+                Log.e("a",id.toString())
                 return ContentUris.withAppendedId(uri, lastEl[1].toLong())
+                Log.e("a","1")
             }
 
             10 -> {
@@ -842,7 +844,7 @@ class Provider: ContentProvider() {
             cursor.addRow(
                 arrayOf<Any>(
                     checkoutEntity.idCheckout,
-                    checkoutEntity.recipientEmail,
+                    checkoutEntity.recipientName,
                     checkoutEntity.recipientPhoneNumber,
                     checkoutEntity.recipientEmail,
                     checkoutEntity.recipientAddress

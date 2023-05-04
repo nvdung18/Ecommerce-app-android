@@ -18,6 +18,9 @@ import com.example.ecommerce_app.adapter.ProductAdapter
 import com.example.ecommerce_app.databinding.ActivityProductDetailsBinding
 import com.example.ecommerce_app.models.BrandAndModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ProductDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailsBinding
@@ -27,6 +30,8 @@ class ProductDetailsActivity : AppCompatActivity() {
     val uri_cart: Uri = Uri.parse("content://com.example.admin/Cart")
     private lateinit var productAdapter: ProductAdapter
     private lateinit var listProductRecom: ArrayList<BrandAndModel>
+    val localeVN: Locale = Locale("vi", "VN")
+    val format = NumberFormat.getCurrencyInstance(localeVN)
     var qua: Int = 1
     var pPrice: Int = 0
 
@@ -101,7 +106,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private fun setProductData(intent: BrandAndModel?) {
         binding.productNameProductDetailsPage.text = intent?.nameProduct
-        binding.productPriceProductDetailsPage.text = intent?.price?.toDouble().toString()
+        binding.productPriceProductDetailsPage.text = format.format(intent?.price?.toDouble()).toString()
         binding.productBrandProductDetailsPage.text = intent?.nameBranch
         binding.productDesProductDetailsPage.text = intent?.description
         Glide.with(applicationContext)
