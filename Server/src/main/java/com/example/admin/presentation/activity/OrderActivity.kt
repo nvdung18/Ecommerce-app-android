@@ -197,6 +197,7 @@ class OrderActivity : AppCompatActivity() {
         var instance=AppDatabase.getInstance(this)
 
         instance.paymentDao().insertPayment(PaymentEntity("pay01","ship cod",0.0))
+        instance.paymentDao().insertPayment(PaymentEntity("pay02","Razopay",0.0))
         instance.promocodeDao().insertPromocode(PromocodeEntity("promo_01","No promotion",0F))
 //        instance.checkoutDao().insertCheckout(CheckoutEntity("ck_01","XYZ",973884531,"xyzk123@gmail.com"
 //            ,"723 Lê Văn Hiến, Ngũ Hành Sơn, TP.Đà Nẵng","idAccount_2"))

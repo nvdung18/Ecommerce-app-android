@@ -25,18 +25,14 @@
             android:layout_height="36dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_baseline_arrow_back_24" />
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="95dp"
-            android:text="Order information"
+            android:text="Thong tin don hang"
             android:textColor="@color/black"
             android:textSize="20sp" />
-
-
     </LinearLayout>
 
     <ScrollView
@@ -90,17 +86,20 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
-                                android:text="Delivery Address"
+                                android:text="Dia Chi Nhan Hang"
                                 android:textColor="@color/black"
                                 android:textSize="18sp" />
 
                             <TextView
+                                android:id="@+id/notificationTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="top"
                                 android:maxWidth="280dp"
-                                android:text=""
-                                android:textColor="@color/black"
+                                android:layout_marginStart="10dp"
+                                android:visibility="invisible"
+                                android:text="Information Entered"
+                                android:textColor="@color/primary"
                                 android:textSize="18sp" />
 
                         </LinearLayout>
@@ -123,6 +122,88 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:id="@+id/nameRecipient"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/LltitleAddress">
+
+                <TextView
+                    android:id="@+id/nameTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Enter Name"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_profile"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/linearLayout3"
+                android:background="@color/colorDivider"
+                app:layout_constraintBottom_toBottomOf="@+id/nameRecipient"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:id="@+id/phoneRecipient"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/LltitleAddress">
+
+                <TextView
+                    android:id="@+id/phoneTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Enter Phone"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:drawablePadding="15dp"
+                    android:drawableStart="@drawable/ic_baseline_phone_24"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/linearLayout3"
+                android:background="@color/colorDivider"
+                app:layout_constraintBottom_toBottomOf="@+id/phoneRecipient"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -134,16 +215,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/LltitleAddress">
 
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Shop duoc xu ly boi buynow"-->
-<!--                            android:textSize="18sp"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:textColor="@color/black"-->
-<!--                            android:drawablePadding="10dp"-->
-<!--                            android:drawableStart="@drawable/ic_baseline_local_shipping_24"-->
-<!--                            />-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Shop duoc xu ly boi buynow"
+                            android:textSize="18sp"
+                            android:padding="10dp"
+                            android:textColor="@color/black"
+                            android:drawablePadding="10dp"
+                            android:drawableStart="@drawable/ic_baseline_local_shipping_24"
+                            />
                     </LinearLayout>
 
                     <View
@@ -290,13 +371,13 @@
                                 android:textSize="18sp"
                                 android:padding="10dp"
                                 android:textColor="@color/black"
-                                android:text="Voucher"/>
+                                android:text="Voucher cua shop"/>
 
                             <TextView
                                 android:id="@+id/Voucher_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Enter code"
+                                android:text="nhap ma"
                                 android:padding="10dp"
                                 android:textSize="18sp"
                                 android:drawablePadding="5dp"
@@ -325,7 +406,7 @@
                                 android:textSize="18sp"
                                 android:padding="10dp"
                                 android:textColor="@color/black"
-                                android:text="Total product"/>
+                                android:text="Tong so tien"/>
 
                             <TextView
                                 android:id="@+id/demo_price"
@@ -347,34 +428,65 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
-                        <LinearLayout
-                            android:id="@+id/method_payment"
+<!--                        <LinearLayout-->
+<!--                            android:id="@+id/method_payment"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:textAlignment="center">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:padding="10dp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:text="Phuong thuc thanh toan"/>-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_PaymentMethod"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"-->
+<!--                                android:drawablePadding="5dp"-->
+<!--                                android:padding="10dp"-->
+<!--                                android:text="Enter"-->
+<!--                                android:textColor="@color/primary"-->
+<!--                                android:textSize="18sp"-->
+<!--                                android:textStyle="bold" />-->
+<!--                        </LinearLayout>-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/statusTil"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center"
-                            android:textAlignment="center">
+                            android:layout_below="@id/LL_voucher"
+                            app:hintEnabled="false">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:textSize="18sp"
-                                android:padding="10dp"
-                                android:textColor="@color/black"
-                                android:text="Form payment"/>
-
-                            <TextView
-                                android:id="@+id/tv_PaymentMethod"
-                                android:layout_width="wrap_content"
+                            <RadioGroup
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawableEnd="@drawable/ic_baseline_arrow_forward_ios_24"
-                                android:drawablePadding="5dp"
-                                android:padding="10dp"
-                                android:text="Ship code "
-                                android:textColor="@color/primary"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
+                                android:orientation="horizontal"
+                                android:gravity="center_horizontal"
+                                >
+                                <RadioButton
+                                    android:id="@+id/radio_lock"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="25dp"
+                                    android:text="Ship cod"
+                                    android:onClick="onRadioButtonClicked"/>
+                                <RadioButton
+                                    android:id="@+id/radio_unlock"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="20dp"
+                                    android:text="Razopay"
+                                    android:onClick="onRadioButtonClicked"/>
+                            </RadioGroup>
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <View
                             android:layout_width="match_parent"
@@ -400,7 +512,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Total payment"
+                                    android:text="Tong thanh toan"
                                     android:textSize="18sp"
                                     android:textColor="@color/brown"/>
 
@@ -421,7 +533,7 @@
                                 android:id="@+id/order_btn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Order confirmation"
+                                android:text="Dat Hang"
                                 />
 
                         </LinearLayout>

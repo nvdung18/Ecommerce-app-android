@@ -24,6 +24,7 @@ import com.example.admin.data.room.order.OrderDao
 import com.example.admin.data.room.product.ProductDao
 import com.example.admin.data.room.detailsOrder.OrderDetailsEntity
 import com.example.admin.data.room.order.OrderEntity
+import com.example.admin.data.room.payment.PaymentDao
 import com.example.admin.data.room.promocode.PromocodeEntity
 import com.example.admin.data.room.user.UserEntity
 import com.google.gson.Gson
@@ -335,17 +336,21 @@ class Provider: ContentProvider() {
                 val recipientName = values?.getAsString("recipientName").toString()
                 val recipientEmail = values?.getAsString("recipientEmail").toString()
                 val recipientAddress = values?.getAsString("recipientAddress").toString()
+                val recipientPhoneNumber = values?.getAsString("recipientPhoneNumber").toString().toInt()
                 val total = values?.getAsString("total").toString()
                 val idAccount = values?.getAsString("idAccount").toString()
                 val checkout = CheckoutEntity(
                     idCheckout,
                     recipientName,
-                    0,
+                    recipientPhoneNumber,
                     recipientEmail,
                     recipientAddress,
                     idAccount
                 )
                 val id = checkoutDao.insertCheckout(checkout)
+                val namePayment = values?.getAsString("namePayment").toString()
+                updatePayment(namePayment, total.toDouble())
+
                 return ContentUris.withAppendedId(uri, id)
             }
 
@@ -390,8 +395,10 @@ class Provider: ContentProvider() {
                 val deliveryCharges = values?.getAsDouble("deliveryCharges")!!.toDouble()
                 val total = values?.getAsDouble("total")!!.toDouble()
                 val idAccount = values?.getAsString("idAccount").toString()
-                val idPayment = values?.getAsString("idPayment").toString()
+                val namePayment = values?.getAsString("namePayment").toString()
                 val idPromocode = values?.getAsString("idPromocode").toString()
+                val paymentDao = AppDatabase.getInstance(context!!).paymentDao()
+                val paymentEntity = paymentDao.getPaymentByName(namePayment)
                 val order = OrderEntity(
                     idOrder,
                     json,
@@ -399,7 +406,7 @@ class Provider: ContentProvider() {
                     deliveryCharges,
                     total,
                     idAccount,
-                    idPayment,
+                    paymentEntity.idPayment,
                     idPromocode,
                     IDCheckout
                 )
@@ -418,8 +425,6 @@ class Provider: ContentProvider() {
         return null
 
     }
-
-
 
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
@@ -865,5 +870,12 @@ class Provider: ContentProvider() {
             )
         )
         return cursor
+    }
+
+    private fun updatePayment(namePayment: String, total: Double) {
+        val paymentDao = AppDatabase.getInstance(context!!).paymentDao()
+        var paymentEntity = paymentDao.getPaymentByName(namePayment.trim())
+        paymentEntity.totalPayment = paymentEntity.totalPayment+total
+        paymentDao.updatePayment(paymentEntity)
     }
 }
