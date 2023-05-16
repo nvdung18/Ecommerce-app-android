@@ -5,8 +5,8 @@ import androidx.room.*
 
 @Dao
 interface AccountDao {
-    @Query("Select * from account where order by idAccount desc")
-    fun getAllAccountSer():LiveData<List<AccountEntity>>
+    @Query("SELECT * FROM account ORDER BY idAccount DESC")
+    fun getAllAccountSer(): LiveData<List<AccountEntity>>
     @Insert
     fun insertAccount(accountEntity: AccountEntity)
 
