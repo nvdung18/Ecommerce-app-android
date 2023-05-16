@@ -1,6 +1,9 @@
 package com.example.admin.data.room.user
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.admin.data.room.account.AccountEntity
+import com.example.admin.data.room.branch.BranchEntity
 
 @Dao
 interface UserDao {
@@ -26,4 +29,9 @@ interface UserDao {
     @Query("Delete from user")
     fun deleteAllUser()
 
+    @Query("Select * from user where role = 1")
+    fun getAdminByRole(): UserEntity
+
+    @Update
+    fun updateAdmin(userEntity: UserEntity)
 }

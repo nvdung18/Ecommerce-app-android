@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ecommerce_app">
         <activity
+            android:name=".presentation.activity.InformationAdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".AccountActivity"
             android:exported="false" />
         <activity
@@ -67,7 +70,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".presentation.activity.ProductActivity" />
         <activity android:name=".presentation.activity.ProductDetailsActivity" />
         <activity android:name=".presentation.activity.OrderActivity" />
@@ -79,8 +81,7 @@
         <activity android:name=".presentation.activity.AccountActivity" />
         <activity
             android:name=".presentation.activity.MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
 
         <provider
             android:name=".Provider"

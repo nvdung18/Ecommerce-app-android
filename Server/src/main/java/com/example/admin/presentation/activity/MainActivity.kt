@@ -72,6 +72,15 @@ class MainActivity : AppCompatActivity() {
         binding.imgAccount.setOnClickListener {
             accountActivity()
         }
+
+        binding.imgIconAdmin.setOnClickListener {
+            inforAdminActivity()
+        }
+    }
+
+    private fun inforAdminActivity() {
+        var i = Intent(this,InformationAdminActivity::class.java)
+        startActivity(i)
     }
 
     private fun accountActivity() {
