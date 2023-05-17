@@ -19,6 +19,9 @@ import com.example.ecommerce_app.filter.FilterProduct
 import com.example.ecommerce_app.models.BranchEntity
 import com.example.ecommerce_app.models.BrandAndModel
 import com.example.ecommerce_app.models.ProductEntity
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class VisualResultAdapter: Adapter<VisualResultAdapter.VisualViewHolder>, Filterable {
     private lateinit var binding: PredictedResultSingleBinding
@@ -49,12 +52,15 @@ class VisualResultAdapter: Adapter<VisualResultAdapter.VisualViewHolder>, Filter
         val model = listProduct[position]
         Glide.with(context)
             .load(model.image)
+            .placeholder(R.drawable.loading)
             .into(holder.productImage_singleProduct)
 
         holder.productBrandName_singleProduct.text = model.nameBranch
         holder.productName_singleProduct.text = model.nameProduct
-
-        holder.productPrice_singleProduct.text = "$${model.price}"
+        val formatter = NumberFormat.getCurrencyInstance(Locale("vi", "VN"))
+        formatter.currency = Currency.getInstance("VND")
+        val formattedPrice = formatter.format(model.price)
+        holder.productPrice_singleProduct.text = "$formattedPrice"
 
         holder.itemView.setOnClickListener{
             goDetailsPage(model)
@@ -63,9 +69,9 @@ class VisualResultAdapter: Adapter<VisualResultAdapter.VisualViewHolder>, Filter
 
     private fun goDetailsPage(model: BrandAndModel) {
         val intent = Intent(context, ProductDetailsActivity::class.java)
-        intent.putExtra("product", model)
+        intent.putExtra("model", model)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK // add this line
         context?.startActivity(intent)
-        (context as Activity).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun getItemCount(): Int {

@@ -36,6 +36,9 @@ interface ProductDao {
     @Query("Select * from Product inner join Branch on Product.idBranch = Branch.idBranch")
     fun getAllProductByBranch():List<BrandAndModel>
 
+    @Query("Select * from Product inner join Branch on Product.idBranch = Branch.idBranch where Product.idBranch = :idBranch")
+    fun getAllProductByBranchNew(idBranch: String):List<BrandAndModel>
+
     @Query("Select * from Product  join OrderDetails on Product.idProduct = OrderDetails.idProduct Where Product.idProduct=:idProduct")
     fun getProductJoinOrDetailsById(idProduct:String):List<OrderDetailsAndProduct>
 

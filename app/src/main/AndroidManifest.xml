@@ -22,6 +22,13 @@
         android:theme="@style/Theme.Ecommerce_app"
         tools:targetApi="31">
         <activity
+            android:name=".activity.AllProductByBranchActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.CheckoutActivity"
             android:exported="false">
             <meta-data
@@ -59,8 +66,6 @@
         <activity
             android:name=".activity.OrderActivity"
             android:exported="false">
-
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -143,6 +148,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -175,7 +181,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".fragment.ProfileFragment" />
     </application>
 
 </manifest>

@@ -174,15 +174,15 @@
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/visualSearchBtn_homePage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_visual_search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <ImageView-->
+<!--            android:id="@+id/visualSearchBtn_homePage"-->
+<!--            android:layout_width="35dp"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_marginTop="35dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:src="@drawable/ic_visual_search"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
