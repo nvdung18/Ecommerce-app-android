@@ -10,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.ecommerce_app.R
 import com.example.ecommerce_app.activity.AllCategoryActivity
 import com.example.ecommerce_app.activity.AllProductActivity
@@ -68,7 +70,7 @@ class ShopFragment : Fragment() {
         categoryAdapter = CategoryAdapter(cateList, activity as Context)
 
         binding.categoriesRecView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = StaggeredGridLayoutManager(2, LinearLayout.VERTICAL)
             setHasFixedSize(true)
             adapter = categoryAdapter
         }

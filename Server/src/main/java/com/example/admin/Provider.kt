@@ -221,6 +221,13 @@ class Provider: ContentProvider() {
                     if(listAllProduct.size != 0) {
                         return getProductList(listAllProduct)
                     }
+                } else if(selection == "idBranch = ?") {
+                    val productDao = AppDatabase.getInstance(context!!).productDao()
+                    val idBranch = selectionArgs?.get(0).toString()
+                    val listAllProduct = productDao.getAllProductByBranchNew(idBranch)
+                    if(listAllProduct.size != 0) {
+                        return getProductList(listAllProduct)
+                    }
                 }
             }
 
@@ -434,6 +441,11 @@ class Provider: ContentProvider() {
                     val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
                     Log.d("IDCART", "${selectionArgs?.get(0)!!.toString()}")
                     val idDeleteCartDetailEntity = cartDetailsDao.deleteCartDetails(selectionArgs?.get(0)!!.toString())
+                    context?.contentResolver?.notifyChange(Uri.parse(URI_TABLE_CARTDETAILS), null)
+                    return idDeleteCartDetailEntity
+                } else if(selection == "idCart = ? and idProduct = ? and quantity = ?") {
+                    val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
+                    val idDeleteCartDetailEntity = cartDetailsDao.deleteCartByProduct(selectionArgs?.get(0)!!.toString(), selectionArgs?.get(1)!!.toString())
                     context?.contentResolver?.notifyChange(Uri.parse(URI_TABLE_CARTDETAILS), null)
                     return idDeleteCartDetailEntity
                 }

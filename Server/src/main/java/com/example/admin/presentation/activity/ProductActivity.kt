@@ -235,7 +235,7 @@ class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
             "SP09"
             , "Túi Xách Da Đeo Dưới Cánh Tay Thời Trang Hàn Quốc Cao Cấp Cho Nữ"
             ,"https://firebasestorage.googleapis.com/v0/b/shop-ban-hang-c9314.appspot.com/o/image%20product%2Fielgy1.png?alt=media&token=fe208d3a-7b8a-4464-aaf8-64d8c04ff15d"
-            ,298.333
+            ,298333.0
             ,""
             ,"female"
             ,0F
@@ -245,7 +245,7 @@ class ProductActivity: AppCompatActivity(),ProductItemClickAdapter {
             "SP10"
             , "Túi xách IELGY Jinzhu đeo vai dây xích đựng son môi bề mặt kim cương cho nữ"
             ,"https://firebasestorage.googleapis.com/v0/b/shop-ban-hang-c9314.appspot.com/o/image%20product%2Fielgy2.png?alt=media&token=fc4ed39b-6f8f-45e7-b187-5fa9295a4b6f"
-            ,312.315
+            ,312315.0
             ,"Kích thước không thể đặt điện thoại\n" +
                     "\n" +
                     "Phong cách: tươi mát và ngọt ngào\n" +
