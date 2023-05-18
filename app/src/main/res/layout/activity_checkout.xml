@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="95dp"
-            android:text="Thong tin don hang"
+            android:text="Order Information"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>
@@ -215,16 +215,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/LltitleAddress">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Shop duoc xu ly boi buynow"
-                            android:textSize="18sp"
-                            android:padding="10dp"
-                            android:textColor="@color/black"
-                            android:drawablePadding="10dp"
-                            android:drawableStart="@drawable/ic_baseline_local_shipping_24"
-                            />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Shop duoc xu ly boi buynow"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:padding="10dp"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:drawablePadding="10dp"-->
+<!--                            android:drawableStart="@drawable/ic_baseline_local_shipping_24"-->
+<!--                            />-->
                     </LinearLayout>
 
                     <View
