@@ -190,7 +190,7 @@ class OrderUserFragment : Fragment {
         )
     }
 
-    public fun getCurrentIdAccount(): String? {
+     fun getCurrentIdAccount(): String? {
         val sharedPreferences = context?.getSharedPreferences("Mypre", Context.MODE_PRIVATE)
         val token = sharedPreferences?.getString("token", "")
         val cursor = context?.contentResolver?.query(uri_account, null, "token = ?", arrayOf(token), null)
@@ -216,7 +216,7 @@ class OrderUserFragment : Fragment {
         var jsonStatus=""
         //get all status of all order
         for (order in listOrder){
-//            Log.e("index",order.idOrder)
+//           Log.e("index",order.idOrder)
             if(!listIdOrder.contains(order.idOrder)){
                 jsonStatus=order.status
                 //convert json to object

@@ -34,7 +34,10 @@ class OrderDetailActivity : AppCompatActivity() {
     private var formatterDate = SimpleDateFormat( "dd/MM/yyyy HH:mm:ss", Locale.getDefault());
     private lateinit var def:DecimalFormat
     private val uri_checkout: Uri = Uri.parse("content://com.example.admin/Checkout")
+    private val uri_payment: Uri = Uri.parse("content://com.example.admin/Payment")
     private lateinit var cursor:Cursor
+    private lateinit var paymentCursor: Cursor
+    private lateinit var idPayment:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderDetailBinding.inflate(layoutInflater)
@@ -69,6 +72,8 @@ class OrderDetailActivity : AppCompatActivity() {
         val typeProductMap = object : TypeToken<Map<String,BrandAndModel>>() {}.type
         productMap = gson.fromJson(jsonProductMap, typeProductMap)
 
+        Log.e("orderListItem",orderListItem.toString())
+
         statusDetailsMap.get(stateOrder).toString()
         //create apdater
         adapter= RowProductOrderUserAdapter(this,
@@ -86,6 +91,12 @@ class OrderDetailActivity : AppCompatActivity() {
             null,
             "idCheckout = ?",
             arrayOf(orderListItem[0].idCheckout),
+            null)?:null)!!
+//        get cursor payment
+        paymentCursor=(contentResolver.query(uri_payment,
+            null,
+            "idPayment = ?",
+            arrayOf(orderListItem[0].idPayment),
             null)?:null)!!
 
 
@@ -124,6 +135,8 @@ class OrderDetailActivity : AppCompatActivity() {
                     binding.txtReceiptPhoneNumber.text = it.getString(cursor.getColumnIndexOrThrow("recipientPhoneNumber"))
                     binding.txtReceiptEmail.text = it.getString(cursor.getColumnIndexOrThrow("recipientEmail"))
                     binding.txtReceiptAddress.text = it.getString(cursor.getColumnIndexOrThrow("recipientAddress"))
+                    //set form payment
+//                    binding.txtFormPayment.text=it.getString()
                     Log.e("a",it.toString())
                 }
             }
@@ -156,6 +169,15 @@ class OrderDetailActivity : AppCompatActivity() {
             binding.txtTimeOrderDelivered.visibility= View.VISIBLE
             Log.e("asd",statusList[3].date.toString())
             binding.txtTimeOrderDelivered.text=formatterDate.format(statusList[3].date)
+        }
+
+        //form payment
+        if(paymentCursor!=null){
+            paymentCursor.let {
+                while (it.moveToNext()){
+                    binding.txtFormPayment.text = it.getString(paymentCursor.getColumnIndexOrThrow("namePayment"))
+                }
+            }
         }
     }
 
