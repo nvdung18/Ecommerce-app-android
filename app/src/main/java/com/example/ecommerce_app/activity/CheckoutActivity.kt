@@ -1,6 +1,7 @@
 package com.example.ecommerce_app.activity
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerce_app.R
 import com.example.ecommerce_app.adapter.ProductCheckOutAdapter
 import com.example.ecommerce_app.databinding.ActivityCheckoutBinding
+import com.example.ecommerce_app.databinding.DialogCommentAddBinding
 import com.example.ecommerce_app.models.CartDetailsAndProductAndBranch
 import com.example.ecommerce_app.models.UserEntity
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -129,23 +131,74 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
 
         //Voucher
         binding.VoucherTv.setOnClickListener {
-            val bottomSheetDialod = BottomSheetDialog(
-                this, R.style.BottomSheetDialogTheme
-            )
+//            val bottomSheetDialod = BottomSheetDialog(
+//                this, R.style.BottomSheetDialogTheme
+//            )
+//
+//            val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
+//                com.example.ecommerce_app.R.layout.fragment_add_to_voucher,
+//                findViewById<ConstraintLayout>(com.example.ecommerce_app.R.id.bottomSheet)
+//            )
+//
+//            bottomSheetView.findViewById<View>(R.id.saveVoucher_Btn).setOnClickListener {
+//                voucher = bottomSheetView.findViewById<EditText>(R.id.voucher_Et).text.toString()
+//                //check voucher not finish before dismiss sheetdialod
+//                checkVoucher()
+//                var moneyTotal = 0.0
+//                if(discountPercent != 0f) {
+//                    moneyTotal = (total*discountPercent) / 100
+//                } else {
+//                    moneyTotal = total
+//                }
+//                val vndFormat = DecimalFormat("#,### VND")
+//                val priceNew = moneyTotal.toString().replace(",", ".")
+//                val priceNewNumber = priceNew.toDouble() // convert string to double
+//                val formattedAmount = vndFormat.format(priceNewNumber) // format double as VND
+//
+//                binding.demoPrice.text = formattedAmount
+//                binding.priceOfficial.text = formattedAmount
+//                bottomSheetDialod.dismiss()
+//            }
+//
+//            bottomSheetDialod.setContentView(bottomSheetView)
+//            bottomSheetDialod.show()
 
-            val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
-                com.example.ecommerce_app.R.layout.fragment_add_to_voucher,
-                findViewById<ConstraintLayout>(com.example.ecommerce_app.R.id.bottomSheet)
-            )
+            val commentAddBinding = DialogCommentAddBinding.inflate(LayoutInflater.from(this))
+            //set up alert dialog
+            val builder = AlertDialog.Builder(this, R.style.CustomDialog)
+            builder.setView(commentAddBinding.root)
+            //create and show alert dialog
+            val alertDialog = builder.create()
+            alertDialog.show()
+            //handle click, dismis dialog
+            commentAddBinding.backBtn.setOnClickListener {alertDialog.dismiss() }
+            //handle lcick, add comment
+            commentAddBinding.submitBtn.setOnClickListener {
+                //get data
+                voucher = commentAddBinding.commentEt.text.toString().trim()
+                //validate data
+                if(voucher.isEmpty()) {
+                    Toast.makeText(this, "Enter comment...", Toast.LENGTH_SHORT).show()
+                } else {
+                    alertDialog.dismiss()
+                    checkVoucher()
+                    var moneyTotal = 0.0
+                    if(discountPercent != 0f) {
+                        moneyTotal = (total*discountPercent) / 100
+                    } else {
+                        moneyTotal = total
+                    }
+                    val vndFormat = DecimalFormat("#,### VND")
+                    val priceNew = moneyTotal.toString().replace(",", ".")
+                    val priceNewNumber = priceNew.toDouble() // convert string to double
+                    val formattedAmount = vndFormat.format(priceNewNumber) // format double as VND
 
-            bottomSheetView.findViewById<View>(R.id.saveVoucher_Btn).setOnClickListener {
-                voucher = bottomSheetView.findViewById<EditText>(R.id.voucher_Et).text.toString()
-                //check voucher not finish before dismiss sheetdialod
-                bottomSheetDialod.dismiss()
+                    binding.demoPrice.text = formattedAmount
+                    binding.priceOfficial.text = formattedAmount
+                }
             }
 
-            bottomSheetDialod.setContentView(bottomSheetView)
-            bottomSheetDialod.show()
+
         }
         //Method payment
         //price
@@ -248,7 +301,6 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             if (cursor != null) {
                 cursor.close()
             }
-
         }
         return false
     }
