@@ -218,6 +218,7 @@ class CheckoutActivity : AppCompatActivity(), PaymentResultListener {
             } else {
                 moneyTotal = total
             }
+            Log.e("Moneytotal", "$moneyTotal")
             options.put("amount", "${moneyTotal.toInt()}")//amountx100
             Log.d("AMOUNT", "${moneyTotal.toInt()}")
             val retryObj = JSONObject();

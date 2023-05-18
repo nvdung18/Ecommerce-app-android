@@ -49,10 +49,8 @@ class OrderActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(com.example.ecommerce_app.R.id.nav_fragment, fragment, fragment.javaClass.simpleName).addToBackStack("profile_fragment")
                 .commit()
             return
-
 //            fragmentManager.popBackStack()
         }
-
         super.onBackPressed();
     }
     private fun setUpWithViewPagerAdapter(viewpager: ViewPager) {
