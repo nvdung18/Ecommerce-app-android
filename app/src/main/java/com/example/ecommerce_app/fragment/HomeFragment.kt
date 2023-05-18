@@ -82,10 +82,10 @@ class HomeFragment : Fragment() {
             adapter = saleProductAdapter
         }
 
-        binding.visualSearchBtnHomePage.setOnClickListener {
-            startActivity(Intent(context, VisualSearchActivity::class.java))
-            activity!!.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }
+//        binding.visualSearchBtnHomePage.setOnClickListener {
+//            startActivity(Intent(context, VisualSearchActivity::class.java))
+//            activity!!.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+//        }
 
         binding.productGroupViewAll.setOnClickListener {
             val intent = Intent(activity as Context, AllProductActivity::class.java)

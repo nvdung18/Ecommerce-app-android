@@ -33,5 +33,8 @@ interface UserDao {
     fun getAdminByRole(): UserEntity
 
     @Update
+    fun updateUser(userEntity: UserEntity): Int
+
+    @Update
     fun updateAdmin(userEntity: UserEntity)
 }

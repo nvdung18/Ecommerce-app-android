@@ -18,6 +18,7 @@ import com.example.ecommerce_app.adapter.ProductAdapter
 import com.example.ecommerce_app.databinding.ActivityProductDetailsBinding
 import com.example.ecommerce_app.models.BrandAndModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -105,8 +106,11 @@ class ProductDetailsActivity : AppCompatActivity() {
     }
 
     private fun setProductData(intent: BrandAndModel?) {
+        val price = intent?.price?.toDouble() ?: 0.0 // set default value to 0 if intent?.price is null
+        val formatter = DecimalFormat("#,###") // create a formatter with the desired format
+        val formattedPrice = formatter.format(price)
         binding.productNameProductDetailsPage.text = intent?.nameProduct
-        binding.productPriceProductDetailsPage.text = format.format(intent?.price?.toDouble()).toString()
+        binding.productPriceProductDetailsPage.text = "${formattedPrice} VND"
         binding.productBrandProductDetailsPage.text = intent?.nameBranch
         binding.productDesProductDetailsPage.text = intent?.description
         Glide.with(applicationContext)

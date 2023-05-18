@@ -25,6 +25,7 @@ import com.example.admin.data.room.product.ProductDao
 import com.example.admin.data.room.detailsOrder.OrderDetailsEntity
 import com.example.admin.data.room.order.OrderEntity
 import com.example.admin.data.room.payment.PaymentDao
+import com.example.admin.data.room.payment.PaymentEntity
 import com.example.admin.data.room.promocode.PromocodeEntity
 import com.example.admin.data.room.user.UserEntity
 import com.google.gson.Gson
@@ -72,6 +73,7 @@ class Provider: ContentProvider() {
 
         private lateinit var orderDao:OrderDao
         private lateinit var productDao:ProductDao
+        private lateinit var paymenDao:PaymentDao
 
     }
 
@@ -214,10 +216,25 @@ class Provider: ContentProvider() {
                 }
             }
 
+            9->{
+                if(selection == "idPayment = ?"&&selectionArgs!=null){
+                    val idPayment=selectionArgs?.get(0).toString()
+                    var paymentEntity= AppDatabase.getInstance(context!!).paymentDao().getPaymentById(idPayment)
+                    return getFormPayment(paymentEntity)
+                }
+            }
+
             10 -> {
                 if(selection == null && selectionArgs == null) {
                     val productDao = AppDatabase.getInstance(context!!).productDao()
                     val listAllProduct = productDao.getAllProductByBranch()
+                    if(listAllProduct.size != 0) {
+                        return getProductList(listAllProduct)
+                    }
+                } else if(selection == "idBranch = ?") {
+                    val productDao = AppDatabase.getInstance(context!!).productDao()
+                    val idBranch = selectionArgs?.get(0).toString()
+                    val listAllProduct = productDao.getAllProductByBranchNew(idBranch)
                     if(listAllProduct.size != 0) {
                         return getProductList(listAllProduct)
                     }
@@ -436,6 +453,11 @@ class Provider: ContentProvider() {
                     val idDeleteCartDetailEntity = cartDetailsDao.deleteCartDetails(selectionArgs?.get(0)!!.toString())
                     context?.contentResolver?.notifyChange(Uri.parse(URI_TABLE_CARTDETAILS), null)
                     return idDeleteCartDetailEntity
+                } else if(selection == "idCart = ? and idProduct = ? and quantity = ?") {
+                    val cartDetailsDao = AppDatabase.getInstance(context!!).cartDetailsDao()
+                    val idDeleteCartDetailEntity = cartDetailsDao.deleteCartByProduct(selectionArgs?.get(0)!!.toString(), selectionArgs?.get(1)!!.toString())
+                    context?.contentResolver?.notifyChange(Uri.parse(URI_TABLE_CARTDETAILS), null)
+                    return idDeleteCartDetailEntity
                 }
             }
         }
@@ -450,7 +472,17 @@ class Provider: ContentProvider() {
     ): Int {
         when(uriMatcher.match(uri)) {
             1 -> {
-
+                if(selection == "idUser = ?") {
+                    val token = selectionArgs?.getOrNull(0).toString()
+                    val accountDao = AppDatabase.getInstance(context!!).accountDao()
+                    val account = accountDao.queryAccountByToken(token)
+                    val idUser = account.idUser
+                    val userDao = AppDatabase.getInstance(context!!).userDao()
+                    val user = userDao.queryUserByIdUser(idUser)
+                    user.fullName = values?.getAsString("name").toString()
+                    user.email = values?.getAsString("email").toString()
+                    return userDao.updateUser(user)
+                }
             }
             2 -> {
                 if(selectionArgs?.getOrNull(0)!!.isNotEmpty() && selection == "idAccount = ?" && selection != null) {
@@ -877,5 +909,24 @@ class Provider: ContentProvider() {
         var paymentEntity = paymentDao.getPaymentByName(namePayment.trim())
         paymentEntity.totalPayment = paymentEntity.totalPayment+total
         paymentDao.updatePayment(paymentEntity)
+    }
+
+    private fun getFormPayment(payment: PaymentEntity):Cursor?{
+        val cursor = MatrixCursor(
+            arrayOf<String>(
+                "idPayment",
+                "namePayment",
+                "totalPayment"
+            )
+        )
+
+        cursor.addRow(
+            arrayOf<Any>(
+                payment.idPayment,
+                payment.namePayment,
+                payment.totalPayment
+            )
+        )
+        return cursor
     }
 }

@@ -22,7 +22,10 @@
     <color name="color_text_green">#42A993</color>
     <color name="color_text_green_normal">#6DB7A4</color>
     <color name="color_text_brown_turnoff">#CCCCCD</color>
-
+    <color name="gray01">#c5c5c5</color>
+    <color name="gray02">#777777</color>
+    <color name="gray03">#EDEDED</color>
+    <color name="gray04">#FBFBFB</color>
     <color name="NoteColor1">#FF6263</color>
     <color name="NoteColor2">#23C4ED</color>
     <color name="NoteColor3">#38CC77</color>

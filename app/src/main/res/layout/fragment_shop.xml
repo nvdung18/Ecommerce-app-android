@@ -68,7 +68,6 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:id="@+id/categoriesRecView"
